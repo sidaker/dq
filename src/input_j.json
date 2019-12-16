@@ -1,0 +1,45 @@
+{
+  "X400Message": {
+    "envelope": {
+      "originalEIT": "ia5-text",
+      "submissionTime": "190306131850Z",
+      "messageType": 1,
+      "messageIdentifier": "[/PRMD=EG/ADMD=ICAO/C=XX/;MTA-EGGG-1-MTCU:00E2436BD3CBFDF4]",
+      "primaryRecipients": {"recipient": {
+        "orAddress": "/OU=EGTTZYZB/O=AFTN/PRMD=EG/ADMD=ICAO/C=XX/",
+        "ipn": 0,
+        "replyRequest": 0
+      }},
+      "messageDeliveryTime": "190306131850Z",
+      "from": "/CN=EUCHZMFP/OU=EUCH/O=EUROCONTROL-NMH/PRMD=EUROPE/ADMD=ICAO/C=XX/",
+      "contentIdentifier": "00e2436bd3cbfe49",
+      "contentType": 22
+    },
+    "ipm": {"ipmHeader": {
+      "primaryRecipients": {"recipientSpecifier": {"recipient": {"formalName": "/OU=EGTTZYZB/O=AFTN/PRMD=EG/ADMD=ICAO/C=XX/"}}},
+      "originator": {"formalName": "/CN=EUCHZMFP/OU=EUCH/O=EUROCONTROL-NMH/PRMD=EUROPE/ADMD=ICAO/C=XX/"},
+      "amhsPriorityIndicator": "FF",
+      "amhsFilingTime": "061318",
+      "ipmIdentifier": "LOC-ID:00E2436BD3CBFE49*/CN=EUCHZMFP/OU=EUCH/O=EUROCONTROL-NMH/PRMD=EUROPE/ADMD=ICAO/C=XX/"
+    }}
+  },
+  "DELAY": {
+    "ROUTE": "N0411F320 MODRU1H MODRU Z717 MAS UM617 SOGRI UL608 SUMUM",
+    "IFPLID": "AA11176607",
+    "FORMAT": "ADEXP",
+    "ALTRNT1": "EGGW",
+    "EOBD": "190306",
+    "ADES": "EGKB",
+    "ADEP": "EDDL",
+    "SPEED": "N0411",
+    "CALLSIGN": "OEFUX",
+    "TTLEET": "0101",
+    "FLTRUL": "I",
+    "FLTTYP": "N",
+    "REG": "OEFUX",
+    "ARCTYP": "C25A",
+    "CONTENT": "-TITLE IDLA\r\n-BEGIN ADDR \r\n       -FAC CFMUTACT\r\n       -FAC EDDAYGCD\r\n       -FAC EBBUZQZX\r\n       -FAC EBURZQZX\r\n       -FAC EBBRCATX\r\n       -FAC EGZYTTTE\r\n       -FAC EGTTZGZP\r\n       -FAC EGKBZTZX\r\n       -FAC EDDZYNYS\r\n       -FAC EDDLYQYX\r\n       -FAC EDGGZQZA\r\n       -FAC EDYYZQZA\r\n       -FAC EGZYADEX\r\n       -FAC EGTTZRZF\r\n       -FAC EGZYIIAD\r\n       -FAC EGZYTTAD\r\n       -FAC EGZYTTFO\r\n       -FAC EGZYTTEX\r\n       -FAC EDDAYGLZ\r\n       -FAC EDDXYIYT\r\n       -FAC EDDAYGLY\r\n       -FAC EDYYZQZX\r\n       -FAC EDDXYIYR\r\n-END ADDR \r\n-ADEP EDDL\r\n-ADES EGKB\r\n-ARCID OEFUX\r\n-ARCTYP C25A\r\n-CEQPT SDFGHRWY\r\n-EOBD 190306\r\n-EOBT 1500\r\n-FILTIM 061318\r\n-IFPLID AA11176607\r\n-ORGNID ZASAOCC\r\n-ORIGIN -NETWORKTYPE AFTN -FAC EKBICPUF\r\n-SEQPT LB2\r\n-WKTRC L\r\n-OPR BAIRLINE\r\n-PBN A1B2C2D2\r\n-REG OEFUX\r\n-RMK IFPSRA ASLEDDL0603197181\r\n-RVR 550\r\n-SRC FPL\r\n-TTLEET 0101\r\n-RFL F320\r\n-SPEED N0411\r\n-FLTRUL I\r\n-FLTTYP N\r\n-ROUTE N0411F320 MODRU1H MODRU Z717 MAS UM617 SOGRI UL608 SUMUM\r\n-ALTRNT1 EGGW\r\n-EETFIR EHAA 0013\r\n-EETFIR EBBU 0015\r\n-EETFIR EHAA 0030\r\n-EETFIR EBBU 0031\r\n-EETFIR EHAA 0032\r\n-EETFIR EGTT 0040\r\n-BEGIN RTEPTS \r\n       -PT -PTID EDDL -FL F001 -ETO 190306151300\r\n       -PT -PTID MODRU -FL F240 -ETO 190306152459\r\n       -PT -PTID GOBNO -FL F257 -ETO 190306152600\r\n       -PT -PTID MAS -FL F261 -ETO 190306152615\r\n       -PT -PTID ANETS -FL F295 -ETO 190306152800\r\n       -PT -PTID SOGRI -FL F320 -ETO 190306153244\r\n       -PT -PTID BUB -FL F320 -ETO 190306153557\r\n       -PT -PTID DENUT -FL F320 -ETO 190306154213\r\n       -PT -PTID COA -FL F320 -ETO 190306154405\r\n       -PT -PTID KEGIT -FL F320 -ETO 190306154535\r\n       -PT -PTID SASKI -FL F290 -ETO 190306155000\r\n       -PT -PTID INLOD -FL F265 -ETO 190306155106\r\n       -PT -PTID SUMUM -FL F218 -ETO 190306155300\r\n       -PT -PTID EGKB -FL F006 -ETO 190306161351\r\n-END RTEPTS \r\n-SID MODRU1H\r\n-ATSRT Z717 MODRU MAS\r\n-ATSRT UM617 MAS SOGRI\r\n-ATSRT UL608 SOGRI SUMUM",
+    "EOBT": "1500",
+    "WKTRC": "L"
+  }
+}
