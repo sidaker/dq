@@ -16,19 +16,12 @@ Setup Logging
 """
 
 
-LOG_FILE = "/Users/sbommireddy/Documents/tmp//nats_hist.log"
+LOG_FILE = "/Users/sbx/Documents/tmp//xxxx_hist.log"
 
 
 PROFILE="notprod"
-BUCKET_N='s3-dq-nats-archive-notprod'
+BUCKET_N='s3-dq-xxxx-archive-notprod'
 PREFIX_F='2018'
-
-
-'''
-PROFILE="prod"
-BUCKET_N='s3-dq-nats-archive-prod'
-PREFIX_F='nats/2019/12/16'
-'''
 
 LOGFORMAT = '%(asctime)s\t%(name)s\t%(levelname)s\t%(message)s'
 FORM = logging.Formatter(LOGFORMAT)
@@ -103,7 +96,7 @@ def download(myfile):
     s3 = session.resource('s3')
     try:
         file_name = unquote(myfile.split('/')[-1])
-        download_path = '/Users/sbommireddy/Documents/tmp/{}'.format(file_name)
+        download_path = '/Users/sbx/Documents/tmp/{}'.format(file_name)
         s3.Bucket(BUCKET_N).download_file(myfile, download_path)
     except botocore.exceptions.ClientError as e:
        if e.response['Error']['Code'] == "404":
@@ -117,7 +110,7 @@ def upload(myfile):
     session = boto3.Session(profile_name=PROFILE)
     s3 = session.resource('s3')
     try:
-        s3.Bucket(BUCKET_N).upload_file(myfile, f'/Users/sbommireddy/Documents/{myfile}')
+        s3.Bucket(BUCKET_N).upload_file(myfile, f'/Users/sbx/Documents/{myfile}')
     except botocore.exceptions.ClientError as e:
        if e.response['Error']['Code'] == "404":
            print("The object does not exist." , e)
@@ -149,7 +142,7 @@ def build_new_fpl_json(input_json):
     return new_json
 
 def extract_message_received_time(input_json):
-    """Extract the departure date from the EOBD field
+    """Extract the departure date from the xxxx field
     and return as datestring in the form 'YYYY-MM-DD'
     """
     date_str = input_json['messageReceievedTime']
@@ -159,7 +152,7 @@ def upload_file_s3(file_location, partition_str):
     """Uploads file to s3"""
     try:
         logger.info('Uploading {0}'.format(file_location))
-        output_bucket = "s3-dq-nats-internal-notprod/processed/fpl"
+        output_bucket = "s3-dq-xxxx-internal-notprod/processed/fpl"
         session = boto3.Session(profile_name=PROFILE)
         s3_conn = session.resource('s3')
         file_name = file_location.split('/')[-1]
@@ -177,7 +170,7 @@ def upload_file_s3(file_location, partition_str):
         raise
 
 def process_fpl(file_name):
-    BASE_PATH = '/Users/sbommireddy/Documents/tmp/'
+    BASE_PATH = '/Users/sbx/Documents/tmp/'
     with open(f'{BASE_PATH}/{file_name}', 'r') as f:
         data = f.read()
 
@@ -190,7 +183,7 @@ def process_fpl(file_name):
     with open(f'/{BASE_PATH}/parsed_{file_name}', 'w') as new_f:
         new_f.write(json.dumps(new_json))
 
-    upload_file_s3(f'/Users/sbommireddy/Documents/tmp/parsed_{file_name}', partition_str)
+    upload_file_s3(f'/Users/sbx/Documents/tmp/parsed_{file_name}', partition_str)
     return {'partition': partition_str, 'file_name': f'parsed_{file_name}'}
 
 
