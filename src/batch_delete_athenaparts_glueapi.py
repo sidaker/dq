@@ -12,14 +12,9 @@ def execute_glue_api(DATABASE_NAME,TB_NAME,partition_val):
     try:
         client.batch_delete_partition(DatabaseName=DATABASE_NAME,TableName=TB_NAME,
         PartitionsToDelete=[
-                {
-                    "Values": [
-                        "2019-12-03/12:21:33.303976",
-                        "2019-12-03/12:22:33.567633",
-                        "2019-12-03/12:23:33.748611"
-                    ]
-                },
-             ]
+                {'Values': ['2019-12-03/12:21:33.303976']},
+                {'Values': ['2019-12-03/12:23:33.748611']},
+            ]
         )
         print("Deleted Partitions. No errors seen")
     except ClientError as e:
