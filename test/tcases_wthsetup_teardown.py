@@ -1,5 +1,8 @@
 import unittest
 
+# python3 -m unittest -v test_module04.TestClass04
+# python3 -m unittest -v tcases_wthsetup_teardown.TestClass06
+
 def setUpModule():
         """called once, before anything else in this module"""
         print("In setUpModule()...")
@@ -23,7 +26,7 @@ class TestClass06(unittest.TestCase):
         def tearDown(self):
                 """called multiple times, after every test method"""
                 print("In tearDown()...")
-                
+
         def test_case01(self):
                 self.assertTrue("PYTHON".isupper())
                 print("In test_case01()")
