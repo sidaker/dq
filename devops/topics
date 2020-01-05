@@ -1,4 +1,31 @@
 Creating a key pair from cli
+
+aws ec2 create-key-pair \
+--key-name SidevopsEC2KeyPair \
+--query 'KeyMaterial' \
+--output text > ~/.ssh/ec2keypair.pem
+
+chmod 400 ~/.ssh/ec2keypair.pem
+
 ==================
 
 Creating an EC2 instance from cli
+
+AMI's are region specific.
+Make sure you attach using the key name you have created so you can ssh into the instance from your local machine.
+You also need to add a security group allowing inbound traffic on port 22 from outside world.
+You can get the list of AMI's available for the region from commandline.
+
+aws ec2 run-instances --image-id ami-0dacb0c129b49f529 --instance-type t2.micro --key-name SidevopsEC2KeyPair
+
+=================
+
+
+attaching Storage(EBS) to a running instance.
+
+EBS vs ECS Vs S3
+
+1. Get the instance id of the running instance.
+2. AZ where the instance is running.
+3. Create a Volume and get the volume id.
+4. Attach Volume to the instance.

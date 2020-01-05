@@ -38,3 +38,38 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html#finding-
 
 (base)  ~/Desktop/Devops/dq/devops> aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.0.????????.?-x86_64-gp2' 'Name=state,Values=available' --query 'reverse(sort_by(Images, &CreationDate))[:1].ImageId' --output text
 ami-0dacb0c129b49f529
+
+
+ssh -i ~/.ssh/ec2keypair.pem  ec2-user@18.219.162.107
+
+
+ssh -i ~/.ssh/ec2keypair.pem ec2-user@ec2-18-219-162-107.us-east-2.compute.amazonaws.com
+
+
+(base)  ~/Desktop/Devops/dq> ssh -i ~/.ssh/ec2keypair.pem ec2-user@ec2-18-219-162-107.us-east-2.compute.amazonaws.com
+ssh: connect to host ec2-18-219-162-107.us-east-2.compute.amazonaws.com port 22: Operation timed out
+
+Repeatedly timed out. Port 22 was not open.
+
+Open Port 22.
+Use Security Groups.
+
+(base)  ~/Desktop/Devops/dq> ssh -i ~/.ssh/ec2keypair.pem ec2-user@ec2-18-219-162-107.us-east-2.compute.amazonaws.com
+The authenticity of host 'ec2-18-219-162-107.us-east-2.compute.amazonaws.com (18.219.162.107)' can't be established.
+ECDSA key fingerprint is SHA256:WGMZzkJQMYHJ11uBNtI51dim1gptcESDDRBTP3C44xg.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ec2-18-219-162-107.us-east-2.compute.amazonaws.com,18.219.162.107' (ECDSA) to the list of known hosts.
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+8 package(s) needed for security, out of 17 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-28-97 ~]$
+
+
+SidevopsEC2KeyPair
+
+aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.0.????????.?-x86_64-gp2' 'Name=state,Values=available'  --output text
