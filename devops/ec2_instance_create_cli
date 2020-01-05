@@ -1,0 +1,40 @@
+aws ec2 run-instances \
+--image-id ami-9be6f38c \
+--instance-type t2.micro \
+--key-name <your-key-pair-name>
+
+aws ec2 run-instances \
+--image-id ami-0dacb0c129b49f529 \
+--instance-type t2.micro \
+--key-name "Name of the key pair you created"
+
+aws ec2 run-instances --image-id ami-0dacb0c129b49f529 --instance-type t2.micro --key-name SidevopsEC2KeyPair
+
+(base)  ~/Desktop/Devops/dq/devops> aws ec2 run-instances \
+> --image-id ami-9be6f38c \
+> --instance-type t2.micro \
+> --key-name ~/.ssh/ec2keypair.pem
+
+An error occurred (InvalidAMIID.NotFound) when calling the RunInstances operation: The image id '[ami-9be6f38c]' does not exist
+(base)  ~/Desktop/Devops/dq/devops>
+
+AMI's are specific to a region.
+
+
+Since no Virtual Private Cloud (VPC) or security groups are specified,
+the instance will be launched in your account's default VPC and security group.
+You can modify an instance's security groups after it is launched without stopping it.
+
+
+aws ec2 run-instances \
+--image-id ami-9be6f38c \
+--instance-type t2.micro \
+--key-name ~/.ssh/ec2keypair.pem
+
+aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.0.????????.?-x86_64-gp2' 'Name=state,Values=available' --query 'reverse(sort_by(Images, &CreationDate))[:1].ImageId' --output text
+
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html#finding-an-ami-aws-cli
+
+(base)  ~/Desktop/Devops/dq/devops> aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.0.????????.?-x86_64-gp2' 'Name=state,Values=available' --query 'reverse(sort_by(Images, &CreationDate))[:1].ImageId' --output text
+ami-0dacb0c129b49f529

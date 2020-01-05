@@ -1,0 +1,31 @@
+aws ec2 create-key-pair \
+--key-name SidevopsEC2KeyPair \
+--query 'KeyMaterial' \
+--output text > ~/.ssh/ec2keypair.pem
+
+chmod 400 ~/.ssh/ec2keypair.pem
+
+The public key is stored in the region so that it can be copied to new EC2 instances.
+You cannot copy keys from region to region, and you cannot retrieve the full key pair after initial creation.
+The response is then parsed using a JMESPath query, and the private key (in the KeyMaterial property) is saved
+to a new key file with the .pem extension.
+
+(base)  ~/Desktop/Devops/dq/devops> aws ec2 create-key-pair \
+> --key-name SidevopsEC2KeyPair \
+> --query 'KeyMaterial' \
+> --output text > ~/.ssh/ec2keypair.pem
+(base)  ~/Desktop/Devops/dq/devops>
+(base)  ~/Desktop/Devops/dq/devops>
+(base)  ~/Desktop/Devops/dq/devops> chmod 400 ~/.ssh/ec2keypair.pem
+(base)  ~/Desktop/Devops/dq/devops> ls -l ~/.ssh/ec2keypair.pem
+-r--------  1 siddharthabommireddy  staff  1671 Jan  5 19:56 /Users/siddharthabommireddy/.ssh/ec2keypair.pem
+(base)  ~/Desktop/Devops/dq/devops>
+
+
+(base)  ~/Desktop/Devops/dq/devops> ls -l /Users/siddharthabommireddy/.ssh/ec2keypair.pem
+-r--------  1 siddharthabommireddy  staff  1671 Jan  5 19:56 /Users/siddharthabommireddy/.ssh/ec2keypair.pem
+(base)  ~/Desktop/Devops/dq/devops>
+(base)  ~/Desktop/Devops/dq/devops> aws ec2 run-instances --image-id ami-0dacb0c129b49f529 --instance-type t2.micro --key-name /Users/siddharthabommireddy/.ssh/ec2keypair.pem
+
+An error occurred (InvalidKeyPair.NotFound) when calling the RunInstances operation: The key pair '/Users/siddharthabommireddy/.ssh/ec2keypair.pem' does not exist
+(base)  ~/Desktop/Devops/dq/devops>
