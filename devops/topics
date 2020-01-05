@@ -25,7 +25,74 @@ attaching Storage(EBS) to a running instance.
 
 EBS vs ECS Vs S3
 
+SAN VS NAS
+
 1. Get the instance id of the running instance.
 2. AZ where the instance is running.
-3. Create a Volume and get the volume id.
+3. Create a Volume in the same AZ and get the volume id.
 4. Attach Volume to the instance.
+
+Volumes are created from snapshots. If you
+don't specify a snapshot ID, it uses a blank snapshot, and you get a blank volume.
+
+"VolumeId": "vol-0426277cbcfc2ca13",
+
+
+aws ec2 attach-volume \
+--volume-id vol-09f1f5cb17d6654a7 \
+--instance-id i-00ead0d3c974c4017 \
+--device /dev/sdf
+
+[ec2-user@ip-172-31-28-97 ~]$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        475M     0  475M   0% /dev
+tmpfs           492M     0  492M   0% /dev/shm
+tmpfs           492M  404K  492M   1% /run
+tmpfs           492M     0  492M   0% /sys/fs/cgroup
+/dev/xvda1      8.0G  1.3G  6.8G  16% /
+tmpfs            99M     0   99M   0% /run/user/1000
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$ sudo mkfs -t xfs /dev/xvdf
+meta-data=/dev/xvdf              isize=512    agcount=4, agsize=524288 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=0
+data     =                       bsize=4096   blocks=2097152, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$ sudo mkdir /mydata
+[ec2-user@ip-172-31-28-97 ~]$ sudo mount /dev/xvdf /mydata
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        475M     0  475M   0% /dev
+tmpfs           492M     0  492M   0% /dev/shm
+tmpfs           492M  404K  492M   1% /run
+tmpfs           492M     0  492M   0% /sys/fs/cgroup
+/dev/xvda1      8.0G  1.3G  6.8G  16% /
+tmpfs            99M     0   99M   0% /run/user/1000
+/dev/xvdf       8.0G   41M  8.0G   1% /mydata
+[ec2-user@ip-172-31-28-97 ~]$
+
+
+Why Create file system on Linux?
+sudo mkfs -t xfs /dev/xvdf
+
+Linux File System or any file system generally is a layer which is under the operating system that handles the
+ positioning of your data on the storage, without it; the system cannot knows which file starts from where and ends where.
+
+mount command on the instance to mount the volume device
+sudo mount /dev/xvdf /mydata
+
+The entire Linux directory structure starting at the top (/) root directory.
+A specific type of data storage format, such as EXT3, EXT4, BTRFS, XFS, and so on. Linux supports almost 100 types of filesystems, including some very old ones as well as some of the newest. Each of these filesystem types uses its own metadata structures to define how the data is stored and accessed.
+A partition or logical volume formatted with a specific type of filesystem that can be mounted on a specified mount point on a Linux filesystem.
+
+What does mounting the device do?
+
+https://opensource.com/life/16/10/introduction-linux-filesystems

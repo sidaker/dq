@@ -1,0 +1,136 @@
+You can easily add additional storage to your instances while they are running by attaching a new volume.
+
+aws ec2 create-volume --availability-zone us-east-2b --size 8
+
+(base)  ~/Desktop/Devops/dq> aws ec2 attach-volume \
+> --volume-id vol-09f1f5cb17d6654a7 \
+> --instance-id i-00ead0d3c974c4017 \
+> --device /dev/sdf
+{
+    "AttachTime": "2020-01-05T21:44:30.906Z",
+    "Device": "/dev/sdf",
+    "InstanceId": "i-00ead0d3c974c4017",
+    "State": "attaching",
+    "VolumeId": "vol-09f1f5cb17d6654a7"
+}
+(base)  ~/Desktop/Devops/dq>
+
+
+(base)  ~/Desktop/Devops/dq> aws ec2 create-volume --availability-zone us-east-2a --size 8
+{
+    "AvailabilityZone": "us-east-2a",
+    "CreateTime": "2020-01-05T21:36:41.000Z",
+    "Encrypted": false,
+    "Size": 8,
+    "SnapshotId": "",
+    "State": "creating",
+    "VolumeId": "vol-0426277cbcfc2ca13",
+    "Iops": 100,
+    "Tags": [],
+    "VolumeType": "gp2"
+}
+(base)  ~/Desktop/Devops/dq>
+
+
+aws ec2 attach-volume \
+--volume-id vol-0426277cbcfc2ca13 \
+--instance-id i-00ead0d3c974c4017 \
+--device /dev/sdf
+
+(base)  ~/Desktop/Devops/dq> aws ec2 attach-volume \
+> --volume-id vol-0426277cbcfc2ca13 \
+> --instance-id i-00ead0d3c974c4017 \
+> --device /dev/sdf
+
+An error occurred (InvalidVolume.ZoneMismatch) when calling the AttachVolume operation: The volume 'vol-0426277cbcfc2ca13' is not in the same availability zone as instance 'i-00ead0d3c974c4017'
+(base)  ~/Desktop/Devops/dq>
+
+
+ aws ec2 create-volume --availability-zone us-east-2b --size 8
+
+ (base)  ~/Desktop/Devops/dq>  aws ec2 create-volume --availability-zone us-east-2b --size 8
+{
+    "AvailabilityZone": "us-east-2b",
+    "CreateTime": "2020-01-05T21:43:42.000Z",
+    "Encrypted": false,
+    "Size": 8,
+    "SnapshotId": "",
+    "State": "creating",
+    "VolumeId": "vol-09f1f5cb17d6654a7",
+    "Iops": 100,
+    "Tags": [],
+    "VolumeType": "gp2"
+}
+(base)  ~/Desktop/Devops/dq>
+
+
+aws ec2 attach-volume \
+--volume-id vol-09f1f5cb17d6654a7 \
+--instance-id i-00ead0d3c974c4017 \
+--device /dev/sdf
+
+
+SSH to instance.
+
+ssh -i ~/.ssh/ec2keypair.pem ec2-user@ec2-18-219-162-107.us-east-2.compute.amazonaws.com
+
+[ec2-user@ip-172-31-28-97 ~]$ lsblk
+NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+xvda    202:0    0   8G  0 disk
+└─xvda1 202:1    0   8G  0 part /
+xvdf    202:80   0   8G  0 disk
+[ec2-user@ip-172-31-28-97 ~]$
+
+
+[ec2-user@ip-172-31-28-97 ~]$ ls -l /dev/sd*
+lrwxrwxrwx 1 root root 4 Jan  5 20:26 /dev/sda -> xvda
+lrwxrwxrwx 1 root root 5 Jan  5 20:26 /dev/sda1 -> xvda1
+lrwxrwxrwx 1 root root 4 Jan  5 21:44 /dev/sdf -> xvdf
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$
+
+
+
+[ec2-user@ip-172-31-28-97 ~]$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        475M     0  475M   0% /dev
+tmpfs           492M     0  492M   0% /dev/shm
+tmpfs           492M  404K  492M   1% /run
+tmpfs           492M     0  492M   0% /sys/fs/cgroup
+/dev/xvda1      8.0G  1.3G  6.8G  16% /
+tmpfs            99M     0   99M   0% /run/user/1000
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$ sudo mkfs -t xfs /dev/xvdf
+meta-data=/dev/xvdf              isize=512    agcount=4, agsize=524288 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=0
+data     =                       bsize=4096   blocks=2097152, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$ sudo mkdir /mydata
+[ec2-user@ip-172-31-28-97 ~]$ sudo mount /dev/xvdf /mydata
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$
+[ec2-user@ip-172-31-28-97 ~]$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        475M     0  475M   0% /dev
+tmpfs           492M     0  492M   0% /dev/shm
+tmpfs           492M  404K  492M   1% /run
+tmpfs           492M     0  492M   0% /sys/fs/cgroup
+/dev/xvda1      8.0G  1.3G  6.8G  16% /
+tmpfs            99M     0   99M   0% /run/user/1000
+/dev/xvdf       8.0G   41M  8.0G   1% /mydata
+[ec2-user@ip-172-31-28-97 ~]$
+
+
+we attached a volume to the instance. When attaching to an instance, you must specify the name of the device that it will be presented
+ to the operating system with. Unfortunately, this doesn't guarantee what the device will appear as. In the case of AWS Linux,
+  /dev/sdf becomes /dev/xvdf
+
+Device naming is kernel-specific, so if you are using something other than AWS Linux, the device name may be different.
+See http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_na ming.html for full details.
