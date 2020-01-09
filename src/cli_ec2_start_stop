@@ -1,0 +1,32 @@
+aws ec2 stop-instances --instance-ids <ids>
+
+# Create a brand new EC2 Instance.
+aws ec2 run-instances --image-id ami-0dacb0c129b49f529 --instance-type t2.micro --key-name likhibarguEC2KeyPair
+
+
+aws ec2 stop-instances --instance-ids i-0a28af011a752e40d
+
+# STOP the instance Likhitha. Likhitha G
+aws ec2 stop-instances --instance-ids i-0a28af011a752e40d
+{
+    "StoppingInstances": [
+        {
+            "CurrentState": {
+                "Code": 64,
+                "Name": "stopping"
+            },
+            "InstanceId": "i-0a28af011a752e40d",
+            "PreviousState": {
+                "Code": 16,
+                "Name": "running"
+            }
+        }
+    ]
+}
+
+#  Start
+aws ec2 start-instances --instance-ids i-0a28af011a752e40d
+
+
+# Terminate
+aws ec2 terminate-instances --instance-ids i-0a28af011a752e40d

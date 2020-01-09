@@ -24,7 +24,7 @@ def process_fpl(file_name):
     partition_str = extract_message_received_time(json_data)
 
     with open(f'/{BASE_PATH}/parsed_{file_name}', 'w') as new_f:
-        new_f.write(json.dumps(new_json))
+        new_f.write(json.dumps(json_data))
 
     upload_file_s3(f'/tmp/parsed_{file_name}', partition_str)
     return {'partition': partition_str, 'file_name': f'parsed_{file_name}'}
@@ -33,12 +33,16 @@ def upload_file_s3(file_location, partition_str):
     """Uploads file to s3"""
     try:
         logger.info('Uploading {0}'.format(file_location))
+        logger.info('Partition on Target {0}'.format(partition_str))
         # output_bucket_name is obtained from enviornment e.g. value s3-xx-xxx-internal-xxx/processed/xxx
         output_bucket = f"{os.environ.get('output_bucket_name')}"
+        logger.info('Bucket on Target {0}'.format(output_bucket))
         s3_conn = boto3.resource('s3')
         file_name = file_location.split('/')[-1]
         bucket = output_bucket.split('/')[0]
-        output_path = '/'.join(output_bucket.split('/')[1:]) + '/' + partition_str
+        output_path =   partition_str
+        logger.info('S3 location on Target {0}'.format(output_path))
+        logger.info('File Name on Target {0}'.format(file_name))
         if os.path.getsize(file_location) != 0:
             s3_conn.Bucket(bucket).upload_file(file_location, '{0}/{1}'.format(output_path, file_name))
             logger.info('Upload complete')
