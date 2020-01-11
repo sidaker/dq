@@ -21,7 +21,7 @@ def wordcount(line):
     ldict = {}
     for word in line.split():
         ct = ct +1
-        ldict[word] = 1
+        ldict[word] = ldict.get(word,0) + 1
     return (ct, ldict)
 
 def readfile(fullfilepath):
@@ -39,11 +39,17 @@ def main():
     for no,line in enumerate(readfile(filepath),1):
         wc, linedict = wordcount(line)
         # Update dict worddict with results from linedict
+        # Iterate through the dictionary linedict
+        for key,value in linedict.items():
+            worddict[key] = worddict.get(key,0) + value
+
         # using format() method
         print('Line {} has a total of "{}!"'.format(no, wc))
         print(line)
+        print(linedict)
         overall_ct = overall_ct + wc
     print('Total number of words {}'.format(overall_ct))
+    print(worddict)
 
 if __name__ == '__main__':
     main()

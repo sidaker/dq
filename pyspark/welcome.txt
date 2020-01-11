@@ -4,3 +4,4 @@ Wish you good luck
 Advik likes banana
 Advik goes to zoo
 Advik likes Advik
+metadata is data about data
