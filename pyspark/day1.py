@@ -8,7 +8,7 @@ print( "*" * 50 )
 print( f"Hello {name1}")
 print('Hello, %s' % name2)
 # finding the starting index of our searched term
-print( s.find("over") )
+print( s.find("over") ) #prints 5
 print( "*" * 50 )
 dict1 = {1:"sid",2:"likhi",3:"Advik"}
 
@@ -102,13 +102,14 @@ print( min(nums) ) # will find the lowest number in the list
 print( max(nums) ) # will find the highest number in the list
 print( sum(nums) ) # will add all numbers in the list and return the sum
 
+print( "*" * 50 )
 
 # using sorted on lists for numerical and alphabetical data
 nums = [5, 8, 0, 2]
 sorted_nums = sorted(nums) # save to a new variable to use later
 print(nums, sorted_nums) # the original list is in tact
 
-
+print( "*" * 50 )
 # sorting a list with .sort() in-place
 '''
 The sort method is used for the same purpose that our previous sorted function is used
@@ -117,6 +118,8 @@ for; however, it will change the original list directly:
 nums = [5, 0, 8, 3]
 nums.sort( ) # alters the original variable directly
 print(nums)
+
+print( "*" * 50 )
 
 # using conditional statements on a list
 names = [ "Jack", "Robert", "Mary" ]
