@@ -129,3 +129,9 @@ if "Jimmy" not in names:
 nums = [ ]
 if not nums: # could also say 'if nums == []'
     print("empty")
+
+
+# using a for loop to print all items in a list
+sports = [ "Baseball", "Hockey", "Football", "Basketball" ]
+for sport in sports:
+    print(sport)
