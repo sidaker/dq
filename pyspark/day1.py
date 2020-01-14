@@ -124,3 +124,8 @@ if "Mary" in names:
     print("found") # will run since Mary is in the list
 if "Jimmy" not in names:
     print("not found") # will run since Jimmy is not in the list
+
+# using conditionals to see if a list is empty
+nums = [ ]
+if not nums: # could also say 'if nums == []'
+    print("empty")
