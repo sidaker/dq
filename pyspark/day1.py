@@ -135,3 +135,9 @@ if not nums: # could also say 'if nums == []'
 sports = [ "Baseball", "Hockey", "Football", "Basketball" ]
 for sport in sports:
     print(sport)
+
+# using the while loop to remove a certain value
+names = [ "Bob", "Jack", "Rob", "Bob", "Robert" ]
+while "Bob" in names:
+    names.remove("Bob") # removes all instances of 'Bob'
+print(names)
