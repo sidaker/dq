@@ -29,6 +29,10 @@ docker exec -it <container-id>  redis-cli
 docker exec -it <container-id>  sh
 # ensures you loginto the container.
 
+docker run -it busybox sh
+#run the container and log you in. Does not start any other process.
+# Don't use it if you want it to run a primary process.
+
 '''
 You start a redis container and then execute a command.
 -it allows us to provide input to the container.
