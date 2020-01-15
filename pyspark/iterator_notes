@@ -1,0 +1,44 @@
+The Iterator Protocol
+In order to learn what the Protocol is and how to implement it in Python, we need to understand some basic terms.
+
+Iterable
+It is any object that you can loop over with a for loop.
+Iterables are not always indexable, they don’t always have lengths, and they’re not always finite.
+An iterable can be passed to iter() built-in function to get an iterator for them.
+Iterator
+Iterators have exactly one job: return the “next” item in our iterable.
+Iterators can be passed to the built-in next function to get the next item from them and if there is no next item (because we reached the end), a StopIteration exception will be raised.
+Iterators return themselves when passed to the iter() built-in.
+
+Step 01: How the iter() built-in works?
+Whenever the interpreter needs to iterate over an object x, it automatically calls iter(x). The iter built-in function:
+
+Checks whether the object implements, __iter__ method and calls that to obtain an iterator.
+If __iter__ method is not implemented, but __getitem__ method is implemented, Python creates an iterator that attempts to fetch items in order, starting from index 0 .
+If that fails, Python raises TypeError exception saying <classname> object is not iterable .
+
+
+Step 02: How to implement the Protocol?
+I will present two approaches to implementing the Iterator Protocol:
+
+Approach 1: Traditional Way
+Create a new class representing the iterator(say DeckIterator).
+Implement the following two methods in DeckIterator:
+__next__ : returns the next item in the iterable.
+
+__iter__ : returns itself i.e self .
+
+3. Define an __iter__ method in the class over whose instances you want to iterate i.e. class Deck. The method should return an instance of DeckIterator.
+
+Approach 2: The Pragmatic Way
+Implement the __iter__ method in the Deck class as a generator function.
+
+This is the list of all the features that our object magically seem to support as soon as we implement the protocol.
+
+Iteration via for loop
+Unpacking similar to tuples
+Can be used in list comprehensions
+Can be used with built-in functions (such as min , max ) which consume an iterable.
+
+
+Iterators in Python aren’t a matter of type but of the protocol i.e. any class that implements this protocol can be iterated over.
