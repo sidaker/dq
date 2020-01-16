@@ -9,6 +9,8 @@ class TeamIterator:
    # To create an Iterator class we need to override __next__() function inside our class
    # __next__() function should be implemented in such a way that every time we call the function it should return the next element of the associated Iterable class.
    # If there are no more elements then it should raise StopIteration.
+   # In Python a class is called Iterator if it has overloaded the magic method __next__().
+   # This function must return one element at a given time and then increments the internal pointer to next.
    def __next__(self):
        ''''Returns the next value from team object's lists '''
        if self._index < (len(self._team._juniorMembers) + len(self._team._seniorMembers)) :
@@ -37,6 +39,8 @@ class Team:
    def addSeniorMembers(self, members):
        self._seniorMembers += members
 
+   # In Python a class is called Iterable if it has overloaded the magic method __iter__() .
+   # This function must return an Iterator object.
    def __iter__(self):
        ''' Returns the Iterator object '''
        return TeamIterator(self)
