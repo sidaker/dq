@@ -1,6 +1,6 @@
 # Always non default arguments should precede default arguments
 def echo(lang,user='Likhi',sys='Linux'):
-    print('User:',user,'Language:','Platform:',sys)
+    print('User:',user,'Language:',lang,'Platform:',sys)
 
 def fibinocci_gen():
     a = b = 1
@@ -10,6 +10,7 @@ def fibinocci_gen():
 
 echo('Sid','Python','Mac')
 echo(lang='Java',user='Bargu',sys='Windows')
+echo(lang='NodeJs',sys='Windows',user='Advik')
 echo(lang='Scala')
 
 fib = fibinocci_gen()
