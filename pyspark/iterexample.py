@@ -23,6 +23,7 @@ team.addJuniorMembers(['Sid', 'Likhi', 'Bargu'])
 # Add name of senior team members
 team.addSeniorMembers(['Sammu', 'Advik', 'Sathu'])
 
+print(team)
 iter(team)
 
 for member in team:
