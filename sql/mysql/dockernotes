@@ -1,0 +1,270 @@
+docker pull mysql
+docker run --name test-mysql -p 3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
+mysql -P 32768 --protocol=tcp -u root -p
+
+https://developer.ibm.com/tutorials/docker-dev-db/
+
+mysql -P $PORTNUMBER --protocol=tcp -u root -p
+
+
+
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+
+docker exec -it some-postgres bash
+
+
+
+hodqadms-MacBook-Pro:~ sbommireddy$ mysql -P 32768 --protocol=tcp -u root -p
+Enter password:
+ERROR 1045 (28000): Access denied for user 'root'@'172.17.0.1' (using password: YES)
+hodqadms-MacBook-Pro:~ sbommireddy$ mysql -P 32768 --protocol=tcp -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+
+
+
+hodqadms-MacBook-Pro:~ sbommireddy$ hodqadms-MacBook-Pro:~ sbommireddy$ docker pull mysql
+-bash: hodqadms-MacBook-Pro:~: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ Using default tag: latest
+-bash: Using: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ latest: Pulling from library/mysql
+-bash: latest:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ 804555ee0376: Pull complete
+-bash: 804555ee0376:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ c53bab458734: Pull complete
+-bash: c53bab458734:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ ca9d72777f90: Pull complete
+-bash: ca9d72777f90:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ 2d7aad6cb96e: Pull complete
+-bash: 2d7aad6cb96e:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ 8d6ca35c7908: Pull complete
+-bash: 8d6ca35c7908:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ 6ddae009e760: Pull complete
+-bash: 6ddae009e760:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ 327ae67bbe7b: Pull complete
+-bash: 327ae67bbe7b:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ e039ec97e847: Pull complete
+-bash: e039ec97e847:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ fbda57f041c1: Pull complete
+-bash: fbda57f041c1:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ f70ca9049b77: Pull complete
+-bash: f70ca9049b77:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ 30ecde006e59: Pull complete
+-bash: 30ecde006e59:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ 7def2a4ede73: Pull complete
+-bash: 7def2a4ede73:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ Digest: sha256:f1df505c4c6e8eae599a0482e3bde3e761cd700c00cbc371a8161648a26817c0
+-bash: Digest:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ Status: Downloaded newer image for mysql:latest
+-bash: Status:: command not found
+hodqadms-MacBook-Pro:~ sbommireddy$ docker.io/library/mysql:latest
+-bash: docker.io/library/mysql:latest: No such file or directory
+hodqadms-MacBook-Pro:~ sbommireddy$ hodqadms-MacBook-Pro:~ sbommireddy$
+
+
+
+hodqadms-MacBook-Pro:pyspark sbommireddy$ docker run --name test-mysql -p 3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
+7957ea02376eaf8242c67d2153a886737d81c32742756b61b35752462c2a2ed0
+hodqadms-MacBook-Pro:pyspark sbommireddy$
+
+https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-commands.html
+
+hodqadms-MacBook-Pro:pyspark sbommireddy$ mysqlsh
+MySQL Shell 8.0.19
+
+Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS >
+ MySQL  JS > \connect root@localhost:32768
+Creating a session to 'root@localhost:32768'
+Please provide the password for 'root@localhost:32768':
+Save password for 'root@localhost:32768'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 11
+Server version: 8.0.19 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:32768 ssl  JS >
+
+
+
+
+
+
+
+ hodqadms-MacBook-Pro:pyspark sbommireddy$ brew install mysql
+Updating Homebrew...
+==> Auto-updated Homebrew!
+Updated 3 taps (homebrew/core, homebrew/cask and homebrew/services).
+==> New Formulae
+ansible@2.8           blis                  cgns                  dsvpn                 findent               git-remote-gcrypt     komposition           libserdes             mlpack                nift                  prover9               sniffglue             whistle
+awscurl               ccfits                cobalt                ensmallen             findomain             glow                  launch_socket_server  liquidctl             mmctl                 node-sass             python@3.8            talisman              wordgrinder
+baidupcs-go           cedille               corral                ffuf                  flint                 hpack                 libb64                mavsdk                nauty                 okteto                run                   uni                   yaegi
+bandwhich             celero                db-vcs                fileicon              git-filter-repo       instalooter           libffcall             meilisearch           nebula                poetry                sampler               wasmer
+==> Updated Formulae
+awscli ✔                        ccls                            euler-py                        google-authenticator-libpam     libarchive                      minio-mc                        parallel                        rke                             texmath
+kubernetes-cli ✔                cdk                             exploitdb                       goreleaser                      libbi                           mitmproxy                       passenger                       rocksdb                         tflint
+minikube ✔                      cereal                          eye-d3                          gr-osmosdr                      libbitcoin                      mk-configure                    passwdqc                        roswell                         thefuck
+python ✔                        certbot                         faas-cli                        gradle                          libbitcoin-client               mkdocs                          pcb                             rsnapshot                       tiger-vnc
+s3cmd ✔                         certigo                         fades                           grafana                         libbitcoin-explorer             mkl-dnn                         pcl                             rst-lint                        tintin
+abcmidi                         cfn-lint                        fail2ban                        grakn                           libbitcoin-protocol             mkvtomp4                        pcsc-lite                       rsyslog                         tmuxinator
+ack                             cgrep                           fastlane                        grep                            libbitcoin-server               mkvtoolnix                      pdal                            rtags                           tmuxinator-completion
+acpica                          chakra                          fastmod                         grin                            libchamplain                    mmark                           pdf-redact-tools                rtv                             toast
+algernon                        cheat                           faudio                          grin-wallet                     libde265                        mockserver                      pdftoipe                        ruby-build                      todoman
+aliyun-cli                      checkstyle                      fceux                           groonga                         libebml                         molecule                        pdsh                            rust                            tokei
+allure                          choose                          fdroidserver                    groovy                          libedit                         monero                          peco                            rustup-init                     tomcat@7
+alp                             chronograf                      feedgnuplot                     grpc                            libetonyek                      monetdb                         percol                          s-nail                          tomee-jax-rs
+alpine                          cimg                            ffmpeg                          gssdp                           libev                           mongo-c-driver                  perl                            samurai                         tomee-plume
+alure                           citus                           ffsend                          gts                             libfabric                       mongo-orchestration             perltidy                        saxon                           topgrade
+ammonite-repl                   click                           field3d                         gupnp                           libgit2                         mono                            pgcli                           sbcl                            tox
+angular-cli                     clojure                         file-formula                    h3                              libgr                           monolith                        pgweb                           sbt                             trader
+ansible                         cmake                           fio                             handbrake                       libheif                         mpc                             phoronix-test-suite             scc                             traefik
+ansible-lint                    codemod                         firebase-cli                    haproxy                         libical                         mpd                             php                             sceptre                         translate-toolkit
+apache-geode                    codespell                       flann                           haxe                            libimagequant                   mpop                            php@7.2                         scipy                           trash-cli
+apache-opennlp                  coffeescript                    flintrock                       hdf5                            liblouis                        mpv                             php@7.3                         scons                           triton
+apachetop                       cointop                         flow                            helm                            libmagic                        mrboom                          phpmd                           scour                           tunnel
+appium                          collectd                        fluent-bit                      helmfile                        libmatio                        mruby                           phpmyadmin                      scrcpy                          twine-pypi
+appscale-tools                  composer                        fluxctl                         helmsman                        libmpdclient                    msitools                        phpstan                         sdb                             twoping
+aptly                           conan                           flyway                          help2man                        libngspice                      msmtp                           phpunit                         securefs                        twtxt
+arangodb                        conjure-up                      fn                              hey                             libofx                          multimarkdown                   pianod                          serverless                      txr
+arduino-cli                     consul-template                 folly                           hledger                         libopenmpt                      multitail                       picard-tools                    sflowtool                       typescript
+armadillo                       contentful-cli                  fonttools                       hlint                           libphonenumber                  mupdf                           picat                           shadowsocks-libev               ucloud
+artifactory                     convox                          fpp                             homeassistant-cli               libpq                           mupdf-tools                     pipenv                          shfmt                           uhd
+asciidoctorj                    cookiecutter                    freeciv                         homebank                        libpulsar                       mutt                            pipx                            signal-cli                      ultralist
+asciinema                       cpl                             freetds                         howdoi                          librdkafka                      mycli                           plank                           sile                            ungit
+asdf                            cppad                           frei0r                          hstr                            libre                           mydumper                        plantuml                        silk                            urh
+ask-cli                         cppcheck                        frpc                            htslib                          librealsense                    mypy                            platformio                      singular                        vault
+aspectj                         cppunit                         frps                            http-server                     libsecret                       mysql                           pnetcdf                         sip                             verilator
+assimp                          crc32c                          frugal                          httpie                          libsigc++                       mysql@5.6                       pnpm                            siril                           vice
+astrometry-net                  cromwell                        fselect                         hugo                            libsixel                        mysql@5.7                       pony-stable                     sk                              vim
+atdtool                         crystal                         fuse-zip                        i2p                             libtensorflow                   nano                            poppler                         skaffold                        vips
+atlassian-cli                   csound                          futhark                         icecast                         libtorch                        navi                            pre-commit                      skopeo                          visp
+audacious                       csvkit                          fx                              ilmbase                         libtorrent-rasterbar            nbdime                          prestodb                        smartmontools                   vnstat
+auditbeat                       csvq                            fzf                             imagemagick                     libuv                           ncmpcpp                         prestosql                       sn0int                          volatility
+avro-cpp                        csvtomd                         gandi.cli                       imagemagick@6                   libvirt                         nco                             primesieve                      snakemake                       vsts-cli
+aws-cdk                         ctl                             gatsby-cli                      imgproxy                        libvirt-glib                    ncompress                       procs                           snapcraft                       vtk
+aws-elasticbeanstalk            ctop                            gauche                          imlib2                          libvoikko                       ncview                          proguard                        snappy                          vulkan-headers
+aws-sdk-cpp                     cucumber-cpp                    gcab                            interactive-rebase-tool         libvpx                          ndpi                            proj                            socat                           wabt
+aws-shell                       curl                            gcc                             internetarchive                 libvterm                        neo4j                           prometheus                      solr                            wal2json
+awslogs                         curl-openssl                    gcc@6                           iozone                          libwebsockets                   netcdf                          proselint                       sonarqube                       watch
+azure-cli                       dashing                         gcc@7                           ipopt                           libxkbcommon                    nethack                         proteinortho                    sonobuoy                        watson
+babel                           deno                            gcc@8                           isl                             libxlsxwriter                   netlify-cli                     pspg                            source-highlight                wavpack
+balena-cli                      dependency-check                gcsfuse                         istioctl                        libxml++3                       netpbm                          pssh                            sourcekitten                    wcslib
+ballerina                       deployer                        gdal                            ivy                             linkerd                         newsboat                        pstoedit                        spades                          wdc
+bandcamp-dl                     detekt                          gdb                             janet                           liquibase                       nginx                           pugixml                         spdlog                          weaver
+basex                           devspace                        get_iplayer                     javacc                          lmod                            ngspice                         pulumi                          sphinx-doc                      webp
+bazel                           dfmt                            ghq                             jdupes                          log4cplus                       nnn                             pumba                           spin                            webpack
+bazelisk                        dhall                           gimme-aws-creds                 jenkins                         logtalk                         node                            purescript                      sqlcipher                       weechat
+bcftools                        dhall-bash                      git                             jenkins-lts                     lxc                             node-build                      puzzles                         sqlmap                          whois
+bedtools                        dhall-json                      git-annex                       jetty                           mackup                          node@10                         pwntools                        sqlparse                        widelands
+bento4                          di                              git-cola                        jfrog-cli-go                    macosvpn                        node@12                         pyenv                           sshuttle                        wiggle
+bibtexconv                      diceware                        git-extras                      jhipster                        mafft                           nodeenv                         pygitup                         sslyze                          wildfly-as
+binaryen                        diff-pdf                        git-lfs                         jinja2-cli                      magic-wormhole                  now-cli                         pygments                        sstp-client                     winetricks
+bind                            distcc                          git-plus                        jpeg                            mailutils                       nss                             pyinstaller                     starship                        wireguard-tools
+bindfs                          django-completion               git-quick-stats                 jpeg-turbo                      makedepend                      ntl                             pyinvoke                        statik                          wireshark
+bison                           dlib                            git-remote-hg                   jrnl                            makensis                        ntopng                          pylint                          stolon                          wla-dx
+bit                             dmd                             git-review                      juju-wait                       mame                            nuget                           pypy                            stormssh                        wolfssl
+bitcoin                         dnscontrol                      git-revise                      jupyterlab                      man-db                          numpy                           pypy3                           streamlink                      wtf
+bitrise                         dnscrypt-proxy                  gitbucket                       just                            mapserver                       nushell                         pyqt                            stress-ng                       wxmaxima
+bitwise                         docfx                           gitlab-runner                   k3d                             mariadb                         nvm                             python-yq                       strongswan                      xdotool
+black                           docker-compose                  gitleaks                        k6                              mariadb@10.2                    oclgrind                        python@2                        subliminal                      xmake
+blast                           docker-credential-helper-ecr    gitmoji                         kakoune                         mariadb@10.3                    ocrmypdf                        pyvim                           subversion                      xmrig
+boost                           docker-squash                   gitup                           kapacitor                       mat2                            offlineimap                     q                               supervisor                      xonsh
+boost-bcp                       doctl                           gitversion                      kawa                            mawk                            onefetch                        qbs                             suricata                        xrootd
+boost-build                     doitlive                        gjs                             kcov                            maxwell                         ooniprobe                       qjackctl                        svtplay-dl                      xsimd
+boost-mpi                       dovecot                         glassfish                       keepkey-agent                   mbedtls                         opa                             qmmp                            swagger-codegen                 xtensor
+boost-python                    doxygen                         gleam                           kepubify                        mda-lv2                         opam                            qscintilla2                     swagger-codegen@2               xvid
+boost-python3                   dub                             glfw                            khard                           mdcat                           opencascade                     qt                              swiftformat                     yadm
+borgmatic                       duck                            glib                            kibana                          mdds                            opencv                          qtkeychain                      swiftlint                       yamllint
+botan                           dune                            glib-networking                 kind                            mdv                             opencv@2                        quickjs                         sxiv                            yapf
+broot                           duplicity                       global                          kompose                         mercurial                       opencv@3                        radare2                         syncthing                       yaz
+bundletool                      dvc                             glooctl                         krb5                            mesa                            openexr                         range-v3                        synfig                          ydcv
+byobu                           dxpy                            gloox                           kubeprod                        meson                           openimageio                     ranger                          talloc                          ykman
+byteman                         easyengine                      glslang                         kustomize                       mesos                           openjdk                         rav1e                           tarantool                       yle-dl
+bzt                             eg-examples                     gmic                            kyma-cli                        metaproxy                       opensc                          rawtoaces                       taskell                         you-get
+c-blosc                         ejdb                            gmsh                            languagetool                    metricbeat                      openvdb                         re2                             tbb                             youtube-dl
+caffe                           elvish                          gmt                             laszip                          mg                              operator-sdk                    re2c                            tectonic                        zabbix
+cake                            embree                          gmt@5                           lazygit                         micronaut                       osc                             rebar3                          telegraf                        zabbix-cli
+calicoctl                       embulk                          gnu-sed                         ldc                             micropython                     osquery                         recon-ng                        teleport                        zeek
+cargo-c                         entr                            gnunet                          ledger                          midnight-commander              osslsigncode                    remarshal                       termshark                       zsh-autosuggestions
+cargo-completion                envconsul                       gnuradio                        legit                           mill                            overmind                        remctl                          terraform
+carla                           ephemeralpg                     go                              lego                            miller                          packer                          remind                          terraform-docs
+cassandra@2.1                   erlang                          go@1.12                         leptonica                       minetest                        pagmo                           rethinkdb                       terragrunt
+cassandra@2.2                   eslint                          gocr                            lerna                           mingw-w64                       paket                           rex                             terrahub
+catch2                          esptool                         godep                           lftp                            minimal-racket                  pandoc                          rhash                           tesseract
+ccache                          ethereum                        golang-migrate                  lgogdownloader                  minio                           pandoc-crossref                 rhino                           texlab
+==> Renamed Formulae
+i386-elf-binutils -> x86_64-elf-binutils                                                                                                          i386-elf-gcc -> x86_64-elf-gcc
+==> Deleted Formulae
+apel                      aws-elasticache           diffuse                   hg-flow                   leafnode                  mysql-utilities           pygobject                 pygtksourceview           srclib                    trr                       vte
+apm-server                aws-sns-cli               globus-toolkit            ipython@5                 libagar                   node@8                    pygtk                     qriollo                   stormpath-cli             uberftp                   zim
+auto-scaling              boost-python@1.59         headphones                lastfmfpclient            logentries                np2                       pygtkglext                redo                      terminator                vim@7.4
+
+==> Installing dependencies for mysql: protobuf
+==> Installing mysql dependency: protobuf
+==> Downloading https://homebrew.bintray.com/bottles/protobuf-3.11.2.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/c2/c2c8d923c866867eec44813a8264684bd6deb5fc98fc0ca257eaf1dea34ba183?__gda__=exp=1579538471~hmac=9043a22108752f4bb39346c248892dfb2cdd46a581f3fd455ad8fbaf3011bd62&response-content-disposition=attachment%3Bfilename%3D%22protobuf-3.11.2.mojave.bot
+######################################################################## 100.0%
+==> Pouring protobuf-3.11.2.mojave.bottle.tar.gz
+🍺  /usr/local/Cellar/protobuf/3.11.2: 268 files, 19.5MB
+==> Installing mysql
+==> Downloading https://homebrew.bintray.com/bottles/mysql-8.0.19.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/4b/4b18d45af8dcd0d1fea0e7c82a7ed8a6ce3a0bb9e5be6bf4d395460126a0ac70?__gda__=exp=1579538474~hmac=a6e397ec7432192f5ed8e9c4931fdcf52de7d75be23aff325e5292789c09d92f&response-content-disposition=attachment%3Bfilename%3D%22mysql-8.0.19.mojave.bottle
+######################################################################## 100.0%
+==> Pouring mysql-8.0.19.mojave.bottle.tar.gz
+==> /usr/local/Cellar/mysql/8.0.19/bin/mysqld --initialize-insecure --user=sbommireddy --basedir=/usr/local/Cellar/mysql/8.0.19 --datadir=/usr/local/var/mysql --tmpdir=/tmp
+==> Caveats
+We've installed your MySQL database without a root password. To secure it run:
+    mysql_secure_installation
+
+MySQL is configured to only allow connections from localhost by default
+
+To connect run:
+    mysql -uroot
+
+To have launchd start mysql now and restart at login:
+  brew services start mysql
+Or, if you don't want/need a background service you can just run:
+  mysql.server start
+==> Summary
+🍺  /usr/local/Cellar/mysql/8.0.19: 294 files, 291.4MB
+==> `brew cleanup` has not been run in 30 days, running now...
+Removing: /Users/sbommireddy/Library/Caches/Homebrew/drone-cli--1.2.0.mojave.bottle.tar.gz... (8.2MB)
+Removing: /Users/sbommireddy/Library/Caches/Homebrew/kubernetes-cli--1.16.3.mojave.bottle.tar.gz... (14.4MB)
+Removing: /Users/sbommireddy/Library/Caches/Homebrew/minikube--1.5.2.mojave.bottle.tar.gz... (21MB)
+Removing: /Users/sbommireddy/Library/Caches/Homebrew/Cask/virtualbox--6.0.14,133895.dmg... (131.7MB)
+Removing: /Users/sbommireddy/Library/Logs/Homebrew/docker... (64B)
+Removing: /Users/sbommireddy/Library/Logs/Homebrew/docker-machine... (64B)
+Removing: /Users/sbommireddy/Library/Logs/Homebrew/minikube... (64B)
+Removing: /Users/sbommireddy/Library/Logs/Homebrew/drone-cli... (64B)
+Removing: /Users/sbommireddy/Library/Logs/Homebrew/s3cmd... (64B)
+Removing: /Users/sbommireddy/Library/Logs/Homebrew/kubernetes-cli... (64B)
+==> Caveats
+==> mysql
+We've installed your MySQL database without a root password. To secure it run:
+    mysql_secure_installation
+
+MySQL is configured to only allow connections from localhost by default
+
+To connect run:
+    mysql -uroot
+
+To have launchd start mysql now and restart at login:
+  brew services start mysql
+Or, if you don't want/need a background service you can just run:
+  mysql.server start
+hodqadms-MacBook-Pro:pyspark sbommireddy$
