@@ -1,0 +1,19 @@
+# Build an image of your application.
+docker build -t flask /Users/sbommireddy/Documents/python/assignments/dq/flaskapps/app1/
+
+#Start flask container:
+
+docker run -d -p 5000:5000 flask
+
+# login to the container.
+docker exec -it 526c0f43604f sh
+
+Check if flask is working from inside the container.
+# curl localhost:5000
+Hello World!#
+#
+#
+# curl localhost:5000/laddu
+Hello laddu!#
+
+http://localhost:5000/welcome
