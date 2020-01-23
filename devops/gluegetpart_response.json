@@ -1,0 +1,58 @@
+{
+   "NextToken": "string",
+   "Partitions": [
+      {
+         "CreationTime": number,
+         "DatabaseName": "string",
+         "LastAccessTime": number,
+         "LastAnalyzedTime": number,
+         "Parameters": {
+            "string" : "string"
+         },
+         "StorageDescriptor": {
+            "BucketColumns": [ "string" ],
+            "Columns": [
+               {
+                  "Comment": "string",
+                  "Name": "string",
+                  "Parameters": {
+                     "string" : "string"
+                  },
+                  "Type": "string"
+               }
+            ],
+            "Compressed": boolean,
+            "InputFormat": "string",
+            "Location": "string",
+            "NumberOfBuckets": number,
+            "OutputFormat": "string",
+            "Parameters": {
+               "string" : "string"
+            },
+            "SerdeInfo": {
+               "Name": "string",
+               "Parameters": {
+                  "string" : "string"
+               },
+               "SerializationLibrary": "string"
+            },
+            "SkewedInfo": {
+               "SkewedColumnNames": [ "string" ],
+               "SkewedColumnValueLocationMaps": {
+                  "string" : "string"
+               },
+               "SkewedColumnValues": [ "string" ]
+            },
+            "SortColumns": [
+               {
+                  "Column": "string",
+                  "SortOrder": number
+               }
+            ],
+            "StoredAsSubDirectories": boolean
+         },
+         "TableName": "string",
+         "Values": [ "string" ]
+      }
+   ]
+}

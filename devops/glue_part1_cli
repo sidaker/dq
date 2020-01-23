@@ -1,0 +1,255 @@
+aws ec2 describe-availability-zones \
+     --output json \
+     --query "AvailabilityZones[].ZoneName"
+     [
+     "us-east-1a",
+     "us-east-1c",
+     "us-east-1d",
+     "us-east-1e"
+     ]
+
+     aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+     > --table-name internal_storage_by_std_date_local \
+     > --expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+     > --query "Partitions[].StorageDescriptor[].Location"  \
+     > --profile prod
+     [
+         "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200119115057/std_date_local=2019-12-30/partition_process_timestamp=2020-01-19 11:50:57.0"
+     ]
+     hodqadms-MacBook-Pro:~ sbommireddy$
+
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+--table-name internal_storage_by_std_date_local \
+--expression "std_date_local='2019-12-30'" \
+--query "Partitions[].Values"  \
+--profile prod
+
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+--table-name internal_storage_by_std_date_local \
+--expression "std_date_local='2019-12-30' AND " \
+--query "Partitions[].Values"  \
+--profile prod
+
+
+hodqadms-MacBook-Pro:~ sbommireddy$ aws glue get-partitions  --generate-cli-skeleton
+{
+    "CatalogId": "",
+    "DatabaseName": "",
+    "TableName": "",
+    "Expression": "",
+    "NextToken": "",
+    "Segment": {
+        "SegmentNumber": 0,
+        "TotalSegments": 0
+    },
+    "MaxResults": 0
+}
+hodqadms-MacBook-Pro:~ sbommireddy$
+
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+> --table-name internal_storage_by_std_date_local \
+> --expression "std_date_local='2019-12-30' " \
+> --query "Partitions[].Values"  \
+> --profile prod
+[
+    [
+        "2019-12-30",
+        "2020-01-05 11:50:57"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-15 11:50:57"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-07 11:50:57"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-11 11:50:58"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-08 11:50:58"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-04 11:50:58"
+    ],
+    [
+        "2019-12-30",
+        "2019-04-28 14:28:00"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-20 11:50:57"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-06 11:50:57"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-12 11:50:57"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-13 11:50:59"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-22 11:50:57"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-03 11:51:12"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-18 11:50:57"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-09 11:51:00"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-16 11:51:00"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-14 11:51:35"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-17 11:50:58"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-10 11:51:37"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-21 11:50:58"
+    ],
+    [
+        "2019-12-30",
+        "2020-01-19 11:50:57"
+    ]
+]
+hodqadms-MacBook-Pro:~ sbommireddy$
+
+
+
+"Partitions": [
+        {
+            "Values": [
+                "2019-12-30",
+                "2020-01-05 11:50:57"
+            ],
+            "DatabaseName": "api_cross_record_scored_prod",
+            "TableName": "internal_storage_by_std_date_local",
+            "CreationTime": 1578225110.0,
+
+            {
+                       "Name": "id",
+                       "Type": "varchar(100)",
+                       "Comment": ""
+                   },
+                   {
+                       "Name": "s3_location",
+                       "Type": "varchar(1000)",
+                       "Comment": ""
+                   },
+                   {
+                       "Name": "xml_file_name",
+                       "Type": "varchar(250)",
+                       "Comment": ""
+                   },
+                   {
+                                           "Name": "file_name",
+                                           "Type": "varchar(250)",
+                                           "Comment": ""
+                                       },
+                                       "Location": "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200105115057/std_date_local=2019-12-30/partition_process_timestamp=2020-01-05 11:50:57.0",
+                                       "InputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat",
+                                       "OutputFormat": "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat",
+                                       "Compressed": false,
+                                       "NumberOfBuckets": 0,
+                                       "SerdeInfo": {
+                                           "Name": "internal_storage_by_std_date_local",
+                                           "SerializationLibrary": "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe",
+
+
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+--table-name internal_storage_by_std_date_local \
+ --expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+ --query "Partitions[].Values"  \
+ --profile prod
+
+
+ aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+> --table-name internal_storage_by_std_date_local \
+>  --expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+>  --query "Partitions[].Values"  \
+>  --profile prod
+[
+    [
+        "2019-12-30",
+        "2020-01-19 11:50:57"
+    ]
+]
+hodqadms-MacBook-Pro:~ sbommireddy$
+
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+--table-name internal_storage_by_std_date_local \
+--expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+--query "Partitions[].Values"  \
+--profile prod
+
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+--table-name internal_storage_by_std_date_local \
+--expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+--query "Partitions[].StorageDescriptor[]"  \
+--profile prod
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+--table-name internal_storage_by_std_date_local \
+--expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+--query "Partitions[].StorageDescriptor[].Location"  \
+--profile prod
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+> --table-name internal_storage_by_std_date_local \
+> --expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+> --query "Partitions[].StorageDescriptor[].Location"  \
+> --profile prod
+[
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200119115057/std_date_local=2019-12-30/partition_process_timestamp=2020-01-19 11:50:57.0"
+]
+hodqadms-MacBook-Pro:~ sbommireddy$
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+--table-name internal_storage_by_std_date_local \
+--expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+--query "Partitions[].CreationTime"  \
+--profile prod
+
+
+hodqadms-MacBook-Pro:~ sbommireddy$ aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+> --table-name internal_storage_by_std_date_local \
+> --expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+> --query "Partitions[].CreationTime"  \
+> --profile prod
+[
+    1579434716.0
+]
+
+
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod --table-name internal_storage_by_std_date_local --expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " --query "Partitions[].StorageDescriptor[]"  --profile prod

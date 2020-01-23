@@ -1,0 +1,65 @@
+# https://hub.docker.com/_/postgres
+# https://medium.com/better-programming/connect-from-local-machine-to-postgresql-docker-container-f785f00461a7
+
+docker pull postgres
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+docker exec -it some-postgres bash
+
+hodqadms-MacBook-Pro:pyspark sbommireddy$ docker pull postgres
+Using default tag: latest
+latest: Pulling from library/postgres
+8ec398bc0356: Pull complete
+65a7b8e7c8f7: Pull complete
+b7a5676ed96c: Pull complete
+3e0ac8617d40: Pull complete
+633091ee8d02: Pull complete
+b01fa9e356ea: Pull complete
+4cd472257298: Pull complete
+1716325d7dcd: Pull complete
+9b625d69c7c8: Pull complete
+74d8b4d9818c: Pull complete
+c36f5edbeb97: Pull complete
+9b38bb0fb36e: Pull complete
+6b5ee1c74b9a: Pull complete
+5fcc518252b4: Pull complete
+Digest: sha256:3657548977d593c9ab6d70d1ffc43ceb3b5164ae07ac0f542d2ea139664eb6b3
+Status: Downloaded newer image for postgres:latest
+docker.io/library/postgres:latest
+hodqadms-MacBook-Pro:pyspark sbommireddy$
+
+hodqadms-MacBook-Pro:pyspark sbommireddy$ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+2342ba7ff00b4bebb6775569a7336ffe4a3670465bb804f6c99ebd264d0fec92
+
+
+
+hodqadms-MacBook-Pro:pyspark sbommireddy$ docker container ls
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+2342ba7ff00b        postgres            "docker-entrypoint.s…"   17 seconds ago      Up 15 seconds       5432/tcp            some-postgres
+hodqadms-MacBook-Pro:pyspark sbommireddy$
+
+
+
+hodqadms-MacBook-Pro:pyspark sbommireddy$ docker exec -it some-postgres bash
+root@2342ba7ff00b:/# pwd
+/
+root@2342ba7ff00b:/#
+root@2342ba7ff00b:/#
+
+=====
+
+docker run -d -p 5432:5432 --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+# This command will start a PostgreSQL database and map ports using the following pattern: -p <host_port>:<container_port>.
+# Port 5432 of our container will be mapped on port 5432 of our host or server.
+docker exec -it my-postgres bash
+
+use exit to exit from postgres.
+use
+
+
+Following [docker page for mysql] (]https://hub.docker.com/_/mysql/), pull the docker image with docker pull mysql
+start the containerized app with ./run.sh to run the sql server
+locally, run $>mysql -uroot -ppassword -h 127.0.0.1 -P 3306 to create a connection to the database
+alternatively, start a notebook with jupyter notebook <nb file> and connect programmatically
+
+https://github.com/kevin-mercurio/learning-sql/blob/master/LearningSQLExample.sql
+https://github.com/thomasnield/oreilly_sql_fundamentals_for_data/tree/master/notes_and_slides

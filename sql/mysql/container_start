@@ -3,3 +3,5 @@ docker container start 7957ea02376e
 mysql -P <port> --protocol=tcp -u root -p
 
 my-secret-pw
+
+mysql -P 32769 --protocol=tcp -u root -p

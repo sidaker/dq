@@ -4,6 +4,13 @@ SELECT now()
 # Oracle provides a table called dual, which consists of a single column called dummy that contains a single row of data.
 SELECT now() FROM dual;
 
+SHOW databases;
+
+CREATE DATABASE <DB Name>
+
+USE <DB Name>
+
+
 
 CREATE TABLE person
 (person_id SMALLINT UNSIGNED,
@@ -20,7 +27,16 @@ CONSTRAINT pk_person PRIMARY KEY (person_id)
 );
 
 
-CREATE TABLE favorite_food (person_id SMALLINT UNSIGNED,
+CREATE TABLE favorite_food
+(person_id SMALLINT UNSIGNED,
 food VARCHAR(20),
 CONSTRAINT pk_favorite_food PRIMARY KEY (person_id, food), CONSTRAINT fk_fav_food_person_id FOREIGN KEY (person_id)
-REFERENCES person (person_id)
+REFERENCES person (person_id));
+
+
+
+SELECT
+a.person_id,a.fname , b.food
+FROM person a INNER JOIN favorite_food b ON a.person_id=b.person_id;
+
+ALTER TABLE person MODIFY person_id SMALLINT UNSIGNED AUTO_INCREMENT;
