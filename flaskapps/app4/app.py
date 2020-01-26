@@ -6,6 +6,8 @@ when we configure the variable app, we’re configuring the way our entire appli
 creating a Flask app with a few specifics: the location of our config file,
 the folder in which we'll store pages templates, and the folder in which we'll
 store frontend assets (JS, CSS, images, etc.).
+https://hackersandslackers.com/flask-page-templates-jinja
+https://github.com/toddbirchard/flasklogin-tutorial
 '''
 
 app = Flask(__name__,
@@ -30,7 +32,7 @@ def hellohtml():
 @app.route("/")
 def indexpage():
     # return_template will return an HTML page by finding the page in our /templates folder:
-    return render_template("index.html")
+    return render_template("/index.html", title = 'LG Site')
 
 '''
 make_response has a number of uses, the most notable of which is to serve
@@ -46,6 +48,12 @@ def firstapi():
     headers = {"Content-Type": "application/json"}
     return make_response(jsonify(my_dict), 200, headers)
 
+'''
+Layout.html is going to be our base template.
+In other words, this barebones file will represent elements which
+ should be common to all of our app's pages, such as metadata,
+ analytics, etc. It is the 'page we load other pages into.'
+'''
 
 
 if __name__ == '__main__':
