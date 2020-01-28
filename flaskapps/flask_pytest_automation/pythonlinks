@@ -1,0 +1,12 @@
+hodqadms-MacBook-Pro:flask_pytest_automation sbommireddy$ ls -la /usr/local/opt/python/libexec/bin
+total 0
+drwxr-xr-x  9 hodqadm  staff  288 26 Nov 12:34 .
+drwxr-xr-x  6 hodqadm  staff  192 15 Oct 00:08 ..
+lrwxr-xr-x  1 hodqadm  staff   26 26 Nov 12:34 easy_install -> ../../bin/easy_install-3.7
+lrwxr-xr-x  1 hodqadm  staff   58 15 Oct 00:08 idle -> ../../Frameworks/Python.framework/Versions/3.7/bin/idle3.7
+lrwxr-xr-x  1 hodqadm  staff   14 26 Nov 12:34 pip -> ../../bin/pip3
+lrwxr-xr-x  1 hodqadm  staff   59 15 Oct 00:08 pydoc -> ../../Frameworks/Python.framework/Versions/3.7/bin/pydoc3.7
+lrwxr-xr-x  1 hodqadm  staff   60 15 Oct 00:08 python -> ../../Frameworks/Python.framework/Versions/3.7/bin/python3.7
+lrwxr-xr-x  1 hodqadm  staff   68 15 Oct 00:08 python-config -> ../../Frameworks/Python.framework/Versions/3.7/bin/python3.7m-config
+lrwxr-xr-x  1 hodqadm  staff   16 26 Nov 12:34 wheel -> ../../bin/wheel3
+hodqadms-MacBook-Pro:flask_pytest_automation sbommireddy$
