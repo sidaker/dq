@@ -1,0 +1,24 @@
+http://127.0.0.1:5000/
+
+cURL, short for “Client for URLs”, is a command line tool for transferring data using various protocols.
+
+curl https://www.keycdn.com
+
+# Get only header
+curl -I https://www.keycdn.com/
+
+curl https://www.google.com
+
+curl -I https://www.google.com
+
+curl http://127.0.0.1:5000/
+
+curl -I http://127.0.0.1:5000/
+
+# Add additional header to your GET.
+curl -H "X-Header: Value" http://127.0.0.1:5000/
+
+
+curl --request POST https://yourwebsite.com/
+
+curl --request POST http://127.0.0.1:5000/post/test
