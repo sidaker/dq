@@ -24,6 +24,7 @@ print(t.to_pandas())
 parquet_file1 = pq.ParquetFile('bx_test_data_noindex.parquet')
 print("Print metadata")
 print(parquet_file1.metadata)
+print(parquet_file1.schema)
 
 
 parquet_file2 = pq.ParquetFile('bx_test_data.snappy.parquet')
