@@ -1,8 +1,8 @@
 How can we run only one test class from multiple test classes?
-python3 -m unittest -v multipletestclasses.TestClass05
+python -m unittest -v multipletestclasses.TestClass05
 
 How can we run a specific test case from a specific class?
-python3 -m unittest -v multipletestclasses.TestClass04.test_case02
+python -m unittest -v multipletestclasses.TestClass04.test_case02
 
 
 You can also run tests from a specific module.
@@ -10,9 +10,8 @@ e.g. python3 -m unittest test_module
 
 
 General Examples:
-python3 -m unittest test_module
-python3 -m unittest test_module.TestClass
-python3 -m unittest test_module.Class.test_method
+python -m unittest test_module
+python -m unittest test_module.TestClass
+python -m unittest test_module.Class.test_method
 
 What is the -f --failfast option?
-

@@ -1,7 +1,7 @@
 import sys
 import unittest
 
-# python3 -m unittest skippingtests.py -v
+# python -m unittest skippingtests.py -v
 
 '''
 Tests can be

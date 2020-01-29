@@ -1,5 +1,5 @@
-# python3 -m nose -v nosetest01.py
-# python3 -m nose -vs nosetest01.py
+# python -m nose -v nosetest01.py
+# python -m nose -vs nosetest01.py
 # no need of any classes.
 from nose.tools import with_setup
 
