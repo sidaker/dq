@@ -4,7 +4,12 @@ import pandas as pd
 import pyarrow as pa
 
 df = pd.read_csv('/Users/sbommireddy/Downloads/bx_test_data.csv')
+print("---------------")
+print(type(df))
+print("---------------")
+
 table = pa.Table.from_pandas(df, preserve_index=False)
+print(type(table))
 #write parquet file
 pq.write_table(table, 'bx_test_data_noindex.parquet')
 
@@ -18,7 +23,6 @@ pq.write_table(table, 'bx_test_data.none.parquet', compression='none')
 
 #Read parquet.
 t = pq.read_table('bx_test_data_noindex.parquet')
-
 print(t.to_pandas())
 
 parquet_file1 = pq.ParquetFile('bx_test_data_noindex.parquet')

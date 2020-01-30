@@ -31,6 +31,13 @@ for bucket in s3.buckets.all():
 
 buckets = list(s3.buckets.all())
 
+#It is possible to limit the number of items returned from a collection by using either the limit() method:
+
+print("List first 2 buckets")
+# S3 iterate over first 2 buckets
+for bucket in s3.buckets.limit(2):
+    print(bucket.name)
+
 # Filtering
 '''
 Behind the scenes, the below example will call ListBuckets, ListObjects, and HeadObject many times.
