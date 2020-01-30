@@ -1,0 +1,7 @@
+hodqadms-MacBook-Pro:test sbommireddy$ aws s3api put-object --bucket s3-dq-cdlz-btid-input --key btid/DataFeedId=5/2020-01-30/bitd_1000k.snappy.parquet --body bitd_1000k.snappy.parquet
+{
+    "ETag": "\"88456245df88146b8aadf376aa95dab7\""
+}
+hodqadms-MacBook-Pro:test sbommireddy$
+
+aws s3api put-object --bucket s3-dq-cdlz-btid-input --key btid/DataFeedId=5/2020-01-30/bitd_1000k.snappy.parquet --body bitd_1000k.snappy.parquet
