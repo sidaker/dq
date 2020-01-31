@@ -4,4 +4,4 @@ hodqadms-MacBook-Pro:test sbommireddy$ aws s3api put-object --bucket s3-dq-cdlz-
 }
 hodqadms-MacBook-Pro:test sbommireddy$
 
-aws s3api put-object --bucket s3-dq-cdlz-btid-input --key btid/DataFeedId=5/2020-01-30/bitd_1000k.snappy.parquet --body bitd_1000k.snappy.parquet
+aws s3api put-object --bucket s3-dq-cdlz-btid-input --key btid/DataFeedId=5/2020-01-30/bitd_3000k.snappy.parquet --body bitd_3000k.snappy.parquet
