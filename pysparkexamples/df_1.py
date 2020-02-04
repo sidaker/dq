@@ -12,7 +12,7 @@ from pyspark.sql.types import StructField, StructType, LongType, StringType, Flo
 
 spark = SparkSession.builder.appName('mytestSparkapp').getOrCreate()
 
-filename =  "/Users/siddharthabommireddy/Documents/Spark/python-spark-tutorial/in/airports.text"
+filename =  "/Users/sbommireddy/Documents/python-spark-tutorial-master/in/airports.text"
 
 myManualSchema = StructType([
 StructField("AirportId",LongType(),True),
@@ -31,6 +31,8 @@ StructField("timeZoneinOlson",StringType(),False)
 
 airports = spark.read.format("csv").schema(myManualSchema).load(filename)
 # option("inferSchema", "true").option("header","true")
+print(airports.rdd.getNumPartitions)
+# Each partition is a separate CSV file when you write a DataFrame to disk.
 
 # make the dataframe a table or view.
 airports.createOrReplaceTempView("airports_all")

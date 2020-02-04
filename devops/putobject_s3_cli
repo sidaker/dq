@@ -13,3 +13,10 @@ s3://s3-athena-log/tables_drop.csv
 
 
 aws s3api put-object --bucket s3-athena-log --profile notprod  --key tables_drop.csv --body tables_drop.csv --profile notprod
+
+
+aws s3api put-object --bucket s3-dq-test-parquet  --key 20200201/parquest_1.snappy.parquet --body parquest_1.snappy.parquet
+
+aws s3api put-object --bucket s3-dq-test-parquet  --key 20200202/parquest_2.snappy.parquet --body parquest_2.snappy.parquet
+
+aws s3api put-object --bucket s3-dq-test-parquet  --key 20200203/parquest_3.snappy.parquet --body parquest_3.snappy.parquet
