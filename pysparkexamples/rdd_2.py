@@ -40,6 +40,34 @@ map would return range object where as flatMap would flatten the range object.
 
 rdd1.map(lambda x: range(1,x)).collect()
 [range(1, 1), range(1, 2), range(1, 3), range(1, 4)]
+
+spark.sparkContext.parallelize([3,4,5]).reduce(lambda x,y: x+y)
+12
+
+Similar to reduce() is fold(), which also takes a function with the same signature as
+needed for reduce(), but in addition takes a “zero value” to be used for the initial call
+on each partition. The zero value you provide should be the identity element for your
+operation; that is, applying it multiple times with your function should not change
+the value (e.g., 0 for +, 1 for *, or an empty list for concatenation).
+
+spark.sparkContext.parallelize([3,4,5]).reduce(lambda x,y: x+y)
+12
+spark.sparkContext.parallelize([3,4,5]).collect()
+[3, 4, 5]
+spark.sparkContext.parallelize([3,4,5]).count()
+3
+spark.sparkContext.parallelize([3,4,5]).countByValue()
+defaultdict(<class 'int'>, {3: 1, 4: 1, 5: 1})
+
+spark.sparkContext.parallelize([3,4,5]).take(2)
+[3, 4]
+
+spark.sparkContext.parallelize([3,4,5]).top(2)
+[5, 4]
+
+
+
+
 '''
 
 inputRDD = sc.textFile("log.txt")
