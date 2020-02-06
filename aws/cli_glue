@@ -1,0 +1,81 @@
+aws glue get-partitions --region us-somewhere-1 --database-name your_database --table-name the_table
+
+
+aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_scored_prod" \
+ --table-name "internal_storage_by_std_date_local" \
+ --query Partitions[].DatabaseName \
+ --profile prod --max-items 10
+
+
+ aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_scored_prod" \
+  --table-name "internal_storage_by_std_date_local" \
+  --query Partitions[].StorageDescriptor \
+  --profile prod --max-items 10
+
+
+  aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_scored_prod" \
+   --table-name "internal_storage_by_std_date_local" \
+   --query Partitions[].StorageDescriptor.Location \
+   --profile prod --max-items 10
+
+
+   aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_scored_notprod" \
+    --table-name "internal_storage_by_std_date_local" \
+    --query Partitions[].StorageDescriptor.Location \
+    --profile notprod --max-items 10
+
+    aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_scored_notprod" \
+     --table-name "internal_storage_by_std_date_local" \
+     --query Partitions[].StorageDescriptor.Location \
+     --profile notprod --max-items 10
+
+
+     aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_scored_notprod" \
+      --table-name "internal_storage_by_std_date_local" \
+      --query Partitions[].StorageDescriptor.Location \
+      --expression Partitions[].StorageDescriptor.Location="s3://s3-dq-cross-record-scored-notprod/internal_storage_by_std_date_local/std_date_local=2019-03-02/partition_process_timestamp=2019-05-06 19%3A20%3A47.0" \
+      --profile notprod --max-items 10
+
+api_cross_record_scored_prod.internal_storage_by_std_date_local
+
+--query "QueryExecution.Status.State"
+
+
+hodqadms-MacBook-Pro:pysparkexamples sbommireddy$ aws s3 ls s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200205115131/std_date_local=2020-01-09/"partition_process_timestamp=2020-02-05 11%3A51%3A31.0"/ --profile prod
+2020-02-05 11:51:54      54737 20200205_115131_00003_w53pi_23213b03-0d93-416d-9fe5-0867c78aa2d6
+2020-02-05 11:51:56      54741 20200205_115131_00003_w53pi_38f1ea6e-a612-424d-ae1a-59bbd3b3e511
+2020-02-05 11:51:59      54868 20200205_115131_00003_w53pi_3befc57b-1ceb-4f57-be12-32a1a04a183f
+2020-02-05 11:51:57      54723 20200205_115131_00003_w53pi_5b323197-67b3-4b48-acb1-1edd3aa4f211
+2020-02-05 11:51:57      54757 20200205_115131_00003_w53pi_5b993cc6-462c-4a98-9e1d-5f98fce0bb72
+2020-02-05 11:51:57      54848 20200205_115131_00003_w53pi_5cc7a9af-f288-498d-866a-9dd0cc35cb70
+2020-02-05 11:51:57      54763 20200205_115131_00003_w53pi_6ac7416a-2064-48ba-aae1-f36338dc42f0
+2020-02-05 11:51:57      60063 20200205_115131_00003_w53pi_6d196904-62cd-4c6a-b19d-2bc8b2314464
+2020-02-05 11:51:58      60083 20200205_115131_00003_w53pi_a11d15e9-51fc-4568-b87a-4471b203c363
+2020-02-05 11:51:58      54717 20200205_115131_00003_w53pi_ce81e524-6570-472b-a50a-baeae5b8e97b
+hodqadms-MacBook-Pro:pysparkexamples sbommireddy$
+
+
+
+hodqadms-MacBook-Pro:pysparkexamples sbommireddy$   aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_scored_prod" \
+>    --table-name "internal_storage_by_std_date_local" \
+>    --query Partitions[].StorageDescriptor.Location \
+>    --profile prod --max-items 10
+[
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20191025115058/std_date_local=1900-01-01/partition_process_timestamp=2019-10-25 11:50:58.0",
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20190511065941/std_date_local=2018-01-23/partition_process_timestamp=2019-05-11 06:59:41.0",
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20190511065941/std_date_local=2018-07-03/partition_process_timestamp=2019-05-11 06:59:41.0",
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20190511065941/std_date_local=2018-10-18/partition_process_timestamp=2019-05-11 06:59:41.0",
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20191023073806/std_date_local=2019-01-03/partition_process_timestamp=2019-10-23 07:38:06.0",
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200125115057/std_date_local=2019-01-04/partition_process_timestamp=2020-01-25 11:50:57.0",
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200116115100/std_date_local=2019-01-13/partition_process_timestamp=2020-01-16 11:51:00.0",
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200114115057/std_date_local=2019-01-19/partition_process_timestamp=2020-01-14 11:50:57.0",
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200121115058/std_date_local=2019-02-02/partition_process_timestamp=2020-01-21 11:50:58.0",
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200201115057/std_date_local=2019-02-05/partition_process_timestamp=2020-02-01 11:50:57.0"
+]
+hodqadms-MacBook-Pro:pysparkexamples sbommireddy$
+
+
+aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_scored_notprod" \
+ --table-name "internal_storage_by_std_date_local_recent" \
+ --query Partitions[].StorageDescriptor.Location \
+ --profile notprod --max-items 1000

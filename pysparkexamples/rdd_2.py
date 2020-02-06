@@ -13,7 +13,7 @@ rdd2 = spark.sparkContext.parallelize([1, 2, 3, 3])
 rdd2.distinct().collect()
 [1, 2, 3]
 
-rdd1.union(rdd2).collect()
+
 [1, 2, 3, 4, 1, 2, 3, 3]
 rdd1.intersection(rdd2).collect()
 [1, 2, 3]
@@ -65,12 +65,9 @@ spark.sparkContext.parallelize([3,4,5]).take(2)
 spark.sparkContext.parallelize([3,4,5]).top(2)
 [5, 4]
 
-
-
-
 '''
 
-inputRDD = sc.textFile("log.txt")
+inputRDD = sc.textFile("log.txt",8)
 errorsRDD = inputRDD.filter(lambda x: "ERROR" in x)
 warningsRDD = inputRDD.filter(lambda x: "WARN" in x)
 badLinesRDD = errorsRDD.union(warningsRDD)
