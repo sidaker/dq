@@ -36,6 +36,10 @@ All executors when using groupByKey must keep all values for a given key
 in memory before applying the function to them.
 When there is masive key skew, this can cause memory issues as some partitions
 may be overloaded with tons of values for a given key.
+If our data is already keyed in the way we want, groupByKey() will group our
+data using the key in our RDD. On an RDD consisting of
+keys of type K and values of type V,
+we get back an RDD of type [K, Iterable[V]].
 '''
 
 def addFunc(left,right):
