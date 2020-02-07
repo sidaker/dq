@@ -22,32 +22,39 @@ studentMarksDataRDD = sc.parallelize(studentMarksData,4)
 
 studentMarksMean = studentMarksDataRDD.map(lambda x : [x[0],x[1],(x[2]+x[3])/2])
 studentMarksMean.persist()
-print(studentMarksMean.take(2))
-print("Average Marks for each year for two students")
 print("*"*50)
+print("Average Marks for each year for two students")
+print(studentMarksMean.take(2))
 
 #Filtering student average marks in second year.
 secondYearMarks = studentMarksMean.filter(lambda x : "year2" in x)
-secondYearMarks.take(2)
-print("Average Marks for 2nd year for two students")
 print("*"*50)
+print("Average Marks for 2nd year for two students")
+print(secondYearMarks.take(2))
 
 studentMarksMean.unpersist()
 
 #Top 3 students who has scored highest average marks in second year.
 sortedMarksData = secondYearMarks.sortBy(keyfunc = lambda x : -x[2])
-sortedMarksData.collect()
-sortedMarksData.take(3)
+#sortedMarksData.collect()
+print("Using sortBy which is a transformation")
+print("*"*50)
+print(sortedMarksData.take(3))
+
+print("*"*50)
+print("Using take ordered which is an action")
 topThreeStudents = secondYearMarks.takeOrdered(num=3, key = lambda x :-x[2])
 print(topThreeStudents)
-print("*"*50)
+
 
 #Bottom 3 students who has scored lowest average marks in second year.
+print("*"*50)
+print("Bottom 3 students")
 bottomThreeStudents = secondYearMarks.takeOrdered(num=3, key = lambda x :x[2])
 print(bottomThreeStudents)
-print("*"*50)
 
 #Get all the student who has secured more than 80% average marks in second semester of second year.
 moreThan80Marks = secondYearMarks.filter(lambda x : x[2] > 80)
-print(moreThan80Marks.collect())
 print("*"*50)
+print("More than 80 percent in 2nd year")
+print(moreThan80Marks.collect())

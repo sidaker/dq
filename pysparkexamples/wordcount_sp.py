@@ -22,6 +22,6 @@ if __name__ == '__main__':
     alt_counts = text_file.flatMap(lambda line: line.split(" ")).countByValue()
 
     for word, count in  alt_counts.items():
-        print(word, count)          
+        print(word, count)
 
     counts.saveAsTextFile("/Users/sbommireddy/Documents/python/assignments/dq/data/samplefile_output.txt")

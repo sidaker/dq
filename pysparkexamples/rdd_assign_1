@@ -1,0 +1,36 @@
+counting up reviews for each product(use asins as key)
+average review for each product.
+List all products with an average review of 4.5 or above.
+Use map to create a paired RDD and remove unwanted columns.
+
+HINT: we can use reduceByKey() along with mapValues() to compute the per-key
+ average
+
+# Download Source data.
+https://www.kaggle.com/datafiniti/consumer-reviews-of-amazon-products#Datafiniti_Amazon_Consumer_Reviews_of_Amazon_Products.csv
+
+Download Zip file called 1429_1.csv.
+ASIN:An Amazon Standard Identification Number (ASIN) is a 10-character alphanumeric unique identifier assigned by Amazon.com and its partners for product identification within the Amazon organization.
+
+Columns in the file.
+id
+name
+asins
+brand
+categories
+keys
+manufacturer
+reviews.date
+reviews.dateAdded
+reviews.dateSeen
+reviews.didPurchase
+reviews.doRecommend
+reviews.id
+reviews.numHelpful
+reviews.rating
+reviews.sourceURLs
+reviews.text
+reviews.title
+reviews.userCity
+reviews.userProvince
+reviews.username
