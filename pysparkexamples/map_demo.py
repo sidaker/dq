@@ -9,7 +9,6 @@ def sqrt(x):
     return x*x
 
 rdd1 = spark.sparkContext.parallelize(list1,2)
-
 pairrdd1 = spark.sparkContext.parallelize(list2,2)
 
 maprdd1 = rdd1.map(sqrt).collect()
@@ -20,10 +19,10 @@ print(maprdd1)
 
 print("*"*50)
 print("using map on a paired RDD")
-mappairrdd1 = pairrdd1.map(lambda x:(x[0],sqrt(x[1]))).collect()
-print(mappairrdd1)
+mappairresults = pairrdd1.map(lambda x:(x[0],sqrt(x[1]))).collect()
+print(mappairresults)
 
 print("*"*50)
 print("using mapValues on a paired RDD")
-mapvaluespairrdd1 = pairrdd1.mapValues(lambda x:sqrt(x)).collect()
-print(mapvaluespairrdd1)
+mapvaluespairresults = pairrdd1.mapValues(lambda x:sqrt(x)).collect()
+print(mapvaluespairresults)
