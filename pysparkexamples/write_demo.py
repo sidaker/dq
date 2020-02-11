@@ -51,3 +51,7 @@ spark.read.format("orc").load("/Users/sbommireddy/Documents/python/Spark-The-Def
 # COMMAND ----------
 
 csvFile.write.format("orc").mode("overwrite").save("/tmp/my-json-file.orc")
+
+# COMMAND ----------
+csvFile.limit(10).write.mode("overwrite").partitionBy("DEST_COUNTRY_NAME")\
+  .save("/tmp/partitioned-files.parquet")
