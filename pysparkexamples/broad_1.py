@@ -19,8 +19,11 @@ capbroadcast = spark.sparkContext.broadcast(capital_data)
 
 # Create rdd
 userrdd1 = spark.sparkContext.parallelize(user_data,2)
-userrdd2 = userrdd1.map(lambda x: (x[0],capbroadcast.value.get(x[1],"no idea")))
+userrdd2 = userrdd1.map(lambda x: (x[0].upper(),capbroadcast.value.get(x[1],"no idea")))
 
+print("*"*50)
+print("Broadcast Value is")
+print(capbroadcast.value)
 print(type(userrdd2))
 print("With Broadcast")
 print("*"*50)

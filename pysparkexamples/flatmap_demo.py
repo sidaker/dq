@@ -2,11 +2,8 @@ from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.appName('mytestSparkapp').getOrCreate()
 
-list1 = ["Hello line1", "Welcome line2","Awesome Threesome students"]
+list1 = ["Hello line1", "Welcome line2","Awesome Threesome students"] #list of 3 elements
 list2 = [(1,"This is one line"),(2,"Tremendous effort twos"),(3,"Tryst with destiny mydear threes")]
-
-def sqrt(x):
-    return x*x
 
 rdd1 = spark.sparkContext.parallelize(list1,2)
 pairrdd1 = spark.sparkContext.parallelize(list2,2)
@@ -17,7 +14,9 @@ flatmappairresults = pairrdd1.flatMapValues(lambda line: line.split(" ")).collec
 print("*"*50)
 print("using flatMap on a normal RDD")
 print(flatmapresults)
+print(len(flatmapresults))
 
 print("*"*50)
 print("using flatMap on a paired RDD")
 print(flatmappairresults)
+print(len(flatmappairresults))
