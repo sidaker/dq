@@ -63,7 +63,6 @@ innerjoin_df1 = spark.sql("""
 SELECT * FROM person JOIN graduateProgram
   ON person.graduate_program = graduateProgram.id
 """)
-
 innerjoin_df1.show()
 
 print("*"*50)
@@ -72,7 +71,6 @@ outerjoin_df2 = spark.sql("""
 SELECT * FROM person FULL OUTER JOIN graduateProgram
   ON graduate_program = graduateProgram.id
 """)
-
 outerjoin_df2.show()
 
 print("*"*50)
@@ -81,7 +79,6 @@ leftjoin_df3 = spark.sql("""
 SELECT * FROM graduateProgram LEFT OUTER JOIN person
   ON person.graduate_program = graduateProgram.id
 """)
-
 leftjoin_df3.show()
 
 print("*"*50)
@@ -90,33 +87,32 @@ rightouterjoin_df4 = spark.sql("""
 SELECT * FROM person RIGHT OUTER JOIN graduateProgram
   ON person.graduate_program = graduateProgram.id
 """)
-
 rightouterjoin_df4.show()
 
 print("*"*50)
 print("using left semi join")
+# No values included from right dataframe.
 leftsemijoin_df5 = spark.sql("""
 SELECT * FROM gradProgram2 LEFT SEMI JOIN person
   ON gradProgram2.id = person.graduate_program
 """)
-
 leftsemijoin_df5.show()
 
 print("*"*50)
 print("using left ANTI join")
+# Rows only in left table
 leftantijoin_df6 = spark.sql("""
 SELECT * FROM graduateProgram LEFT ANTI JOIN person
   ON graduateProgram.id = person.graduate_program
 """)
-
 leftantijoin_df6.show()
+
 
 print("*"*50)
 print("using natural Join")
 naturaljoin_df7 = spark.sql("""
 SELECT * FROM graduateProgram NATURAL JOIN person
 """)
-
 naturaljoin_df7.show()
 
 print("*"*50)
@@ -125,5 +121,4 @@ crossjoin_df7 = spark.sql("""
 SELECT * FROM graduateProgram CROSS JOIN person
   ON graduateProgram.id = person.graduate_program
 """)
-
 crossjoin_df7.show()
