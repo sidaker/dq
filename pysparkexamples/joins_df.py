@@ -52,6 +52,9 @@ gradProgram2.createOrReplaceTempView("gradProgram2")
 person.withColumnRenamed("id", "personId")\
   .join(sparkStatus, expr("array_contains(spark_status, id)")).show()
 
+# Does not have to be an exact equal condition. Any boolean expression
+# that results in True condition will be fine for Join.
+# 
 
 # COMMAND ----------
 graduateProgram.createOrReplaceTempView("graduateProgram")

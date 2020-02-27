@@ -79,3 +79,11 @@ aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_s
  --table-name "internal_storage_by_std_date_local_recent" \
  --query Partitions[].StorageDescriptor.Location \
  --profile notprod --max-items 1000
+
+
+ aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_scored_notprod" \
+  --table-name "internal_storage_by_std_date_local_recent" \
+  --query Partitions[].StorageDescriptor.Location \
+  --profile notprod --max-items 1000
+
+  aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_notprod --table-name internal_storage_by_std_date_local --expression "std_date_local >='2019-10-31' " --query "Partitions[].StorageDescriptor[].Location"  --profile notprod
