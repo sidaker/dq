@@ -4,9 +4,9 @@ import pandas as pd
 import pyarrow as pa
 
 df = pd.read_csv('/Users/sbommireddy/Downloads/bx_test_data.csv')
-print("---------------")
-print(type(df))
-print("---------------")
+
+# What is Pyarrow Table?
+# What is table variable type here?
 
 table = pa.Table.from_pandas(df, preserve_index=False)
 #write parquet file with SNAPPY Compression.
