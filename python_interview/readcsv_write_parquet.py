@@ -1,11 +1,11 @@
 import pyarrow.parquet as pq
-import numpy as np
 import pandas as pd
 import pyarrow as pa
 
 df = pd.read_csv('/Users/sbommireddy/Downloads/bx_test_data.csv')
 
 # What is Pyarrow Table?
+# classpyarrow.Table is a Pyarrow class.
 # What is table variable type here?
 
 table = pa.Table.from_pandas(df, preserve_index=False)
