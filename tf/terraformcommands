@@ -1,0 +1,17 @@
+terraform output
+terraform output public_ip
+terraform init
+export TF_VAR_server_port=8080
+terraform plan
+terraform plan -var "server_port=8080"
+terraform apply
+terraform graph
+terraform workspace 
+terraform workspace show
+terraform workspace new example1
+terraform workspace list
+terraform workspace select example1
+
+
+
+Variables, references, and dependencies allow you to remove duplication from your code and make it highly configurable.
