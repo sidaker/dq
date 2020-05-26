@@ -1,0 +1,25 @@
+Steps used to Create Pandas Zip file
+
+python -m venv .venv
+source .venv/bin/activate
+mkdir setup
+cd setup
+pip install -r ../requirements.txt --no-deps -t .
+zip -r ../dq-Python375-Pandas1032.zip ./*
+
+
+
+zip -r dq-Python375-Pandas1034.zip python
+
+
+pillow.zip
+│ python/PIL
+└ python/Pillow-5.3.0.dist-info
+
+START RequestId: bd3c706c-e5cf-4399-8604-50e4d2229d80 Version: $LATEST
+[ERROR] Runtime.ImportModuleError: Unable to import module 'lambda_function': C extension: No module named 'pandas._libs.tslibs.conversion' not built. If you want to import pandas from the source directory, you may need to run 'python setup.py build_ext --inplace --force' to build the C extensions first.
+END RequestId: bd3c706c-e5cf-4399-8604-50e4d2229d80
+REPORT RequestId: bd3c706c-e5cf-4399-8604-50e4d2229d80	Duration: 1.31 ms	Billed Duration: 100 ms	Memory Size: 128 MB	Max Memory Used: 82 MB	Init Duration: 601.77 ms
+
+
+https://www.serverless.com/blog/serverless-python-packaging/

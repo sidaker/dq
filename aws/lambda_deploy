@@ -1,0 +1,28 @@
+hodqadms-MacBook-Pro:code sbommireddy$ zip function.zip lambda_function.py
+  adding: lambda_function.py (deflated 77%)
+hodqadms-MacBook-Pro:code sbommireddy$ 
+
+
+
+
+
+~/my-function$ zip function.zip lambda_function.py
+  adding: lambda_function.py (deflated 17%)
+
+  ~/my-function$ aws lambda update-function-code --function-name my-function --zip-file fileb://function.zip
+  {
+      "FunctionName": "my-function",
+      "FunctionArn": "arn:aws:lambda:us-west-2:123456789012:function:my-function",
+      "Runtime": "python3.8",
+      "Role": "arn:aws:iam::123456789012:role/lambda-role",
+      "Handler": "lambda_function.lambda_handler",
+      "CodeSize": 815,
+      "CodeSha256": "GcZ05oeHoJi61VpQj7vCLPs8DwCXmX5sE/fE2IHsizc=",
+      "Version": "$LATEST",
+      "RevisionId": "d1e983e3-ca8e-434b-8dc1-7add83d72ebd",
+      ...
+  }
+
+zip function.zip lambda_function.py
+
+aws lambda update-function-code --function-name my-function --zip-file fileb://function.zip

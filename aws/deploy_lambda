@@ -1,0 +1,15 @@
+hodqadms-MacBook-Pro:code sbommireddy$ ls -lrt
+total 56
+drwxr-xr-x  5 sbommireddy  staff    160 12 Feb 15:40 transform_api_accuracy_storage
+-rw-r--r--@ 1 sbommireddy  staff  28072 13 Feb 17:34 lambda_function.py
+hodqadms-MacBook-Pro:code sbommireddy$
+hodqadms-MacBook-Pro:code sbommireddy$ zip -r add.zip .
+  adding: lambda_function.py (deflated 77%)
+  adding: transform_api_accuracy_storage/ (stored 0%)
+  adding: transform_api_accuracy_storage/transform_config (stored 0%)
+  adding: transform_api_accuracy_storage/transform_logic (deflated 42%)
+  adding: transform_api_accuracy_storage/sql/ (stored 0%)
+  adding: transform_api_accuracy_storage/sql/create_table_working_api_accuracy.sql (deflated 57%)
+  adding: transform_api_accuracy_storage/sql/add_partition_api_accuracy.sql (deflated 15%)
+  adding: transform_api_accuracy_storage/sql/drop_table_working_api_accuracy.sql (stored 0%)
+hodqadms-MacBook-Pro:code sbommireddy$

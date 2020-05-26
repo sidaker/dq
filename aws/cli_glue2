@@ -1,0 +1,17 @@
+aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+ --table-name internal_storage_by_std_date_local \
+ --expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+ --query "Partitions[].StorageDescriptor[].Location" --profile prod --max-items 100
+
+
+ hodqadms-MacBook-Pro:code sbommireddy$ aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+>  --table-name internal_storage_by_std_date_local \
+>  --expression "std_date_local='2019-12-30' AND partition_process_timestamp='2020-01-19 11:50:57' " \
+>  --query "Partitions[].StorageDescriptor[].Location" --profile prod --max-items 100
+[
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200119115057/std_date_local=2019-12-30/partition_process_timestamp=2020-01-19 11:50:57.0"
+]
+hodqadms-MacBook-Pro:code sbommireddy$
+
+
+aws glue batch-delete-partition --database-name=api_cross_record_scored_prod --table-name=internal_storage_by_std_date_local -- region-name = eu-west-2 --partitions-to-delete="std_date_local=2019-12-24" ,"partition_process_timestamp=2019-12-24 11%253A50%253A57"

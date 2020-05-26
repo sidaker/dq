@@ -5,3 +5,12 @@ hodqadms-MacBook-Pro:test sbommireddy$ aws s3api put-object --bucket s3-dq-cdlz-
 hodqadms-MacBook-Pro:test sbommireddy$
 
 aws s3api put-object --bucket s3-dq-cdlz-btid-input --key btid/DataFeedId=5/2020-01-30/bitd_3000k.snappy.parquet --body bitd_3000k.snappy.parquet
+
+
+
+
+api_record_level_accuracy_scored/completed-athena/2020-03-21/165513
+
+aws s3api put-object --bucket s3-dq-accuracy-score-test --key log/2020-03-22/115713/trigger.csv --body trigger.csv
+
+aws s3api put-object --bucket s3-dq-accuracy-score-test --key 2020-03-22/115713/20200321_000916_00003_ihyat_06fdeab2-a61c-4b86-9511-f530aaaba9be.dms --body 20200321_000916_00003_ihyat_06fdeab2-a61c-4b86-9511-f530aaaba9be.dms

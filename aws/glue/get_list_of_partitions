@@ -18,6 +18,11 @@ aws glue get-partitions --region "eu-west-2" --database-name "api_cross_record_s
  --expression "std_date_local='2020-04-02' AND partition_process_timestamp='2020-04-16 13:52:01.0' " \
  --query "Partitions[].StorageDescriptor[].Location" --profile prod --max-items 10
 
+ aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+ --table-name internal_storage_by_std_date_local_recent \
+ --expression "std_date_local='2020-04-18'" \
+ --query "Partitions[].StorageDescriptor[].Location" --profile prod --max-items 10
+
  ==================================================
 
 
@@ -69,3 +74,13 @@ hodqadms-MacBook-Pro:~ sbommireddy$  aws glue get-partitions --region eu-west-2 
     "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200416135201/std_date_local=2020-04-02/partition_process_timestamp=2020-04-16 13%3A52%3A01.0"
 ]
 hodqadms-MacBook-Pro:~ sbommireddy$
+
+
+hodqadms-MacBook-Pro:aws sbommireddy$ aws glue get-partitions --region eu-west-2 --database-name api_cross_record_scored_prod \
+>  --table-name internal_storage_by_std_date_local_recent \
+>  --expression "std_date_local='2020-04-18'" \
+>  --query "Partitions[].StorageDescriptor[].Location" --profile prod --max-items 10
+[
+    "s3://s3-dq-cross-record-scored-prod/internal_storage_by_std_date_local/20200419145025/std_date_local=2020-04-18/partition_process_timestamp=2020-04-19 14%3A50%3A25.0"
+]
+hodqadms-MacBook-Pro:aws sbommireddy$

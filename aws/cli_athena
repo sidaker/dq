@@ -309,4 +309,23 @@ aws athena batch-get-query-execution --query-execution-ids "f256b1cd-2117-4420-8
     "SUCCEEDED",
     "SUCCEEDED"
 ]
-hodqadms-MacBook-Pro:app2 sbommireddy$ 
+hodqadms-MacBook-Pro:app2 sbommireddy$
+
+hodqadms-MacBook-Pro:aws sbommireddy$ aws athena list-query-executions --profile prod --max-items 10
+{
+    "QueryExecutionIds": [
+        "7bc73336-f864-4356-84e8-e3a5bdeab693",
+        "bc71a02f-3e7f-4adb-8b21-6a44ada8f58c",
+        "f5cf7516-3c39-4816-adf0-a0e1159f3687",
+        "4d0e9355-c88a-44cf-8bf0-eac49c754e38",
+        "4bd0cc74-98e9-4f1e-a650-5574b9eab4ac",
+        "edbd6aa3-f085-4996-b3e2-45658b0119ea",
+        "81ed707e-9166-46b8-8e6d-640c70829257",
+        "b4d5b54f-c1aa-4393-ba74-e3e8b40af5da",
+        "6ca95f64-f6fb-490b-9009-95f660094a69",
+        "1184c477-d04e-4937-a499-f06208540f5b"
+    ],
+    "NextToken": "eyJOZXh0VG9rZW4iOiBudWxsLCAiYm90b190cnVuY2F0ZV9hbW91bnQiOiAxMH0="
+}
+
+aws athena batch-get-query-execution --query-execution-ids "81ed707e-9166-46b8-8e6d-640c70829257" "b4d5b54f-c1aa-4393-ba74-e3e8b40af5da" --profile prod --query "QueryExecutions[?StatementType == 'DML' ].Status.State" ["SUCCEEDED"]

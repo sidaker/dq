@@ -1,0 +1,8 @@
+aws sns publish  --topic-arn arn:aws:sns:eu-west-2:093401982388:BTID_TEST_TOPIC --message 's3://s3-dq-cdlz-btid-input/btid/DataFeedId=5/2020-01-30'
+
+
+hodqadms-MacBook-Pro:.aws sbommireddy$ aws sns publish  --topic-arn arn:aws:sns:eu-west-2:093401982388:BTID_TEST_TOPIC --message 's3://s3-dq-cdlz-btid-input/btid/DataFeedId=5/2020-01-30' --region 'eu-west-2'
+{
+    "MessageId": "a4123f96-a67c-5434-a6cc-69536c54fef2"
+}
+hodqadms-MacBook-Pro:.aws sbommireddy$
