@@ -11,6 +11,13 @@ terraform init
 terraform plan
 terraform apply
 terraform destroy
+terraform graph
+
+using a desktop app such as Graphviz or webapp like GraphvizOnline
+
+.terraform folder, which Terraform uses as a temporary scratch directory
+*.tfstate files, which Terraform uses to store state
+
 */
 
 provider "aws" {

@@ -1,0 +1,110 @@
+commit 042c118f93b5c4a29db33e56ff2473d07bf17c44
+Author: BrewTestBot <homebrew-test-bot@lists.sfconservancy.org>
+Date:   Fri May 17 07:29:26 2019 +0000
+
+    terraform: update 0.11.14 bottle.
+
+commit a46fb31427f9448da519461f763e0554d9549c74
+Author: Diogo Azevedo <diogoazevedos@gmail.com>
+Date:   Thu May 16 20:19:14 2019 -0300
+
+    terraform 0.11.14
+
+    Closes #39958.
+
+    Signed-off-by: FX Coudert <fxcoudert@gmail.com>
+
+
+git log master -- Formula/terraform.rb
+git checkout 042c118f93b5c4a29db33e56ff2473d07bf17c44
+cd Formula
+brew unpin terraform
+brew unlink terraform
+brew install terraform.rb
+
+brew switch terraform 0.11.14
+brew switch terraform 0.12.21
+
+
+hodqadms-MacBook-Pro:homebrew-core sbommireddy$ terraform -v
+Terraform v0.12.21
+hodqadms-MacBook-Pro:homebrew-core sbommireddy$
+
+============================================================
+
+hodqadms-MacBook-Pro:homebrew-core sbommireddy$ terraform -v
+Terraform v0.12.21
+hodqadms-MacBook-Pro:homebrew-core sbommireddy$ pwd
+/Users/sbommireddy/Documents/homebrew/homebrew-core
+hodqadms-MacBook-Pro:homebrew-core sbommireddy$
+hodqadms-MacBook-Pro:homebrew-core sbommireddy$ git checkout 042c118f93b5c4a29db33e56ff2473d07bf17c44
+Checking out files: 100% (4806/4806), done.
+Note: checking out '042c118f93b5c4a29db33e56ff2473d07bf17c44'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 042c118f93 terraform: update 0.11.14 bottle.
+hodqadms-MacBook-Pro:homebrew-core sbommireddy$ cd Formula
+hodqadms-MacBook-Pro:Formula sbommireddy$ brew unpin terraform
+Warning: terraform not pinned
+hodqadms-MacBook-Pro:Formula sbommireddy$ brew unlink terraform
+Unlinking /usr/local/Cellar/terraform/0.12.21... 1 symlinks removed
+hodqadms-MacBook-Pro:Formula sbommireddy$
+hodqadms-MacBook-Pro:Formula sbommireddy$
+hodqadms-MacBook-Pro:Formula sbommireddy$
+
+
+
+
+hodqadms-MacBook-Pro:Formula sbommireddy$ brew install terraform.rb
+Updating Homebrew...
+==> Auto-updated Homebrew!
+Updated 3 taps (homebrew/cask-versions, homebrew/core and homebrew/cask).
+==> New Formulae
+ruby@2.6
+==> Updated Formulae
+ruby@2.4                                                                                                                                          ruby@2.5
+
+Warning: terraform 0.12.21 is available and more recent than version 0.11.14.
+==> Downloading https://homebrew.bintray.com/bottles/terraform-0.11.14.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/17/1735a0662db2c104e49a5d9c24fdca6d6d0bdd4d6a121edf690be7c549b82ffc?__gda__=exp=1582820054~hmac=d6546032162ae47eab66dfc74c69ae6d0b71e3eba44454fb29f536ef1a47379c&response-content-disposition=attachment%3Bfilename%3D%22terraform-0.11.14.mojave.b
+######################################################################## 100.0%
+==> Pouring terraform-0.11.14.mojave.bottle.tar.gz
+🍺  /usr/local/Cellar/terraform/0.11.14: 6 files, 42.4MB
+Removing: /Users/sbommireddy/Library/Caches/Homebrew/terraform--0.11.14.mojave.bottle.tar.gz... (12.7MB)
+hodqadms-MacBook-Pro:Formula sbommireddy$
+
+
+Terraform v0.11.14
+
+Your version of Terraform is out of date! The latest version
+is 0.12.21. You can update by downloading from www.terraform.io/downloads.html
+hodqadms-MacBook-Pro:Formula sbommireddy$
+hodqadms-MacBook-Pro:Formula sbommireddy$
+hodqadms-MacBook-Pro:Formula sbommireddy$ brew switch terraform 0.12.21
+Cleaning /usr/local/Cellar/terraform/0.12.21
+Cleaning /usr/local/Cellar/terraform/0.11.14
+1 links created for /usr/local/Cellar/terraform/0.12.21
+hodqadms-MacBook-Pro:Formula sbommireddy$ terraform -v
+Terraform v0.12.21
+hodqadms-MacBook-Pro:Formula sbommireddy$
+hodqadms-MacBook-Pro:Formula sbommireddy$
+hodqadms-MacBook-Pro:Formula sbommireddy$ brew switch terraform 0.11.14
+Cleaning /usr/local/Cellar/terraform/0.12.21
+Cleaning /usr/local/Cellar/terraform/0.11.14
+1 links created for /usr/local/Cellar/terraform/0.11.14
+hodqadms-MacBook-Pro:Formula sbommireddy$
+hodqadms-MacBook-Pro:Formula sbommireddy$
+hodqadms-MacBook-Pro:Formula sbommireddy$ terraform -v
+Terraform v0.11.14
+
+Your version of Terraform is out of date! The latest version
+is 0.12.21. You can update by downloading from www.terraform.io/downloads.html
+hodqadms-MacBook-Pro:Formula sbommireddy$

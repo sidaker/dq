@@ -55,3 +55,153 @@ drwxr-xr-x   15 sbommireddy  staff   480  6 Jun 14:55 ..
 (base) hodqadms-MacBook-Pro:dq sbommireddy$ git cat-file 557db03de997c86a4a028e1ebd3a1ceb225be238 -p
 Hello World
 (base) hodqadms-MacBook-Pro:dq sbommireddy$
+
+git is a persistent map.
+
+(base) hodqadms-MacBook-Pro:dq sbommireddy$ git log
+commit f2218f06fb791e7e7eed1f1ff9e83bfaaf786a61 (HEAD -> master, origin/master, origin/HEAD)
+Author: Siddartha <siddartha.bommireddy@digital.homeoffice.gov.uk>
+Date:   Sat Jun 6 15:12:30 2020 +0100
+
+    added gitnotes
+
+(base) hodqadms-MacBook-Pro:dq sbommireddy$ git cat-file 67716f0ecdbc679042cc10463f659662ac2a6be1 -p
+    tree b481ff179ff5f4f52eec5abe756b053d82de1bd8
+    parent 0914c16c762276a0629b611d19f8578b4f7aec03
+    author Siddartha <siddartha.bommireddy@digital.homeoffice.gov.uk> 1584402892 +0000
+    committer Siddartha <siddartha.bommireddy@digital.homeoffice.gov.uk> 1584402892 +0000
+
+    Added interview questions
+    (base) hodqadms-MacBook-Pro:dq sbommireddy$
+
+-----------
+
+let us see what the sha1 of tree contains
+    (base) hodqadms-MacBook-Pro:dq sbommireddy$ git cat-file b481ff179ff5f4f52eec5abe756b053d82de1bd8 -p
+    100644 blob d6140a67727d415c00703faaed9ea570cdac06d5	.gitignore
+    100644 blob d300489442d291542f09858d5298470b326985cc	README.md
+    040000 tree 802b36ed8ac9cc3cacf6506449e0dcc575901dab	aws
+    040000 tree 2422c60d9a4bdd5527d8ad4e082563dc4cb75055	boto3
+    100644 blob 4360a751a22f4a19bb34016a0f6195bd51c064d3	casenotes_batchglueapi
+    040000 tree d6a8e65e389f7f746108935fb86c8aaa88260f70	dataformats
+    040000 tree d52a31d4362ffe5d69ce718e4395056bf266478b	devops
+    040000 tree c685e0ecc4163c2b9f8ac2eb203dd196f1ca6cbc	flaskapps
+    040000 tree 8877d7dfd74e1b92b369749bb2d3d7f1ac4bd4ad	pyspark
+    040000 tree 017f15d068db51810a5b4093926e1a3d18fbf646	pysparkexamples
+    040000 tree f1093c221f7c590ab30649d03b88def7e290d0a2	python
+    040000 tree 802b65a79315a6916f74d1f17bafd84ee1f7b7b7	python_interview
+    100644 blob 4845057443677b4abbe00d0609019acdfe494183	rdd_11.py
+    040000 tree 2da51c83318221ffba83ce83598e8c4ce983a676	sql
+    040000 tree c8b3a8828bdea926a21d37b7ac2a9fae277eebfc	src
+    040000 tree 9cc7b57b2e461ba986bc447a8de080f40abe42cd	test
+    040000 tree efbc62683c4c90c2fb46330de30ae9e67b4aac05	tf
+    (base) hodqadms-MacBook-Pro:dq sbommireddy$
+
+a tree contains a list of shones
+
+a blob is a content of a file and not just the file itself.
+
+
+(base) hodqadms-MacBook-Pro:dq sbommireddy$ git count-objects
+857 objects, 3900 kilobytes
+(base) hodqadms-MacBook-Pro:dq sbommireddy$
+
+
+tag is like a label for the current state.
+
+regular tags
+annotated tags.
+
+
+git tag -a myanntag -m "first tag"
+
+
+base) hodqadms-MacBook-Pro:dq sbommireddy$ git tag -a myanntag -m "first tag"
+(base) hodqadms-MacBook-Pro:dq sbommireddy$ git tag
+myanntag
+(base) hodqadms-MacBook-Pro:dq sbommireddy$
+
+
+Git database has the below objects
+Blobs
+Trees
+Commits
+Annotated Tags
+
+Git object model
+
+Git is like high level file system on top of your filesystem.
+It tracks content.
+
+==============
+
+base) hodqadms-MacBook-Pro:dq sbommireddy$ git tag -a myanntag -m "first tag"
+(base) hodqadms-MacBook-Pro:dq sbommireddy$ git tag
+myanntag
+(base) hodqadms-MacBook-Pro:dq sbommireddy$
+
+
+(base) hodqadms-MacBook-Pro:dq sbommireddy$ git branch
+* master
+(base) hodqadms-MacBook-Pro:dq sbommireddy$
+
+git puts branches in a directory called refs.
+Inside refs you have heads and tags.
+
+(base) hodqadms-MacBook-Pro:refs sbommireddy$ ls -lrt
+total 0
+drwxr-xr-x  3 sbommireddy  staff  96 11 Dec 17:07 remotes
+drwxr-xr-x  3 sbommireddy  staff  96  6 Jun 15:12 heads
+drwxr-xr-x  3 sbommireddy  staff  96  6 Jun 15:37 tags
+(base) hodqadms-MacBook-Pro:refs sbommireddy$
+
+
+A branch is nothing but a reference to a commit.
+
+Let us see what the master branch points to.
+It points to f2218f06fb791e7e7eed1f1ff9e83bfaaf786a61 which is the latest commit.
+
+(base) hodqadms-MacBook-Pro:heads sbommireddy$ cat master
+f2218f06fb791e7e7eed1f1ff9e83bfaaf786a61
+(base) hodqadms-MacBook-Pro:heads sbommireddy$
+
+(base) hodqadms-MacBook-Pro:heads sbommireddy$ git log | head
+commit f2218f06fb791e7e7eed1f1ff9e83bfaaf786a61
+Author: Siddartha <siddartha.bommireddy@digital.homeoffice.gov.uk>
+Date:   Sat Jun 6 15:12:30 2020 +0100
+
+    added gitnotes
+
+commit 6edd80ec587df04f6bda8cc76d8b45d69df3ef20
+Author: Siddartha <siddartha.bommireddy@digital.homeoffice.gov.uk>
+Date:   Wed May 27 17:44:44 2020 +0100
+
+(base) hodqadms-MacBook-Pro:heads sbommireddy$
+
+
+git branch testbranch
+
+(base) hodqadms-MacBook-Pro:dq sbommireddy$ cat .git/HEAD
+ref: refs/heads/master
+(base) hodqadms-MacBook-Pro:dq sbommireddy$
+
+HEAD is currently pointing to master
+
+git checkout branch
+
+checkout moves HEAD and updates working area.
+
+A commit usually has one parent but a merge has two.
+
+git merge branch
+
+ A merge has two parents.
+ Typically it will be the master's commit and the branch's commit.
+ Post merge the HEAD and master would point to the new commit.
+
+ How do you revert changes?
+ reset HEAD???
+
+ By pointing HEAD and master to the previous commit the master was pointing to.
+
+ 

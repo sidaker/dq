@@ -1,0 +1,23 @@
+Each entity or row here is known as a sample (or data point) in machine learning,
+ while the columns—the properties that describe these entities—are called features.
+
+ Building a good representation of your data, which is called feature extraction or feature engineering.
+
+Quite possibly the most important part in the machine learning process is understanding the data you are working with
+
+Quite possibly the most important part in the machine learning process is understanding
+ the data you are working with and how it relates to the task you want to solve. and how it relates to the task you want to solve.
+
+pip install numpy scipy matplotlib ipython scikit-learn pandas pillow
+
+NumPy
+NumPy is one of the fundamental packages for scientific computing in Python.
+It contains functionality for multidimensional arrays, high-level mathematical functions
+such as linear algebra operations and the Fourier transform, and pseudorandom number
+generators.
+
+SciPy is a collection of functions for scientific computing in Python.
+It provides, among other functionality, advanced linear algebra routines,
+mathematical function optimization, signal processing, special mathematical functions,
+ and statistical distributions. scikit-learn draws from SciPy’s collection of functions
+ for implementing its algorithms
