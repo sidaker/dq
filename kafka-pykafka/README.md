@@ -30,3 +30,17 @@ Topic: raw_recipes	PartitionCount: 2	ReplicationFactor: 1	Configs: segment.bytes
 	Topic: raw_recipes	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
 	Topic: raw_recipes	Partition: 1	Leader: 0	Replicas: 0	Isr: 0
 (base) hodqadms-MacBook-Pro:~ sbommireddy$
+
+beautifulsoup4
+requests
+lxml
+kafka-python
+
+Replication factor cannot be more than the number of brokers.
+
+kafka-topics --list --zookeeper localhost:2181
+kafka-topics --list --zookeeper localhost:2181
+kafka-topics --delete --zookeeper localhost:2181 --topic testtopic
+
+kafka-consumer-groups –bootstrap-server localhost:9092 --list
+kafka-consumer-groups –bootstrap-server localhost:9092 --describe --group name-ofmy-group
