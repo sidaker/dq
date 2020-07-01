@@ -1,0 +1,33 @@
+Code Commit.
+
+IDE->InbtelliJ-> AWS Code 9
+Git->AWS Code Commit
+Jenkins/CI/CD->AWS Code Build and AWS Deploy.
+AWS Code Pipeline.
+AWS Code Star.
+
+
+Code Commit-> Integrates with IAM and other AWS services.
+
+Create new repo.
+
+What type of AWS Code Commit access we got?
+
+1. Push code to branch.
+
+2.
+Create a Pull request from Console.
+Choose Destination(master) and source branch.
+
+3. Check for Approval rules.
+
+4. Changes need to be reviewed before they are merged.
+
+5. Click Merge.
+Choose one of the 3 strategies.
+1. Fast forward merge.
+2. Squash and merge.
+3. 3 way merge.
+
+
+6.
