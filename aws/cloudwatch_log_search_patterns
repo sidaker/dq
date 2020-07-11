@@ -1,0 +1,50 @@
+ERROR WARN message
+ERROR message
+WARN message
+"Event"
+
+# You can match terms in text-based filters using OR pattern matching.
+# Use a question mark for OR, such as ?term.
+
+?ERROR ?WARN
+?GENERIC_INTERNAL_ERROR
+?HIVE_PATH_ALREADY_EXISTS
+?FAILED
+
+
+[w1!=ERROR&&w1!=WARN, w2] matches lines containing both ERROR and WARN (pattern 1)
+With space-delimited filters, w1 means the first word in the log event, w2 means the second word, and so on.
+
+
+[w1=WARNING, w2]
+
+===========
+
+From CLI search log entries for a log group in a time period.
+aws logs filter-log-events --log-group-name my-group [--log-stream-names LIST_OF_STREAMS_TO_SEARCH] [--start-time 1482197400000] [--end-time 1482217558365] [--filter-pattern VALID_METRIC_FILTER_PATTERN]
+
+aws logs filter-log-events --log-group-name /aws/lambda/bitd-input-notprod-lambda --start-time 1590710400 --end-time 1590796800 --filter-pattern Records --profile notprod
+aws logs filter-log-events --log-group-name "/aws/lambda/bitd-input-notprod-lambda" --profile notprod --start-time 1590710400 --filter-pattern="done"
+aws logs filter-log-events --log-group-name "/aws/lambda/bitd-input-notprod-lambda" --profile notprod --start-time 1590710400 --filter-pattern="Records" --query events[].message
+
+
+From CLI list the latest 15 streams for a log group.
+Search those log streams for a pattern.
+
+aws logs describe-log-groups --region eu-west-2
+aws logs describe-log-groups --region eu-west-2 --log-group-name-prefix /aws/lambda/int
+aws logs describe-log-groups --region eu-west-2 --log-group-name-prefix /aws/lambda/bitd-input- --profile notprod
+
+aws logs filter-log-events --log-group-name my-group [--log-stream-names LIST_OF_STREAMS_TO_SEARCH] --filter-pattern VALID_METRIC_FILTER_PATTERN]
+aws logs filter-log-events --log-group-name "/aws/lambda/bitd-input-notprod-lambda" --profile notprod
+aws logs filter-log-events --log-group-name "/aws/lambda/bitd-input-notprod-lambda" --profile notprod --start-time 1590710400
+aws logs filter-log-events --log-group-name "/aws/lambda/bitd-input-notprod-lambda" --profile notprod --start-time 1590710400 --filter-pattern="done"
+
+Exclude messages
+Sleeping for 1 second
+
+"INFO" - "Sleeping"
+"" - "Sleeping"
+
+
+You can match terms using OR pattern matching in JSON filters.
