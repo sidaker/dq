@@ -26,7 +26,7 @@ def build_new_fpl_json(input_json):
         else:
             for sub_key in input_json[key]:
                 new_json[sub_key] = input_json[key][sub_key]
-            new_json['MessageType'] = key    
+            new_json['MessageType'] = key
     new_json['messageReceievedTime'] = input_json['X400Message']['envelope']['messageDeliveryTime']
     # new code
 
@@ -81,9 +81,6 @@ def process_fpl(file_name):
 
     for dict in new_json.items():
         print(dict)
-    partition_str = extract_message_received_time(new_json)
-    print(partition_str)
-    print("-----------------")
 
     with open(f'/{BASE_PATH}/parsed_{file_name}', 'w') as new_f:
         new_f.write(json.dumps(new_json))
@@ -99,5 +96,6 @@ def process_fpl(file_name):
     upload_file_s3(f'/tmp/parsed_{file_name}', partition_str)
     return {'partition': partition_str, 'file_name': f'parsed_{file_name}'}
 
-file_name = 'input_j.json'
-processed_fpl = process_fpl(file_name)
+if __name__ == '__main__':
+    file_name = 'input_j.json'
+    processed_fpl = process_fpl(file_name)

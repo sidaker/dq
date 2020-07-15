@@ -205,7 +205,7 @@ if __name__ == '__main__':
 
     with open(logfile, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["LogStreamName", "timestamp","MessageType","Timestamp","EventSource", "SNS"])
+        writer.writerow(["LogStreamName", "timestamp","MessageType","Timestamp","EventSource", "TopicARN","Message","dataFeedTaskId","dataFeedId","CDLZ_Status"])
         for event in get_error_log_events(env,log_group,liststream,limit):
             #print(event)
             print("Stream:",event['logStreamName'])
@@ -245,8 +245,18 @@ if __name__ == '__main__':
                 print("Message:",sns['Message'])
                 TopicArn=sns['TopicArn']
                 Messagesns=sns['Message']
-
-
+                try:
+                    msg2 = Messagesns.split("\n")[0]
+                    dataFeedTaskId = Messagesns.split("\n")[1].split(":")[1]
+                    dataFeedId = Messagesns.split("\n")[2].split(":")[1]
+                    statuscdlz = Messagesns.split("\n")[3].split(":")[1]
+                    print("dataFeedId......:",dataFeedId)
+                    print("CDLZ status.....:",statuscdlz)
+                except:
+                    msg2 = ''
+                    dataFeedTaskId = ''
+                    dataFeedId = ''
+                    statuscdlz = ''
 
 
             except IndexError:
@@ -254,7 +264,8 @@ if __name__ == '__main__':
 
             print('**************************')
 
-            writer.writerow([event['logStreamName'], event['timestamp'], event['message'].split("	")[0],tsp, esr, sns])
+            #writer.writerow([event['logStreamName'], event['timestamp'], event['message'].split("	")[0],tsp, esr, sns])
+            writer.writerow([event['logStreamName'], event['timestamp'], event['message'].split("	")[0],tsp, esr, TopicArn,msg2,dataFeedTaskId,dataFeedId,statuscdlz])
 
 
         #Parse each message and extract for Athena failures, Query Execution id, Status and StateChangeReason
