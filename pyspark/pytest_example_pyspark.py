@@ -3,11 +3,13 @@ from package.application import filter_spark_data_frame
 import pandas as pd
 # import pandas as you may want to convert your spark dataframes to pandas dataframe to compare.
 
+def get_sorted_data_frame(pandas_data_frame, columns_list):
+    return pandas_data_frame.sort_values(columns_list).reset_index(drop=True)
 
 def test_filter_spark_data_frame(sql_context):
     # Create Input Data frame
     input = sql_context.createDataFrame(
-        [('charly', 16),
+        [('Likhitha', 16),
          ('fabien', 15),
          ('sam', 21),
          ('sam', 25),
@@ -26,26 +28,25 @@ def test_filter_spark_data_frame(sql_context):
 
     '''
     while comparing two data frames the order of rows and columns is important for Pandas.
-    Pandas provides such function like pandas.testing.assert_frame_equal with the parameter check_like=True to ignore the
-     order of columns. However, it does not have a built-in functionality to ignore the order of rows.
-     Therefore, to make the two data frames comparable we will use the created method get_sorted_data_frame.
+    Pandas provides such function like pandas.testing.assert_frame_equal with the parameter
+    check_like=True to ignore the
+    order of columns. However, it does not have a built-in functionality to ignore the
+    order of rows.
+    Therefore, to make the two data frames comparable we will use the created method
+     get_sorted_data_frame.
 
     '''
 
     # convert the spark dataframe to Pandas dataframe and Sort.
     # Pass the arguments Pandas dataframe and list of columns to the function
-    real_output = get_sorted_data_frame(
+    real_output_pandas = get_sorted_data_frame(
         real_output.toPandas(),
         ['age', 'name'],
     )
-    expected_output = get_sorted_data_frame(
+    expected_output_pandas = get_sorted_data_frame(
         expected_output.toPandas(),
         ['age', 'name'],
     )
 
     # Use Pandas assertion rule.
-    pd.testing.assert_frame_equal(expected_output, real_output, check_like=True)
-
-
-def get_sorted_data_frame(data_frame, columns_list):
-    return data_frame.sort_values(columns_list).reset_index(drop=True)
+    pd.testing.assert_frame_equal(expected_output_pandas, real_output_pandas, check_like=True)
