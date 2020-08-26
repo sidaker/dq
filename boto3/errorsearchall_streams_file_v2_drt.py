@@ -1,10 +1,15 @@
 """Print log event messages from a CloudWatch log group.
 
-Usage: errorsearchall_streams_file.py <LOG_GROUP_NAME> [--start=<START>] [--end=<END>] [--stream_prefix=<STREAM_PREFIX>]
-       errorsearchall_streams_file.py -h --help
+Usage: errorsearchall_streams_file_v2.py <LOG_GROUP_NAME> [--start=<START>] [--end=<END>] [--stream_prefix=<STREAM_PREFIX>]
+       errorsearchall_streams_file_v2.py -h --help
 
-       python errorsearchall_streams_file.py "/aws/lambda/api-record-level-score-test-lambda-athena"
+python errorsearchall_streams_file_v2_drt.py "/aws/lambda/drt-prod-json-lambda"
 
+python errorsearchall_streams_file_v2_drt.py \
+"/aws/lambda/drt-prod-json-lambda" \
+--stream_prefix="2020/08/19/"
+
+       sed -n -e 's/^.*FAILED//p' analyse_fail > analyse_fail4
 
 Known Issue:
  at 'logStreamNames' failed to satisfy constraint: Member must have length less than or equal to 100
@@ -27,6 +32,7 @@ import csv
 import os
 import datetime
 import re
+import ast
 
 # python errorsearch_streams.py "/aws/lambda/api-record-level-score-notprod-lambda-athena"
 # Always keep the doc string to the start of the file (before the import line)
@@ -123,7 +129,7 @@ def get_error_log_events(env,log_group,stream_list,limit=50):
     kwargs = {
         'logGroupName': log_group,
         'logStreamNames': stream_list,
-        'filterPattern': "WARNING ? ERROR",
+        'filterPattern': "Total events",
         'limit': limit,
                 }
 
@@ -216,8 +222,8 @@ def get_events_by_stream(env,log_group,logStreamName,limit=50):
 
 if __name__ == '__main__':
     #env='notprod'
-    #env='prod'
-    env='default'
+    env='prod'
+    #env='default'
     # export AWS_DEFAULT_REGION=us-west-2
     os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
     session = boto3.Session(profile_name=env)
@@ -228,6 +234,7 @@ if __name__ == '__main__':
 
     filename = 'logs_'  + str(datetime.datetime.now()) + '.csv'
     logfile = os.path.join(local_output_dir, env, filename)
+    print(logfile)
 
     if args['--start']:
         start_time = int(args['--start'])
@@ -281,34 +288,54 @@ if __name__ == '__main__':
 
     with open(logfile, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["LogStreamName", "timestamp","MessageType","Timestamp","Status", "fullmessage"])
+        writer.writerow(["LogStreamName", "timestamp","MessageType","Timestamp","Status", "fullmessage","StatusMessage"])
         # liststream ensure lenth is < 100.
         print(len(liststream))
         chunks = [liststream[x:x+99] for x in range(0, len(liststream), 99)]
         print(len(chunks))
-        exit()
-        for event in get_error_log_events(env,log_group,liststream,limit):
-            #print(event)
-            print("Stream:",event['logStreamName'])
-            print("UnixTimestamp:",event['timestamp'])
-            print("MessageType:",event['message'].split("	")[0])
-            #print("Timestamp:",event['message'].split("	")[1])
-            #print("Status:",event['message'].split("	")[3])
-            #print("FullMessage:",event['message'])
-            try:
-                tsp = event['message'].split("	")[1]
-            except IndexError:
-                tsp = 'null'
 
-            try:
-                stats = event['message'].split("	")[3]
-            except IndexError:
-                stats = 'null'
+        for lstream in chunks:
+            #process each chunk.
+            for event in get_error_log_events(env,log_group,lstream,limit):
+                #print(event)
+                print("Stream:",event['logStreamName'])
+                print("UnixTimestamp:",event['timestamp'])
+                print("MessageType:",event['message'].split("	")[0])
+                #print("Timestamp:",event['message'].split("	")[1])
+                #print("Status:",event['message'].split("	")[3])
+                #print("FullMessage:",event['message'])
+                try:
+                    tsp = event['message'].split("	")[1]
+                except IndexError:
+                    tsp = 'null'
+
+                try:
+                    stats = event['message'].split("	")[3]
+                except IndexError:
+                    stats = 'null'
+
+                try:
+                    if stats.startswith('{') :
+                        # string with dictionary content.
+                        #rstats1 = ast.literal_eval(stats)
+                        rstats1 = re.search(r'\b(Status)\b', stats)
+                        index= rstats1.start()
+                        #print(stats[index:])
+                        #rstats1 = ast.eval(stats)
+                        rstats = stats[index:]
+                        #rstats1 = ast.literal_eval(rstats)
+                        #print(rstats1['StateChangeReason'])
+                        #print("$$$$")
+                        #print(rstats1)
+                    else:
+                        rstats = ''
 
 
-            print('**************************')
+                except Exception as inst:
+                    #print("Error Parsing")
+                    print(inst)
+                    rstats = 'CP'
 
-            writer.writerow([event['logStreamName'], event['timestamp'], event['message'].split("	")[0],tsp, stats, event['message']])
 
-
-        #Parse each message and extract for Athena failures, Query Execution id, Status and StateChangeReason
+                print('**************************')
+                writer.writerow([event['logStreamName'], event['timestamp'], event['message'].split("	")[0],tsp, stats, event['message'], rstats])

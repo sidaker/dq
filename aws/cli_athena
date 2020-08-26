@@ -1,331 +1,44 @@
-aws athena get-query-execution --cli-input-json file://athena-input.json --profile notprod --output table
-aws athena get-query-execution --cli-input-json file://athena-input.json --profile notprod --query "QueryExecution.Status.State"
-aws athena batch-get-query-execution --query-execution-ids "f256b1cd-2117-4420-8dab-00e7a8a1908a" "49886a28-33c6-4c1e-9a68-a6177f2dd6cc" --profile notprod --query "QueryExecutions[].QueryExecutionId"
-aws athena batch-get-query-execution --query-execution-ids "f256b1cd-2117-4420-8dab-00e7a8a1908a" "49886a28-33c6-4c1e-9a68-a6177f2dd6cc" --profile notprod --query "QueryExecutions[].Query"
+(base) hodqadms-MacBook-Pro:dq-tf-api-kafka-input-pipeline sbommireddy$ terraform --version
+Terraform v0.11.14
+
+Your version of Terraform is out of date! The latest version
+is 0.12.26. You can update by downloading from www.terraform.io/downloads.html
+(base) hodqadms-MacBook-Pro:dq-tf-api-kafka-input-pipeline sbommireddy$ brew switch terraform 0.12
+Error: terraform does not have a version "0.12" in the Cellar.
+terraform's installed versions: 0.11.14, 0.12.21
+(base) hodqadms-MacBook-Pro:dq-tf-api-kafka-input-pipeline sbommireddy$ brew switch terraform 0.12.21
+Cleaning /usr/local/Cellar/terraform/0.12.21
+Cleaning /usr/local/Cellar/terraform/0.11.14
+1 links created for /usr/local/Cellar/terraform/0.12.21
+(base) hodqadms-MacBook-Pro:dq-tf-api-kafka-input-pipeline sbommireddy$ terraform --version
+Terraform v0.12.21
+
+Your version of Terraform is out of date! The latest version
+is 0.12.26. You can update by downloading from https://www.terraform.io/downloads.html
+(base) hodqadms-MacBook-Pro:dq-tf-api-kafka-input-pipeline sbommireddy$
 
 
-Athena Work groups:
-
-aws athena get-work-group --work-group primary --profile notprod
-aws athena get-work-group --work-group primary --profile prod
-
-aws athena list-work-groups --profile prod
-aws athena list-work-groups --profile notprod
-
-
-Named Queries:
-aws athena list-named-queries  --profile notprod
-aws athena list-named-queries  --profile prod
-
-List Query Executions:
-aws athena list-query-executions --work-group primary --max-items 10 --profile notprod
-aws athena list-query-executions --work-group primary --max-items 10 --profile notprod --starting-token "eyJOZXh0VG9rZW4iOiBudWxsLCAiYm90b190cnVuY2F0ZV9hbW91bnQiOiAxMH0="
-
-aws athena batch-get-named-query --named-query-ids "f917725f-49d2-4b54-897d-65e43e9bc568"  --profile notprod
-aws athena batch-get-named-query --named-query-ids "c45ddae3-7d24-4522-8614-7bd199d438f6" "0a55b5e9-ba53-4fec-a66d-deb697166369"  --profile prod
-
-aws athena get-query-execution --query-execution-id "0a14be6d-25a7-47be-96b8-e47800b22417" --profile notprod
-aws athena batch-get-query-execution --query-execution-ids "f256b1cd-2117-4420-8dab-00e7a8a1908a" "49886a28-33c6-4c1e-9a68-a6177f2dd6cc" --profile notprod
-
-aws athena get-query-execution --generate-cli-skeleton > athena-input.json
-aws athena get-query-execution --cli-input-json file://athena-input.json --profile notprod
-
-aws athena get-query-execution --cli-input-json file://athena-input.json --profile notprod --output table
-
-aws athena get-query-execution --query-execution-id "0a14be6d-25a7-47be-96b8-e47800b22417" --profile notprod
+(base) hodqadms-MacBook-Pro:notprod sbommireddy$ aws athena get-query-execution --profile notprod --query-execution-id 39b5e6ad-81c6-494d-bb56-22d0412804f2
 {
     "QueryExecution": {
-        "QueryExecutionId": "0a14be6d-25a7-47be-96b8-e47800b22417",
-        "Query": "DROP TABLE IF EXISTS working_extract_ilbolakgapdgkpmhaicckcjknfigghpa_20200203_102338_290378",
-        "StatementType": "DDL",
-        "ResultConfiguration": {
-            "OutputLocation": "s3://s3-dq-reporting-internal-working-notprod/working/default-output/0a14be6d-25a7-47be-96b8-e47800b22417.txt"
-        },
-        "QueryExecutionContext": {
-            "Database": "internal_reporting_notprod"
-        },
-        "Status": {
-            "State": "SUCCEEDED",
-            "SubmissionDateTime": 1580725474.753,
-            "CompletionDateTime": 1580725475.321
-        },
-        "Statistics": {
-            "EngineExecutionTimeInMillis": 486,
-            "DataScannedInBytes": 0
-        },
-        "WorkGroup": "primary"
-    }
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena list-query-executions --work-group primary --max-items 10 --profile notprod
-{
-    "QueryExecutionIds": [
-        "cbc4ac27-6c20-4aeb-8817-6e7d4d2a6d8a",
-        "975b05b6-d01c-4022-8214-524c87175a0d",
-        "2dc9facc-0a57-4297-94d3-744a1cdae4e4",
-        "4fb61c65-8bff-483d-a4d2-9d5351921a97",
-        "7008b7fc-7037-4d94-8a6e-4f60fb747399",
-        "90071803-1d46-426b-87e5-7225f635587e",
-        "e8af1b66-47b5-42c7-b547-c2f67f5d60fb",
-        "f3950ac7-564b-476a-800b-d25be090ef01",
-        "1c5e77a6-c683-480c-bf54-735f4e0a4fd5",
-        "fe208b82-a112-45e1-ad18-43be685a711b"
-    ],
-    "NextToken": "eyJOZXh0VG9rZW4iOiBudWxsLCAiYm90b190cnVuY2F0ZV9hbW91bnQiOiAxMH0="
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena list-query-executions --work-group primary --max-items 10 --profile notprod --starting-token "eyJOZXh0VG9rZW4iOiBudWxsLCAiYm90b190cnVuY2F0ZV9hbW91bnQiOiAxMH0="
-{
-    "QueryExecutionIds": [
-        "0a14be6d-25a7-47be-96b8-e47800b22417",
-        "c9fbc444-97cf-4671-9a63-5467307b3dd1",
-        "a06c1602-3f75-4529-ad3e-0f341d3c3bb6",
-        "765a5b70-aeef-4077-a797-d6127601081c",
-        "45a89f60-ade9-4c22-9bb4-7d92605efd3a",
-        "50bd8583-d878-40bd-b122-baeebcd88651",
-        "84c71c92-a706-4aea-8a30-dbb15e4bfbbc",
-        "2df5f658-cb25-458b-836d-bac8b4298880",
-        "7fcfa0bc-8c87-4105-9fd7-1533229fd0ac",
-        "3976b612-cad4-4877-8545-b76534d6534a"
-    ],
-    "NextToken": "eyJOZXh0VG9rZW4iOiBudWxsLCAiYm90b190cnVuY2F0ZV9hbW91bnQiOiAyMH0="
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena get-work-group --work-group primary --profile notprod
-{
-    "WorkGroup": {
-        "Name": "primary",
-        "State": "ENABLED",
-        "Configuration": {
-            "ResultConfiguration": {},
-            "EnforceWorkGroupConfiguration": false,
-            "PublishCloudWatchMetricsEnabled": false,
-            "BytesScannedCutoffPerQuery": 1099511627776,
-            "RequesterPaysEnabled": false
-        },
-        "CreationTime": 1549469870.736
-    }
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena list-named-queries  --profile prod
-{
-    "NamedQueryIds": [
-        "c45ddae3-7d24-4522-8614-7bd199d438f6",
-        "0a55b5e9-ba53-4fec-a66d-deb697166369"
-    ]
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena list-named-queries  --profile notprod
-{
-    "NamedQueryIds": [
-        "f917725f-49d2-4b54-897d-65e43e9bc568"
-    ]
-}
-
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena list-work-groups --profile prod
-{
-    "WorkGroups": [
-        {
-            "Name": "primary",
-            "State": "ENABLED",
-            "Description": "",
-            "CreationTime": 1549546268.266
-        }
-    ]
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena batch-get-named-query --named-query-ids "f917725f-49d2-4b54-897d-65e43e9bc568"  --profile notprod
-{
-    "NamedQueries": [
-        {
-            "Name": "XRS_Queries",
-            "Description": "Queries for XRS Issue",
-            "Database": "api_cross_record_scored_notprod",
-            "QueryString": "select count(*) FROM  api_cross_record_scored_notprod.internal_storage_by_std_date_local\nwhere std_date_local= date('2019-12-09')",
-            "NamedQueryId": "f917725f-49d2-4b54-897d-65e43e9bc568",
-            "WorkGroup": "primary"
-        }
-    ],
-    "UnprocessedNamedQueryIds": []
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena batch-get-named-query --named-query-ids "c45ddae3-7d24-4522-8614-7bd199d438f6" "0a55b5e9-ba53-4fec-a66d-deb697166369"  --profile prod
-{
-    "NamedQueries": [
-        {
-            "Name": "NATS-FPL-Query",
-            "Description": "Standard FPL query with date",
-            "Database": "api_cross_record_scored_prod",
-            "QueryString": "SELECT *\nFROM \"nats_internal_prod\".\"fpl\"\n        WHERE msg_date = '2019-07-15'\n        AND callsign is null\n       \n     ",
-            "NamedQueryId": "c45ddae3-7d24-4522-8614-7bd199d438f6",
-            "WorkGroup": "primary"
-        },
-        {
-            "Name": "api_input_prod_parts_priordec1...",
-            "Description": "List of Partitions Between August and November 2019",
-            "Database": "api_input_prod",
-            "QueryString": "api_input_prod",
-            "NamedQueryId": "0a55b5e9-ba53-4fec-a66d-deb697166369",
-            "WorkGroup": "primary"
-        }
-    ],
-    "UnprocessedNamedQueryIds": []
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-aws athena batch-get-named-query --named-query-ids "c45ddae3-7d24-4522-8614-7bd199d438f6" "0a55b5e9-ba53-4fec-a66d-deb697166369"  --profile prod
-
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena batch-get-query-execution --query-execution-ids "f256b1cd-2117-4420-8dab-00e7a8a1908a" "49886a28-33c6-4c1e-9a68-a6177f2dd6cc" --profile notprod
-{
-    "QueryExecutions": [
-        {
-            "QueryExecutionId": "f256b1cd-2117-4420-8dab-00e7a8a1908a",
-            "Query": "SELECT DISTINCT path_name FROM internal_storage_table WHERE path_name >= 'collected/1900-01-01/00:00:00' AND path_name < 'collected/2020-02-03/11:00:00'",
-            "StatementType": "DML",
-            "ResultConfiguration": {
-                "OutputLocation": "s3://s3-dq-consolidated-schedule-notprod/working/default-output/f256b1cd-2117-4420-8dab-00e7a8a1908a.csv"
-            },
-            "QueryExecutionContext": {
-                "Database": "consolidated_schedule_notprod"
-            },
-            "Status": {
-                "State": "SUCCEEDED",
-                "SubmissionDateTime": 1580728604.974,
-                "CompletionDateTime": 1580728608.05
-            },
-            "Statistics": {
-                "EngineExecutionTimeInMillis": 2641,
-                "DataScannedInBytes": 0
-            },
-            "WorkGroup": "primary"
-        },
-        {
-            "QueryExecutionId": "49886a28-33c6-4c1e-9a68-a6177f2dd6cc",
-            "Query": "SELECT DISTINCT path_name FROM internal_storage_table WHERE path_name >= 'collected/1900-01-01/00:00:00' AND path_name < 'collected/2020-02-03/11:00:00'",
-            "StatementType": "DML",
-            "ResultConfiguration": {
-                "OutputLocation": "s3://s3-dq-oag-transform-notprod/working/default-output/49886a28-33c6-4c1e-9a68-a6177f2dd6cc.csv"
-            },
-            "QueryExecutionContext": {
-                "Database": "oag_transform_notprod"
-            },
-            "Status": {
-                "State": "SUCCEEDED",
-                "SubmissionDateTime": 1580728467.652,
-                "CompletionDateTime": 1580728470.618
-            },
-            "Statistics": {
-                "EngineExecutionTimeInMillis": 2681,
-                "DataScannedInBytes": 0
-            },
-            "WorkGroup": "primary"
-        }
-    ],
-    "UnprocessedQueryExecutionIds": []
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena get-query-execution --generate-cli-skeleton
-{
-    "QueryExecutionId": ""
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena get-query-execution --generate-cli-skeleton > athena-input.json
-
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena get-query-execution --cli-input-json file://athena-input.json --profile notprod
-{
-    "QueryExecution": {
-        "QueryExecutionId": "49886a28-33c6-4c1e-9a68-a6177f2dd6cc",
-        "Query": "SELECT DISTINCT path_name FROM internal_storage_table WHERE path_name >= 'collected/1900-01-01/00:00:00' AND path_name < 'collected/2020-02-03/11:00:00'",
+        "QueryExecutionId": "39b5e6ad-81c6-494d-bb56-22d0412804f2",
+        "Query": "SELECT DISTINCT path_name FROM internal_storage_table WHERE path_name >= 'collected/1900-01-01/00:00:00' AND path_name < 'collected/2020-08-03/23:00:00'",
         "StatementType": "DML",
         "ResultConfiguration": {
-            "OutputLocation": "s3://s3-dq-oag-transform-notprod/working/default-output/49886a28-33c6-4c1e-9a68-a6177f2dd6cc.csv"
+            "OutputLocation": "s3://s3-dq-consolidated-schedule-notprod/working/default-output/39b5e6ad-81c6-494d-bb56-22d0412804f2.csv"
         },
         "QueryExecutionContext": {
-            "Database": "oag_transform_notprod"
+            "Database": "consolidated_schedule_notprod"
         },
         "Status": {
             "State": "SUCCEEDED",
-            "SubmissionDateTime": 1580728467.652,
-            "CompletionDateTime": 1580728470.618
+            "SubmissionDateTime": 1596496604.992,
+            "CompletionDateTime": 1596496607.122
         },
         "Statistics": {
-            "EngineExecutionTimeInMillis": 2681,
+            "EngineExecutionTimeInMillis": 1902,
             "DataScannedInBytes": 0
         },
         "WorkGroup": "primary"
     }
 }
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-aws athena get-query-execution --cli-input-json file://athena-input.json --profile notprod --query "QueryExecution.Status
-> "
-{
-    "State": "SUCCEEDED",
-    "SubmissionDateTime": 1580728467.652,
-    "CompletionDateTime": 1580728470.618
-}
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-
-hodqadms-MacBook-Pro:app2 sbommireddy$ aws athena get-query-execution --cli-input-json file://athena-input.json --profile notprod --query "QueryExecution.Status.State"
-"SUCCEEDED"
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-
-
-aws athena batch-get-query-execution --query-execution-ids "f256b1cd-2117-4420-8dab-00e7a8a1908a" "49886a28-33c6-4c1e-9a68-a6177f2dd6cc" --profile notprod --query "QueryExecutions[].QueryExecutionId"
-[
-    "f256b1cd-2117-4420-8dab-00e7a8a1908a",
-    "49886a28-33c6-4c1e-9a68-a6177f2dd6cc"
-]
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-aws athena batch-get-query-execution --query-execution-ids "f256b1cd-2117-4420-8dab-00e7a8a1908a" "49886a28-33c6-4c1e-9a68-a6177f2dd6cc" --profile notprod --query "QueryExecutions[].Query"
-[
-    "SELECT DISTINCT path_name FROM internal_storage_table WHERE path_name >= 'collected/1900-01-01/00:00:00' AND path_name < 'collected/2020-02-03/11:00:00'",
-    "SELECT DISTINCT path_name FROM internal_storage_table WHERE path_name >= 'collected/1900-01-01/00:00:00' AND path_name < 'collected/2020-02-03/11:00:00'"
-]
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-aws athena batch-get-query-execution --query-execution-ids "f256b1cd-2117-4420-8dab-00e7a8a1908a" "49886a28-33c6-4c1e-9a68-a6177f2dd6cc" --profile notprod --query "QueryExecutions[?StatementType == 'DML' ].WorkGroup" ["primary"]
-[
-    "primary",
-    "primary"
-]
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-aws athena batch-get-query-execution --query-execution-ids "f256b1cd-2117-4420-8dab-00e7a8a1908a" "49886a28-33c6-4c1e-9a68-a6177f2dd6cc" --profile notprod --query "QueryExecutions[?StatementType == 'DML' ].Status.State" ["SUCCEEDED"]
-[
-    "SUCCEEDED",
-    "SUCCEEDED"
-]
-hodqadms-MacBook-Pro:app2 sbommireddy$
-
-hodqadms-MacBook-Pro:aws sbommireddy$ aws athena list-query-executions --profile prod --max-items 10
-{
-    "QueryExecutionIds": [
-        "7bc73336-f864-4356-84e8-e3a5bdeab693",
-        "bc71a02f-3e7f-4adb-8b21-6a44ada8f58c",
-        "f5cf7516-3c39-4816-adf0-a0e1159f3687",
-        "4d0e9355-c88a-44cf-8bf0-eac49c754e38",
-        "4bd0cc74-98e9-4f1e-a650-5574b9eab4ac",
-        "edbd6aa3-f085-4996-b3e2-45658b0119ea",
-        "81ed707e-9166-46b8-8e6d-640c70829257",
-        "b4d5b54f-c1aa-4393-ba74-e3e8b40af5da",
-        "6ca95f64-f6fb-490b-9009-95f660094a69",
-        "1184c477-d04e-4937-a499-f06208540f5b"
-    ],
-    "NextToken": "eyJOZXh0VG9rZW4iOiBudWxsLCAiYm90b190cnVuY2F0ZV9hbW91bnQiOiAxMH0="
-}
-
-aws athena batch-get-query-execution --query-execution-ids "81ed707e-9166-46b8-8e6d-640c70829257" "b4d5b54f-c1aa-4393-ba74-e3e8b40af5da" --profile prod --query "QueryExecutions[?StatementType == 'DML' ].Status.State" ["SUCCEEDED"]

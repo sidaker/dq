@@ -37,7 +37,11 @@ def lambda_handler(event, context):
     Returns:
         null
     """
-    db_name = 'api_input_notprod'
-    tb_name = 'input_file_api'
-    partition_list = ''
+    #db_name = 'api_input_notprod'
+    #tb_name = 'input_file_api'
+    db_name='api_record_level_score_notprod'
+    tb_name='internal_storage_table'
+    partition_list =['path_name=2020-08-13/06:24:10.770950','path_name=2020-08-13/08:02:33.595458']
+
+
     execute_glue_api(db_name, tb_name, partition_list)

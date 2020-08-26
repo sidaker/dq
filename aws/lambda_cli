@@ -1,0 +1,97 @@
+aws lambda create-function \
+--region us-east-2 \
+--function-name MyCLITestFunction \
+--role arn:aws:iam:account-id:role/role_name \
+--runtime python3.6 \
+--handler MyCLITestFunction.my_handler \
+--zip-file fileb://path/to/function/file.zip
+
+
+aws lambda publish-version \
+--region eu-west-2 \
+--function-name mds-extractor-notprod-lambda \
+--profile notprod
+
+(base) hodqadms-MacBook-Pro:Downloads sbommireddy$ aws lambda publish-version --region eu-west-2 --function-name mds-extractor-notprod-lambda --profile notprod
+{
+    "FunctionName": "mds-extractor-notprod-lambda",
+    "FunctionArn": "arn:aws:lambda:eu-west-2:483846886818:function:mds-extractor-notprod-lambda:1",
+    "Runtime": "python3.6",
+    "Role": "arn:aws:iam::483846886818:role/mds-extractor-notprod-lambda-role-mds_extractor",
+    "Handler": "main.lambda_handler",
+    "CodeSize": 9344072,
+    "Description": "",
+    "Timeout": 60,
+    "MemorySize": 128,
+    "LastModified": "2020-04-03T09:54:49.422+0000",
+    "CodeSha256": "eY5MswV1OzUXvGrYsnBbqwFnsqxbq565J35oiVZztGs=",
+    "Version": "1",
+    "VpcConfig": {
+        "SubnetIds": [
+            "subnet-046b176107ddb6d13",
+            "subnet-0d2c97fab242f93a6"
+        ],
+        "SecurityGroupIds": [
+            "sg-0884a136afc2ba70d"
+        ],
+        "VpcId": "vpc-15e4de7c"
+    },
+    "Environment": {
+        "Variables": {
+            "server": "mds-postgres-dataingest-apps-notprod-dq.cjwr8jp0ndrs.eu-west-2.rds.amazonaws.com",
+            "namespace": "notprod",
+            "output_bucket_name": "s3-dq-mds-extract-notprod"
+        }
+    },
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "256cafbb-a832-4789-8830-dc2aaff401f3"
+}
+(base) hodqadms-MacBook-Pro:Downloads sbommireddy$
+
+
+
+
+(base) hodqadms-MacBook-Pro:Downloads sbommireddy$ aws lambda publish-version --region eu-west-2 --function-name api-input-notprod-lambda --profile notprod
+{
+    "FunctionName": "api-input-notprod-lambda",
+    "FunctionArn": "arn:aws:lambda:eu-west-2:483846886818:function:api-input-notprod-lambda:1",
+    "Runtime": "python3.7",
+    "Role": "arn:aws:iam::483846886818:role/api-input-notprod-lambda",
+    "Handler": "api.lambda_handler",
+    "CodeSize": 10161,
+    "Description": "",
+    "Timeout": 900,
+    "MemorySize": 196,
+    "LastModified": "2020-07-28T14:15:10.621+0000",
+    "CodeSha256": "z3ZVRTEEqSrXalWGDjoobTBy+oUz7UWIvJw5UEYxCFE=",
+    "Version": "1",
+    "Environment": {
+        "Variables": {
+            "output_bucket_name": "s3-dq-api-internal-notprod"
+        }
+    },
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "1e667c3b-d42a-4384-8895-f83462e75d9d"
+}
+(base) hodqadms-MacBook-Pro:Downloads sbommireddy$
+
+
+aws lambda create-alias \
+--region region \
+--function-name myCoolFunction \
+--description "My Alias for Production" \
+--function-version "1" \
+--name PROD \
+--profile devuser
+
+
+aws lambda update-alias \
+--region region \
+--function-name myCoolFunction \
+--function-version 4 \
+--name PROD \
+--profile devuser

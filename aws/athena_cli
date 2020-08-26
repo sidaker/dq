@@ -1,0 +1,16 @@
+(base) hodqadms-MacBook-Pro:notprod sbommireddy$ aws athena start-query-execution \
+>             --query-string "DROP TABLE IF EXISTS working_cs_aaigailihipfkpfmahajadglhclchdjn_20200803_203338_711305" \
+>             --work-group "primary" \
+>             --result-configuration OutputLocation=s3://s3-dq-athena-log-notprod \
+>             --query-execution-context Database=api_record_level_score_notprod
+{
+    "QueryExecutionId": "75066de9-c0c2-4671-9302-72c00cfb2d0b"
+}
+(base) hodqadms-MacBook-Pro:notprod sbommireddy$
+
+
+        aws athena start-query-execution \
+            --query-string "DROP TABLE IF EXISTS working_cs_aaeeplddagfmkiefbeildiiagicfjojl_20200803_181358_735540" \
+            --work-group "primary" \
+            --result-configuration OutputLocation=s3://s3-dq-athena-log-notprod \
+            --query-execution-context Database=api_record_level_score_notprod

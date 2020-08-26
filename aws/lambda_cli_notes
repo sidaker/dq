@@ -1,0 +1,26 @@
+aws lambda create-function \
+--region eu-west-2 \
+--function-name MyCLITestFunction \
+--role arn:aws:iam:account-id:role/role_name \
+--runtime python3.8 \
+--handler MyCLITestFunction.my_handler \
+--zip-file fileb://path/to/function/file.zip
+
+
+
+# arn:aws:lambda:eu-west-2:797728447925:function:testpandas6
+# arn:aws:iam::797728447925:role/service-role/Testrole
+
+STEP1:
+CREATE a ZIP File.
+
+STEP2:
+CREARE a Lambda role.
+
+aws lambda create-function \
+--region eu-west-2 \
+--function-name MyCLITestFunction \
+--role arn:aws:iam::797728447925:role/service-role/Testrole \
+--runtime python3.8 \
+--handler MyCLITestFunction.my_handler \
+--zip-file fileb://path/to/function/file.zip

@@ -1,0 +1,29 @@
+aws glue get-partitions --database-name api_input_prod \
+ --table-name input_file_api \
+ --expression "path_name LIKE '2020-07%'" \
+ --profile prod \
+ --region 'eu-west-2'
+
+
+**************************************
+
+ aws glue get-partitions --database-name api_input_prod \
+  --table-name input_file_api \
+  --expression "path_name LIKE '2020-07%'" \
+  --profile prod \
+  --region 'eu-west-2' \
+  --query "Partitions[].StorageDescriptor[].Location"
+
+***************************************
+
+aws glue get-partitions --database-name api_input_prod \
+ --table-name input_file_api \
+ --expression "path_name LIKE '2020-07%'" \
+ --profile prod \
+ --region 'eu-west-2' \
+ --query "Partitions[]."Values""
+
+ ******************
+
+aws glue get-partitions --database-name=<my-database> --table-name=<my-table> | jq -cr '[ { Values: .Partitions[].Values } ]' > partitions.json
+aws glue get-partitions --database-name=<my-database> --table-name=<my-table> | jq -cr '[ { Values: .Partitions[].Values } ]' > partitions.json

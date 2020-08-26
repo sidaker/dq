@@ -1,0 +1,10 @@
+ALTER TABLE api_input_{namespace}.input_file_api ADD IF NOT EXISTS
+PARTITION (path_name = '{path-name}') LOCATION '{input-bucket-name}/{path-name}/';
+
+
+aws s3api put-object --bucket s3-dq-api-archive-notprod --key raw/2020-07-29/08:18:57.091574/RAW_20200729_0818_9999.zip --body RAW_20200729_0818_9999.zip --profile notprod
+
+aws lambda get-account-settings --profile notprod
+
+aws s3api list-buckets --query Owner.ID --output text
+aws lambda publish-version --region eu-west-2 --function-name mds-extractor-notprod-lambda --profile notprod
