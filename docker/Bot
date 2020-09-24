@@ -1,0 +1,58 @@
+https://github.com/SathyaBhat/practical-docker-with-python
+
+
+Done! Congratulations on your new bot. You will find it at t.me/AdvikBot. You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.
+
+Use this token to access the HTTP API:
+1308616368:AAEhnugpSPzQTPNe_gpH7HRXTv92LBRcv5M
+Keep your token secure and store it safely, it can be used by anyone to control your bot.
+
+For a description of the Bot API, see this page: https://core.telegram.org/bots/api
+
+LikhiBot
+AdvikBot
+1308616368:AAEhnugpSPzQTPNe_gpH7HRXTv92LBRcv5M
+
+NBT_ACCESS_TOKEN=1308616368:AAEhnugpSPzQTPNe_gpH7HRXTv92LBRcv5M python newsbot.py
+
+
+curl https://api.telegram.org/bot1308616368:AAEhnugpSPzQTPNe_gpH7HRXTv92LBRcv5M/getMe
+
+https://api.telegram.org/bot1308616368:AAEhnugpSPzQTPNe_gpH7HRXTv92LBRcv5M/METHOD_NAME
+
+(base) hodqadms-MacBook-Pro:student sbommireddy$ curl https://api.telegram.org/bot1308616368:AAEhnugpSPzQTPNe_gpH7HRXTv92LBRcv5M/getMe
+{"ok":true,"result":{"id":1308616368,"is_bot":true,"first_name":"LikhiBot","username":"AdvikBot","can_join_groups":true,"can_read_all_group_messages":false,"supports_inline_queries":false}}(base) hodqadms-MacBook-Pro:student sbommireddy$
+
+
+
+(base) hodqadms-MacBook-Pro:docker subreddit fetcher sbommireddy$ NBT_ACCESS_TOKEN=1308616368:AAEhnugpSPzQTPNe_gpH7HRXTv92LBRcv5M python newsbot.py
+INFO: 2020-09-08 15:24:04,563 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:24:10,696 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:24:16,841 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:24:22,975 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:24:29,114 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:24:35,258 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:24:41,396 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:24:47,519 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:24:53,654 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:24:59,807 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:25:05,951 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:25:12,081 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:25:18,222 - get_updates - received response: {'ok': True, 'result': [{'update_id': 823364376, 'message': {'message_id': 1, 'from': {'id': 1353213732, 'is_bot': False, 'first_name': 'Sid', 'last_name': 'Bomm', 'language_code': 'en'}, 'chat': {'id': 1353213732, 'first_name': 'Sid', 'last_name': 'Bomm', 'type': 'private'}, 'date': 1599575113, 'text': '/start', 'entities': [{'offset': 0, 'length': 6, 'type': 'bot_command'}]}}, {'update_id': 823364377, 'message': {'message_id': 2, 'from': {'id': 1353213732, 'is_bot': False, 'first_name': 'Sid', 'last_name': 'Bomm', 'language_code': 'en'}, 'chat': {'id': 1353213732, 'first_name': 'Sid', 'last_name': 'Bomm', 'type': 'private'}, 'date': 1599575116, 'text': 'Hello'}}]}
+INFO: 2020-09-08 15:25:18,222 - handle_incoming_messages - Chat text received: /start
+INFO: 2020-09-08 15:25:18,222 - post_message - posting
+                    Hi! This is a News Bot which fetches news from subreddits. Use "/source" to select a subreddit source.
+                    Example "/source programming,games" fetches news from r/programming, r/games.
+                    Use "/fetch for the bot to go ahead and fetch the news. At the moment, bot will fetch total of 5 posts from all sub reddits
+                    I will have this configurable soon.
+                 to 1353213732
+INFO: 2020-09-08 15:25:18,383 - handle_incoming_messages - Chat text received: Hello
+INFO: 2020-09-08 15:25:24,523 - get_updates - received response: {'ok': True, 'result': [{'update_id': 823364378, 'message': {'message_id': 4, 'from': {'id': 1353213732, 'is_bot': False, 'first_name': 'Sid', 'last_name': 'Bomm', 'language_code': 'en'}, 'chat': {'id': 1353213732, 'first_name': 'Sid', 'last_name': 'Bomm', 'type': 'private'}, 'date': 1599575122, 'text': 'FTSE is falling today'}}]}
+INFO: 2020-09-08 15:25:24,523 - handle_incoming_messages - Chat text received: FTSE is falling today
+INFO: 2020-09-08 15:25:30,772 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:25:36,893 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:25:43,045 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:25:49,182 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:25:55,326 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:26:01,468 - get_updates - received response: {'ok': True, 'result': []}
+INFO: 2020-09-08 15:26:07,613 - get_updates - received response: {'ok': True, 'result': []}

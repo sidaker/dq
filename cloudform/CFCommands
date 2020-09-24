@@ -1,0 +1,245 @@
+aws cloudformation create-stack \
+--stack-name mybucket \
+--template-body file://MyBucket.yaml \
+--profile notprod --region eu-west-2
+
+# Created a bucket mybucket-sidtestmybucket-13dhzv23q5l6d
+
+aws cloudformation update-stack \
+--stack-name mybucket \
+--template-body file://MyBucket.yaml \
+--profile notprod --region eu-west-2
+
+# Update the bucket to have public access
+
+aws cloudformation delete-stack --stack-name mybucket --profile notprod --region eu-west-2
+
+# Delete the bucket.
+
+aws cloudformation create-stack \
+--stack-name iamrole \
+--capabilities CAPABILITY_IAM \
+--template-body file://MyIamRole.yaml \
+--profile notprod --region eu-west-2
+
+# Creates an IAM Role.
+
+# We have seen a failure
+
+Invalid principal in policy: "AWS":"arn:aws:iam::483846886818:user/Admin" (Service: AmazonIdentityManagement; Status Code: 400; Error Code: MalformedPolicyDocument; Request ID: d266f773-457b-4c1d-bc3d-ea1283832c0b; Proxy: null)
+
+# We found the user/Admin does not exist already. So used the user sid and retried.
+
+Stack ID
+arn:aws:cloudformation:eu-west-2:483846886818:stack/iamrole/b85534a0-f40f-11ea-a5bf-02b4f1dcccde
+
+arn:aws:iam::483846886818:role/iamrole-IamRole-1N06HI2RMUQNM
+
+IAM_ROLE_ARN=$(aws cloudformation describe-stacks \
+--stack-name iamrole \
+--query "Stacks[0].Outputs[?OutputKey=='IamRole'].OutputValue" \
+--output text \
+--profile notprod --region eu-west-2)
+
+Got an error:
+An error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id iamrole does not exist
+Added --profile notprod --region eu-west-2 and error went away.
+arn:aws:cloudformation:eu-west-2:483846886818:stack/iamrole/b85534a0-f40f-11ea-a5bf-02b4f1dcccde
+
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ echo $IAM_ROLE_ARN
+arn:aws:iam::483846886818:role/iamrole-IamRole-1N06HI2RMUQNM
+
+roles> iamrole-IamRole-1N06HI2RMUQNM
+arn:aws:iam::483846886818:role/iamrole-IamRole-1N06HI2RMUQNM
+
+aws cloudformation delete-stack --stack-name iamrole --profile notprod --region eu-west-2
+
+aws sts assume-role --role-arn $IAM_ROLE_ARN --role-session-name tmp --profile notprod --region eu-west-2
+
+aws sts assume-role --role-arn $IAM_ROLE_ARN --role-session-name tmp \
+--profile notprod --region eu-west-2
+
+aws cloudformation create-stack \
+--stack-name cfniamrole \
+--capabilities CAPABILITY_IAM \
+--template-body file://CfnIamRole.yaml \
+--profile notprod --region eu-west-2
+
+
+IAM_ROLE_ARN=$(aws cloudformation describe-stacks \
+--stack-name cfniamrole \
+--query "Stacks[0].Outputs[?OutputKey=='IamRole'].OutputValue" \
+--output text \
+--profile notprod --region eu-west-2
+)
+
+aws cloudformation create-stack \
+--stack-name mybucket \
+--template-body file://MyBucket.yaml \
+--role-arn $IAM_ROLE_ARN \
+--profile notprod --region eu-west-2
+
+(base) hodqadms-MacBook-Pro:docker sbommireddy$ aws s3 ls --profile notprod --region eu-west-2 | grep bucket
+2020-04-09 11:47:17 config-bucket-483846886818
+2020-09-11 12:54:26 mybucket-sidtestmybucket-1j5bsiqq3njfw
+2020-01-06 16:30:53 s3-dq-athena-maintenance-bucket-notprod
+2020-06-12 03:14:15 s3-dq-data-archive-bucket-notprod
+2020-06-12 03:14:16 s3-dq-data-working-bucket-notprod
+2020-06-12 03:14:16 s3-dq-httpd-config-bucket-notprod
+2020-06-12 03:14:17 s3-dq-log-archive-bucket-notprod
+2020-06-12 03:14:18 s3-dq-peering-haproxy-config-bucket-notprod
+(base) hodqadms-MacBook-Pro:docker sbommireddy$
+
+Delete all the three stacks.
+
+for i in mybucket iamrole cfniamrole; do aws cloudformation delete-stack --stack-name $i ; done
+
+for i in mybucket iamrole cfniamrole; do aws cloudformation delete-stack --stack-name $i --profile notprod --region eu-west-2 ; done
+
+ROLENAME=$(aws cloudformation describe-stack-resources --stack-name iamrole --query "StackResources[0].PhysicalResourceId" --output text)
+
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+
+
+aws cloudformation create-stack \
+--stack-name mybucket \
+--template-body file://MyBucket.yaml \
+--profile notprod --region eu-west-2
+
+
+aws cloudformation create-stack \
+--stack-name mybucket \
+--template-body file://MyBucket.yaml
+
+
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ aws cloudformation create-stack \
+> --stack-name mybucket \
+> --template-body file://MyBucket.yaml \
+> --profile notprod --region eu-west-2
+{
+    "StackId": "arn:aws:cloudformation:eu-west-2:483846886818:stack/mybucket/f9b89e70
+-f3a9-11ea-ae9f-06af3644828e"
+}
+
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ aws cloudformation update-stack \
+> --stack-name mybucket \
+> --template-body file://MyBucket.yaml \
+> --profile notprod --region eu-west-2
+{
+    "StackId": "arn:aws:cloudformation:eu-west-2:483846886818:stack/mybucket/f9b89e70
+-f3a9-11ea-ae9f-06af3644828e"
+}
+
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ aws cloudformation create-stack \
+> --stack-name iamrole \
+> --capabilities CAPABILITY_IAM \
+> --template-body file://MyIamRole.yaml \
+> --profile notprod --region eu-west-2
+{
+    "StackId": "arn:aws:cloudformation:eu-west-2:483846886818:stack/iamrole/950da560-
+
+f3ae-11ea-901f-0284b0b5311a"
+}
+
+
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ aws cloudformation create-stack --
+stack-name mybucket --template-body file://MyBucket.yaml
+
+An error occurred (AccessDenied) when calling the CreateStack operation: User: arn:aw
+s:iam::797728447925:user/sid is not authorized to perform: cloudformation:CreateStack
+ on resource: arn:aws:cloudformation:eu-west-2:797728447925:stack/mybucket/*
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$
+
+
+base) hodqadms-MacBook-Pro:cloudform sbommireddy$ IAM_ROLE_ARN=$(aws cloudformation describe-stacks \
+> --stack-name iamrole \
+
+> --query "Stacks[0].Outputs[?OutputKey=='IamRole'].OutputValue" \
+> --output text \
+> --profile notprod --region eu-west-2)
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ echo $IAM_ROLE_ARN
+arn:aws:iam::483846886818:role/iamrole-IamRole-1N06HI2RMUQNM
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy
+
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ aws sts assume-role --role-arn $IA
+M_ROLE_ARN --role-session-name tmp \
+> --profile notprod --region eu-west-2
+{
+    "Credentials": {
+        "AccessKeyId": "ASIAXBJ4FSWRLG4NZIEQ",
+        "SecretAccessKey": "cpyWmw1v0wn/uyHYUXq1iqXPOJAMVfCLtRnMkBAt",
+
+        "SessionToken": "FwoGZXIvYXdzEH0aDNDdhoHtHChtRrMcFyKnAbxG0ilPwjrF7SUfrYSlg+yY
+oBeEdNqvXsfvQuei792tncx+WBbMwfAR5dWLcrQR1OCidkauYmUhSaKwDIsQ+3cqJ1As0rSLkkpy+ayNH3mBj
+RpSjSryHiKifxy+Hg8rKKRqf6iOBrCpHZkXEP4TcL/5ZLKGcltrNuWPNtGPauiNvon4Hzr2y32ju/Br0rfl1a
+uz+GKTR8peo7GsFeIS7ugfossSHuzgKKDB7foFMi19CKRWiUUlidNlvrSCgDEGga9hBVDKYJNjDhne/t6Qr8M
+TWC9hi4+Vi8iPEK8=",
+        "Expiration": "2020-09-11T12:33:52Z"
+    },
+    "AssumedRoleUser": {
+        "AssumedRoleId": "AROAXBJ4FSWRICMPTJ5AA:tmp",
+        "Arn": "arn:aws:sts::483846886818:assumed-role/iamrole-IamRole-1N06HI2RMUQNM/
+tmp"
+    }
+}
+
+
+(base) hodqadms-MacBook-Pro:docker sbommireddy$ IAM_ROLE_ARN=$(aws cloudformation describe-stacks \
+> --stack-name iamrole \
+> --query "Stacks[0].Outputs[?OutputKey=='IamRole'].OutputValue" \
+> --output text \
+> --profile notprod --region eu-west-2)
+(base) hodqadms-MacBook-Pro:docker sbommireddy$ aws sts assume-role --role-arn $IAM_ROLE_ARN --role-session-name tmp --profile notprod --region eu-west-2
+{
+    "Credentials": {
+        "AccessKeyId": "ASIAXBJ4FSWRDLGHAQA5",
+        "SecretAccessKey": "8Vgd+Fj3a5efgBAikGZYvChijHhTtka+e8tO9Ha3",
+        "SessionToken": "FwoGZXIvYXdzEH0aDDWkaFWRL1/mlnkqnCKnAUG5easL3JrrPpF1ilJbhcayEXcqlv+wUMjJpQM5kJ9dID/IubozaD/4PHlCQuQpNRxJ0E4Rf4gp++ZKjWcMuyS2Zqs+WzRacXZoVh5DEFeTzajC7oryJ3Mhug3P+6LJ4PuctZZ0yaPG08/dLeFzsORA2ExRYTexuG64ovkLLnLc+j9rshe+bgaCEg9qnnil2+lUWBLboxDCPhxyfJvHD67BTztJeidFKKrD7foFMi3wZxL2wjj+47UiWA27Dqr3fa+kJ7jxr7Q7NeundB+i8wQHyDMoDxDvdxYRXzs=",
+        "Expiration": "2020-09-11T12:38:18Z"
+    },
+    "AssumedRoleUser": {
+        "AssumedRoleId": "AROAXBJ4FSWRICMPTJ5AA:tmp",
+        "Arn": "arn:aws:sts::483846886818:assumed-role/iamrole-IamRole-1N06HI2RMUQNM/tmp"
+    }
+}
+(base) hodqadms-MacBook-Pro:docker sbommireddy$
+
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ aws cloudformation create-stack \
+> --stack-name cfniamrole \
+> --capabilities CAPABILITY_IAM \
+> --template-body file://CfnIamRole.yaml \
+
+> --profile notprod --region eu-west-2
+{
+    "StackId": "arn:aws:cloudformation:eu-west-2:483846886818:stack/cfniamrole/93d681
+50-f424-11ea-89c7-026b6a377222"
+}
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$
+
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ IAM_ROLE_ARN=$(aws cloudformation
+describe-stacks \
+> --stack-name cfniamrole \
+> --query "Stacks[0].Outputs[?OutputKey=='IamRole'].OutputValue" \
+> --output text \
+> --profile notprod --region eu-west-2
+> )
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ echo $IAM_ROLE_ARN
+arn:aws:iam::483846886818:role/cfniamrole-IamRole-AF5HOW9G633Z
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$
+
+
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$ aws cloudformation create-stack \
+> --stack-name mybucket \
+> --template-body file://MyBucket.yaml \
+> --role-arn $IAM_ROLE_ARN \
+
+> --profile notprod --region eu-west-2
+{
+    "StackId": "arn:aws:cloudformation:eu-west-2:483846886818:stack/mybucket/883dcbe0
+-f425-11ea-9707-0a5e9edf4660"
+}
+(base) hodqadms-MacBook-Pro:cloudform sbommireddy$

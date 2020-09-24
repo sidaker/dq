@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: This is a Test bucket
+Resources:
+  SidTestMyBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+        AccessControl: PublicRead
+        ObjectLockEnabled: True
+Outputs:
+  BucketName:
+    Value: !Ref 'SidTestMyBucket'
+    Description: Name of the sample Amazon S3 bucket.
