@@ -21,7 +21,7 @@ def get_partitions(database, table):
     kwargs = {
         'DatabaseName' : database,
         'TableName' : table,
-        'Expression' : "path_name like '2020-0%'",
+        'Expression' : "path_name like 'bulk%'",
         'MaxResults' : 999,
 
     }
@@ -59,10 +59,9 @@ def execute_glue_api(database_name, tb_name, partition_val):
         else:
             print(err)
 
-db_name='carrier_portal_prod'
-tb_name='dim_person_on_a_voyage_archive'
-#partition_list = [{'Values': ['path_name=2020-07-11%2F15%3A34%3A12.000000']}, {'Values': ['path_name=2020-07-11%2F22%3A41%3A30.000000']}]
-#generator = get_partitions(db_name, tb_name)
+db_name='oag_transform_prod'
+tb_name='internal_storage_table'
+
 
 
 for party in get_partitions(db_name, tb_name):
@@ -72,8 +71,6 @@ for party in get_partitions(db_name, tb_name):
     #partitions = party["Values"]
     #print(party)
     #print(partitions)
-
-    #print(len(partitions))
     batch = 25
     #print(len(party))
 
@@ -85,10 +82,6 @@ for party in get_partitions(db_name, tb_name):
         print(vals)
         partition_list = [{'Values': [vals]}]
         print(partition_list)
+        #break
         execute_glue_api(db_name, tb_name, partition_list)
-        #partition_list =[{'Values': ['2020-08-13/06:24:10.770950']}, {'Values': ['2020-08-13/08:02:33.595458']}]
-
-
-
-#execute_glue_api(db_name, tb_name, partition_list)
-#print(partition_list)
+    #break

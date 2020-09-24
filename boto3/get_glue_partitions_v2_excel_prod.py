@@ -9,7 +9,10 @@ from logging.handlers import TimedRotatingFileHandler
 import boto3
 from botocore.config import Config
 from botocore.exceptions import ClientError
+import datetime
+import csv
 
+env='prod'
 
 def get_partitions(database, table):
     gluesession = boto3.Session(profile_name='prod')
@@ -31,7 +34,7 @@ def get_partitions(database, table):
 
 
 db_name='api_cross_record_scored_prod'
-tb_name='internal_storage_by_std_date_local'
+tb_name='internal_storage_by_std_date_local_recent'
 
 '''
     for i in range(0, len(partitions), batch):
@@ -40,9 +43,26 @@ tb_name='internal_storage_by_std_date_local'
         partition_list = part_list
 '''
 i=0
-for part in get_partitions(db_name, tb_name):
-    print(part["Values"])
-    print(part)
-    i = i + 1
+local_output_dir='/Users/sbommireddy/Downloads/cloudwatchlogs/'
+filename = 'partitions_'  + str(datetime.datetime.now()) + '.csv'
+logfile = os.path.join(local_output_dir, env, filename)
+print(logfile)
+
+with open(logfile, 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(["PartitionName", "DB_Name","Table_name","Location"])
+
+    for part in get_partitions(db_name, tb_name):
+
+        # print(part["Values"])
+        # print(part["DatabaseName"])
+        # print(part["TableName"])
+        # print(part["StorageDescriptor"]["Location"])
+        # cmd - /
+
+        writer.writerow([part["Values"], part["DatabaseName"], part["TableName"],part["StorageDescriptor"]["Location"] ])
+        #print(part)
+        #exit()
+        i = i + 1
 
 print(i)

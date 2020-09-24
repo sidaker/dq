@@ -1,5 +1,7 @@
 # /Users/sbommireddy/Documents/python/assignments/dq/pytest
 # python -m pytest
+# python -m pytest
+# pytest --fixtures .
 import pytest
 
 class Phonebook():
@@ -19,13 +21,20 @@ class Phonebook():
 
 
 
-def test_phonebook_lookup():
-    pb = Phonebook()
+@pytest.fixture
+def pb():
+    '''
+    Fixture created by Sid Bommireddy for creating a phonebook resource
+    '''
+    return Phonebook()
+
+def test_phonebook_lookup(pb):
+    #pb = Phonebook()
     pb.addphone("Sid","0756")
     assert "0756" == pb.lookup("Sid")
 
-def test_phonebook_contains():
-    pb = Phonebook()
+def test_phonebook_contains(pb):
+    #pb = Phonebook()
     pb.addphone("Sid","0756")
     pb.addphone("Lik","0776")
     print(type(pb.names()))
@@ -36,4 +45,4 @@ def test_phonebook_contains():
         pb.lookup("Ash")
 
     with pytest.raises(KeyError):
-        pb.lookup("Lik")
+        pb.lookup("Roc")

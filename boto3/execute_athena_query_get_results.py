@@ -60,8 +60,10 @@ def check_query_status(execution_id):
         print(err)
 
 
-env='notprod'
-dbname='api_record_level_score_notprod'
+#env='notprod'
+#dbname='api_record_level_score_notprod'
+env='prod'
+dbname='api_record_level_score_prod'
 #dbname='api_input_notprod'
 os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"
 session = boto3.Session(profile_name=env)
@@ -73,13 +75,13 @@ myqe={
 
     }
 
-cond = "\'2020-08-21/%\'"
-myquery = 'select xml_file_name from api_record_level_score_notprod.internal_storage where path_name like  ' + cond
+cond = "\'2020-09-22/%\'"
+myquery = 'select xml_file_name from api_record_level_score_prod.internal_storage where path_name like  ' + cond
 print(myquery)
 
 response = aclient.start_query_execution(QueryString=myquery,
                                         QueryExecutionContext=myqe,
-                                        ResultConfiguration={'OutputLocation': 's3://s3-dq-athena-log-notprod/'})
+                                        ResultConfiguration={'OutputLocation': 's3://s3-dq-athena-log-prod/'})
 
 query_execution_id = response['QueryExecutionId']
 print (query_execution_id)
@@ -94,7 +96,7 @@ query_result = check_query_status(query_execution_id)
 print(query_result)
 
 '''
-{'QueryExecution': {'QueryExecutionId': '1ff4945c-ce8e-4db3-89d6-2b8d4524862a', 'Query': "select xml_file_name from api_record_level_score_notprod.internal_storage where path_name like  '2020-08-21/%'", 'StatementType': 'DML', 'ResultConfiguration': {'OutputLocation': 's3://s3-dq-athena-log-notprod/1ff4945c-ce8e-4db3-89d6-2b8d4524862a.csv'}, 'QueryExecutionContext': {'Database': 'api_record_level_score_notprod'}, 'Status': {'State': 'SUCCEEDED', 'SubmissionDateTime': datetime.datetime(2020, 8, 21, 11, 8, 11, 344000, tzinfo=tzlocal()), 'CompletionDateTime': datetime.datetime(2020, 8, 21, 11, 8, 22, 966000, tzinfo=tzlocal())}, 'Statistics': {'EngineExecutionTimeInMillis': 11400, 'DataScannedInBytes': 114006838, 'TotalExecutionTimeInMillis': 11622, 'QueryQueueTimeInMillis': 221, 'QueryPlanningTimeInMillis': 4353, 'ServiceProcessingTimeInMillis': 1}, 'WorkGroup': 'primary'}, 'ResponseMetadata': {'RequestId': '00a64a4e-f32a-4446-b07f-73b171ca79a6', 'HTTPStatusCode': 200, 'HTTPHeaders': {'content-type': 'application/x-amz-json-1.1', 'date': 'Fri, 21 Aug 2020 10:08:22 GMT', 'x-amzn-requestid': '00a64a4e-f32a-4446-b07f-73b171ca79a6', 'content-length': '1512', 'connection': 'keep-alive'}, 'RetryAttempts': 0}}
+{'QueryExecution': {'QueryExecutionId': '1ff4945c-ce8e-4db3-89d6-2b8d4524862a', 'Query': "select xml_file_name from api_record_level_score_notprod.internal_storage where path_name like  '2020-08-21/%'", 'StatementType': 'DML', 'ResultConfiguration': {'OutputLocation': 's3://s3-dq-athena-log-prod/1ff4945c-ce8e-4db3-89d6-2b8d4524862a.csv'}, 'QueryExecutionContext': {'Database': 'api_record_level_score_notprod'}, 'Status': {'State': 'SUCCEEDED', 'SubmissionDateTime': datetime.datetime(2020, 8, 21, 11, 8, 11, 344000, tzinfo=tzlocal()), 'CompletionDateTime': datetime.datetime(2020, 8, 21, 11, 8, 22, 966000, tzinfo=tzlocal())}, 'Statistics': {'EngineExecutionTimeInMillis': 11400, 'DataScannedInBytes': 114006838, 'TotalExecutionTimeInMillis': 11622, 'QueryQueueTimeInMillis': 221, 'QueryPlanningTimeInMillis': 4353, 'ServiceProcessingTimeInMillis': 1}, 'WorkGroup': 'primary'}, 'ResponseMetadata': {'RequestId': '00a64a4e-f32a-4446-b07f-73b171ca79a6', 'HTTPStatusCode': 200, 'HTTPHeaders': {'content-type': 'application/x-amz-json-1.1', 'date': 'Fri, 21 Aug 2020 10:08:22 GMT', 'x-amzn-requestid': '00a64a4e-f32a-4446-b07f-73b171ca79a6', 'content-length': '1512', 'connection': 'keep-alive'}, 'RetryAttempts': 0}}
 
 '''
 print(query_result['QueryExecution']['ResultConfiguration'])
@@ -104,4 +106,5 @@ file_location = query_result['QueryExecution']['ResultConfiguration']['OutputLoc
 
 ## Download file.
 download_froms3(file_location)
+print(file_location)
 print("We are DONE")

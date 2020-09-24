@@ -1,0 +1,18 @@
+'''
+Algorithm Complexity
+Space Complexity
+Time Complexity
+
+Serial
+Parallel
+Exact
+Approximate
+Deterministic
+Non-Deterministic
+
+linked lists vs arrays
+Arrays  -> Good for random item access.
+Linked lists -> Item look up is linear in time compexity O(n)
+Linked lists -> Elements can be easily inserted and removed.
+Underlying memory doesn't need to be reorganised.
+'''
