@@ -53,7 +53,13 @@ def mergesort(dataset):
             k += 1
 
 def quicksort(dataset):
-    pass
+
+    # Sort happens in place
+    # Identify pivot
+    # Divide and Conquer and uses recursion
+    # Performs better than merge sort.
+    # All the work gets done in the partition step.
+
 
 
 if __name__ == '__main__':
