@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<person>
+  <fname>sid</fname>
+  <skill name="Python"/>
+  <skill name="Java"/>
+  <skill name="AWS"/>
+  <skill name="GCP"/>
+  <skill name="Redis"/>
+</person>

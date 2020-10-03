@@ -75,7 +75,7 @@ myqe={
 
     }
 
-cond = "\'2020-09-22/%\'"
+cond = "\'2020-09-28/10%\'"
 myquery = 'select xml_file_name from api_record_level_score_prod.internal_storage where path_name like  ' + cond
 print(myquery)
 

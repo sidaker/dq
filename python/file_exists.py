@@ -13,6 +13,8 @@ def path_exists(path2):
 def dir_exists(path2):
     return path.isdir(path2)
 
+    
+
 if __name__ == '__main__':
     fullfile = '/Users/sbommireddy/Documents/python/assignments/dq/python/classes.py'
     print(path_exists(fullfile))

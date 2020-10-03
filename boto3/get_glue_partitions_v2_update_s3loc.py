@@ -59,7 +59,7 @@ def get_partitions(database, table):
     kwargs = {
         'DatabaseName' : database,
         'TableName' : table,
-        'Expression' : "std_date_local < '2019-12-30'",
+        'Expression' : "std_date_local < '2020-03-20'",
         'MaxResults' : 999,
 
     }

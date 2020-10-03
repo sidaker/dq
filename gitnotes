@@ -4,10 +4,16 @@ git checkout -b DQ-Change-COR-950-redploy
 git push origin DQ-Change-COR-950-redploy
 git branch -a
 
-
+[INFO]	2020-07-13T17:05:44.559Z	ea317539-59c9-4088-8b9f-13141cb00f10
+	Copied s3.ObjectSummary(bucket_name='dsa-cdl-s3-s4-prod', key='archive/GroupId=none/CollectionDate=2020-07-13/DataFeedId=3/DataFeedTaskId=3799868/RAW_20200713_1704_1025.zip')
+  to s3.Object(bucket_name='s3-dq-api-archive-prod', key='raw/2020-07-13/17:05:44.260392/RAW_20200713_1704_1025.zip')
 
 Creates a new local branch from master and pushes it to remote
 825
+
+Compare two files.
+
+git diff --color-words="[^[:space:],]+" api_old.csv api_new.csv
 
 git branch
 git branch -a
@@ -204,4 +210,44 @@ git merge branch
 
  By pointing HEAD and master to the previous commit the master was pointing to.
 
- 
+ Current branch tracks new commits.
+ When you move to another commit, Git updates your working directory.
+ Unreachable objects are garbage collected.
+
+
+ git rebase master
+
+ git garbage collects unreachable objects.
+
+ Rebase vs merge
+
+ tradeoffs:
+ merge
+ preserves history.
+ complicated and ugly for large projects.
+
+ rebase:
+ looks simple and more streamlined.
+  creates new commits leaving existing commits for garbage collection.
+  Change Project history.
+
+  when in doubt merge.
+
+  tags - annotated and light weighted tags.
+
+  tag vs branch:
+
+  branches move tags dont.
+
+
+  git branch
+  git branch -a
+
+
+  (base) hodqadms-MacBook-Pro:dq sbommireddy$ git show-ref master
+3db50e175ddf50cd6af402a87feb32c7810f61d7 refs/heads/master
+3db50e175ddf50cd6af402a87feb32c7810f61d7 refs/remotes/origin/master
+(base) hodqadms-MacBook-Pro:dq sbommireddy$
+
+
+git log -2

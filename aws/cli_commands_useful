@@ -1,6 +1,9 @@
 ALTER TABLE api_input_{namespace}.input_file_api ADD IF NOT EXISTS
 PARTITION (path_name = '{path-name}') LOCATION '{input-bucket-name}/{path-name}/';
 
+ALTER TABLE accuracy_scoring DROP
+PARTITION (path_name = '2020-09-01/')
+
 
 aws s3api put-object --bucket s3-dq-api-archive-notprod --key raw/2020-07-29/08:18:57.091574/RAW_20200729_0818_9999.zip --body RAW_20200729_0818_9999.zip --profile notprod
 
