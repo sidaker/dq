@@ -1,0 +1,87 @@
+?? Error
+Zookeeper - java.net.BindException: Address already in use
+
+Something is already occupying your port 2181. Figure out which application it is and stop it
+
+??Error
+ Kafka - org.apache.kafka.common.KafkaException: Socket server failed to bind to 0.0.0.0:9092: Address already in use.
+
+Check if port 2181 is free?
+Check if port 9092 is free?
+
+(base) hodqadms-MacBook-Pro:Desktop sbommireddy$ lsof -i -P -n | grep LISTEN
+VBoxHeadl  1343 sbommireddy   17u  IPv4 0xc6130f43243c6f2b      0t0  TCP 127.0.0.1:49759 (LISTEN)
+com.docke  1345 sbommireddy   10u  IPv4 0xc6130f43230a0f2b      0t0  TCP 127.0.0.1:49478 (LISTEN)
+python3.7 15642 sbommireddy    7u  IPv4 0xc6130f434edfbf2b      0t0  TCP 127.0.0.1:8888 (LISTEN)
+python3.7 15642 sbommireddy    8u  IPv6 0xc6130f43503b87c3      0t0  TCP [::1]:8888 (LISTEN)
+python3.7 21366 sbommireddy   16u  IPv4 0xc6130f43533ad90b      0t0  TCP 127.0.0.1:56917 (LISTEN)
+python3.7 21366 sbommireddy   19u  IPv4 0xc6130f434fcebc1b      0t0  TCP 127.0.0.1:56919 (LISTEN)
+python3.7 21366 sbommireddy   22u  IPv4 0xc6130f435178fc1b      0t0  TCP 127.0.0.1:56920 (LISTEN)
+python3.7 21366 sbommireddy   25u  IPv4 0xc6130f43530f290b      0t0  TCP 127.0.0.1:56918 (LISTEN)
+python3.7 21366 sbommireddy   31u  IPv4 0xc6130f43507f75a3      0t0  TCP 127.0.0.1:56939 (LISTEN)
+python3.7 21366 sbommireddy   45u  IPv4 0xc6130f434dd5ff2b      0t0  TCP 127.0.0.1:56921 (LISTEN)
+pgAdmin4  58942 sbommireddy   13u  IPv4 0xc6130f432f522c1b      0t0  TCP 127.0.0.1:52405 (LISTEN)
+postgres  59117 sbommireddy    5u  IPv6 0xc6130f43459830c3      0t0  TCP [::1]:5432 (LISTEN)
+postgres  59117 sbommireddy    6u  IPv4 0xc6130f4330350293      0t0  TCP 127.0.0.1:5432 (LISTEN)
+
+
+/Users/sbommireddy/Documents/kafka_2.13-2.6.0
+
+Need Java 8.
+
+(base) hodqadms-MacBook-Pro:~ sbommireddy$ kafka-
+kafka-acls                           kafka-delete-records                 kafka-replica-verification
+kafka-acls.sh                        kafka-delete-records.sh              kafka-replica-verification.sh
+kafka-broker-api-versions            kafka-dump-log                       kafka-run-class
+kafka-broker-api-versions.sh         kafka-dump-log.sh                    kafka-run-class.sh
+kafka-configs                        kafka-leader-election                kafka-server-start
+kafka-configs.sh                     kafka-leader-election.sh             kafka-server-start.sh
+kafka-console-consumer               kafka-log-dirs                       kafka-server-stop
+kafka-console-consumer.sh            kafka-log-dirs.sh                    kafka-server-stop.sh
+kafka-console-producer               kafka-mirror-maker                   kafka-streams-application-reset
+kafka-console-producer.sh            kafka-mirror-maker.sh                kafka-streams-application-reset.sh
+kafka-consumer-groups                kafka-preferred-replica-election     kafka-topics
+kafka-consumer-groups.sh             kafka-preferred-replica-election.sh  kafka-topics.sh
+kafka-consumer-perf-test             kafka-producer-perf-test             kafka-verifiable-consumer
+kafka-consumer-perf-test.sh          kafka-producer-perf-test.sh          kafka-verifiable-consumer.sh
+kafka-delegation-tokens              kafka-reassign-partitions            kafka-verifiable-producer
+kafka-delegation-tokens.sh           kafka-reassign-partitions.sh         kafka-verifiable-producer.sh
+(base) hodqadms-MacBook-Pro:~ sbommireddy$ kafka-
+
+
+start Zoo keeper:
+
+zookeeper-server-start config/zookeeper.properties
+
+(base) hodqadms-MacBook-Pro:kafka_2.13-2.6.0 sbommireddy$ zookeeper-server-start config/zookeeper.properties
+[2020-10-10 09:02:12,035] INFO Reading configuration from: config/zookeeper.properties (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2020-10-10 09:02:12,037] WARN config/zookeeper.properties is relative. Prepend ./ to indicate that you're sure! (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+[2020-10-10 09:02:12,046] INFO clientPortAddress is 0.0.0.0:2181 (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
+
+[2020-10-10 09:02:17,166] INFO binding to port 0.0.0.0/0.0.0.0:2181 (org.apache.zookeeper.server.NIOServerCnxnFactory)
+[2020-10-10 09:02:17,190] INFO zookeeper.snapshotSizeFactor = 0.33 (org.apache.zookeeper.server.ZKDatabase)
+[2020-10-10 09:02:17,194] INFO Snapshotting: 0x0 to /tmp/zookeeper/version-2/snapshot.0 (org.apache.zookeeper.server.persistence.FileTxnSnapLog)
+[2020-10-10 09:02:17,198] INFO Snapshotting: 0x0 to /tmp/zookeeper/version-2/snapshot.0 (org.apache.zookeeper.server.persistence.FileTxnSnapLog)
+[2020-10-10 09:02:17,215] INFO Using checkIntervalMs=60000 maxPerMinute=10000 (org.apache.zookeeper.server.ContainerManager)
+
+
+Edit zookeeper.properties
+change data directory
+
+# the directory where the snapshot is stored.
+dataDir=/Users/sbommireddy/Documents/kafka_2.13-2.6.0/data/zookeeper
+
+(base) hodqadms-MacBook-Pro:kafka_2.13-2.6.0 sbommireddy$ cat config/server.properties | grep log.dirs
+log.dirs=/Users/sbommireddy/Documents/kafka_2.13-2.6.0/data/kafka
+(base) hodqadms-MacBook-Pro:kafka_2.13-2.6.0 sbommireddy$
+
+
+Edit Zookeeper & Kafka configs using a text editor
+
+zookeeper.properties: dataDir=/your/path/to/data/zookeeper
+
+server.properties: log.dirs=/your/path/to/data/kafka
+
+Start Zookeeper in one terminal window: zookeeper-server-start config/zookeeper.properties
+
+Start Kafka in another terminal window: kafka-server-start config/server.properties

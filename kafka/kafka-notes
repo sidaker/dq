@@ -1,0 +1,136 @@
+Learning Goals:
+Kafka Streams
+Kafka connect
+Kafka Rest API and schema registry
+KSQL
+Java 8
+Kafka Administration
+Kafka MSK
+AWS Kinesis Streams.
+
+Kafka Guarantees:
+Order guaranteed only with in partition.
+
+Brokers
+===========
+Each broker is identified by an ID.
+You can connect to a broker(called a bootstrap broker) and you can connect to the whole cluster.
+
+AWS MSK -> Broker set up? How many brokers you got?
+In Santander we had 8 brokers.
+In VM 5 brokers.
+
+
+
+Topic:
+Think of a Topic as a table in a database. It is a particular stream of data.
+Topic comprises of partitions and is hence spread across the brokers with partitions typically residing in separate brokers.
+You can have one or more Producers writing to a topic.
+You can have one or more Consumers reading from a topic.
+Topics have a replication factor set up which ensures data is replicated across Partitions. Typically set to 3.
+Needs to be > 1
+
+====================
+Partitions
+A Topic can be further divided into Partitions.
+Partitions is how you achieve horizontal scalability.
+Each Partition is ordered.
+Each message with in a partition gets an incremental id called offset.
+Unless a key is provided data is sent randomly to partitions.
+Having a key ensures the same key is always sent to same partition.
+Only one broker can be a leader for a partition at any given point in time. Rest are all passive replicas(in-sync replicas).
+The leader receives messages from producers and serves data to consumers.
+Leader and ISR are determined by Zoo Keeper.
+
+
+You can have each partition residing on a broker.
+
+Each consumer reads data from the partitions and maintains an offset.
+An offset is what helps the consumer track till where it has processed the data.
+
+Kafka maintains the order of the data in each partition but not across partitions.
+
+Questions
+==================================
+How many Partitions to have in a topic? How to come to that conclusion?
+Can you change your partitions mid-way? If so what's the effort and repercussions.
+How many consumer groups to have? What are the benefits of consumer groups.
+
+
+Producers:
+Writes data to Partitions.
+In case of broker failures, producers will automatically recover.
+acks=0 no acknowledgement
+acks=1 leader acknowledgement
+acks=all leader and all isr's acknowledge
+
+key is null, data is distributed in a round robin maner.
+
+key hashing- hash value calculated based on key and number of partitions.
+if you increase number of partitions then it will disturb this.
+For example if with 3 partitions key with value "ABC123" was going to partition 0 always.
+But if you increase number of partitions to 5, it may go partition 5 instead.
+
+So its important to choose the number of partitions ahead of time at topic creation so you dont change it later on.
+
+
+Consumers:
+
+If same consumer is reading from multiple partitions then it will read a little bit from partition 1 , little bit from part2 etc.
+So there is no guarantee that it will read data first from a partition and then the next.
+
+Kafka has already implemented Group coordinator and Consumer Coordinator through which consumer knows to which partitions it has to go.
+
+If a cosnumer dies, thaks to offsets it can resume from where it left.
+
+Delivery Semantics -
+ - exactly once (No duplicates. Will messages be lost?)
+ - At least once (messages are never lost but can be duplicated)
+ - At most once (messages can be lost)
+
+Commit offset after messages has been processed or received.
+
+exactly once -> use Kafka streams API in Kafka workflows to achieve this.
+Kafka => Kafka
+For Kafka workflows only.
+
+Consumer groups:
+
+You can group consumers into consumer groups and allow each consumer to read from
+a specific partition.
+In that sense you can have as many consumers in a consumer group as there are partitions.
+If you have more consumers than partitions some of them will be inactive.
+
+Two consumers that have the same group.id (consumer group id) will read from mutually exclusive partitions
+
+Zoo keeper:
+
+Manages Brokers
+Helps in partition leader election
+Informs Kafka if a broker dies, comes up, topic is deleted etc.
+Has odd number of server (3,5,7,)
+Zoo keeper no longer stores consumer offsets >0.10.
+Zoo keeper itself has a leader that handles writes.
+
+
+Broker: Think of it as a server.
+
+
+What is log compaction in kafka?
+
+Kafka delivery semantics:
+
+offsets
+offsets are commited in a topic called __consumer_offsets.
+Can you change this default behavoiur and save offsets in a different topic?
+Yes. Consumer can maintain their own offsets.
+But is this not an overkill and what situations will warrant having your own topic.
+
+since Kafka 0.9, in the topic __consumer_offsets Kafka Consumer Offsets are stored in
+
+you only need to connect to one broker (any broker) and just provide the
+topic name you want to write to. Kafka Clients will route your data to the
+appropriate brokers and partitions for you!
+
+??
+What happens to your producer connection when that broker goes down?

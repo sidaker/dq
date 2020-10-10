@@ -1,0 +1,6 @@
+In pom.xml
+Add Kafka depoendencies
+https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients/2.6.0
+
+
+view -> Tools -Projects -> maven

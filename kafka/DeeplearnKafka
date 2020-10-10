@@ -1,0 +1,21 @@
+(base) hodqadms-MacBook-Pro:kafka sbommireddy$ ls -lrt
+total 8
+-rw-r--r--  1 sbommireddy  staff   0 10 Oct 09:14 recovery-point-offset-checkpoint
+-rw-r--r--  1 sbommireddy  staff   0 10 Oct 09:14 log-start-offset-checkpoint
+-rw-r--r--  1 sbommireddy  staff   0 10 Oct 09:14 cleaner-offset-checkpoint
+-rw-r--r--  1 sbommireddy  staff   0 10 Oct 09:14 replication-offset-checkpoint
+-rw-r--r--  1 sbommireddy  staff  88 10 Oct 09:14 meta.properties
+(base) hodqadms-MacBook-Pro:kafka sbommireddy$
+
+(base) hodqadms-MacBook-Pro:kafka sbommireddy$ pwd
+/Users/sbommireddy/Documents/kafka_2.13-2.6.0/data/kafka
+
+Edit Zookeeper & Kafka configs using a text editor
+
+zookeeper.properties: dataDir=/your/path/to/data/zookeeper
+
+server.properties: log.dirs=/your/path/to/data/kafka
+
+Start Zookeeper in one terminal window: zookeeper-server-start config/zookeeper.properties
+
+Start Kafka in another terminal window: kafka-server-start config/server.properties
