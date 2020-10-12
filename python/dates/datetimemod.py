@@ -4,6 +4,38 @@ from datetime import time
 from datetime import timedelta
 import calendar
 
+def months_between(start_date, end_date):
+    """
+    Given two instances of ``datetime.date``, generate a list of dates on
+    the 1st of every month between the two dates (inclusive).
+
+    e.g. "5 Jan 2020" to "17 May 2020" would generate:
+
+        1 Jan 2020, 1 Feb 2020, 1 Mar 2020, 1 Apr 2020, 1 May 2020
+
+    """
+    if start_date > end_date:
+        raise ValueError(f"Start date {start_date} is not before end date {end_date}")
+
+    year = start_date.year
+    month = start_date.month
+
+    while (year, month) <= (end_date.year, end_date.month):
+        yield date(year, month, 1)
+
+        # Move to the next month.  If we're at the end of the year, wrap around
+        # to the start of the next.
+        #
+        # Example: Nov 2017
+        #       -> Dec 2017 (month += 1)
+        #       -> Jan 2018 (end of year, month = 1, year += 1)
+        #
+        if month == 12:
+            month = 1
+            year += 1
+        else:
+            month += 1
+
 def main():
     #Today
     print(date.today())
@@ -65,3 +97,11 @@ def main():
 
 if __name__ == '__main__':
     main()
+    print("*"*50)
+    print("Get Months between start and end date")
+    start_of_2020 = date(2020, 1, 1) # datetime.date
+    today = date.today()
+
+    for month in months_between(start_of_2020, today):
+        print(month.strftime("%B %Y"))
+        # January 2020, February 2020, March 2020, …

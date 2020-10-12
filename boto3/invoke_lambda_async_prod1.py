@@ -9,6 +9,7 @@ import shutil
 import json
 import boto3
 import time
+import csv
 
 def path_exists(path2):
     return path.exists(path2)
@@ -68,12 +69,27 @@ if __name__ == '__main__':
     #lclient = session.client('lambda', region_name='eu-west-2')
     logging.info(f'Function ARN: {farn}')
 
-    cdate= "2020-03-12"
+    cdate= "2019-10-12"
+    #high_water_mark=''
+    with open(os.path.join('/tmp','highwatermark.csv')) as f:
+        reader = csv.reader(f)
+        high_water_mark = next(reader)  # gets the first line
+        cdate = high_water_mark[0]
+        logging.info('High Water Mark: %s', high_water_mark)
+        print(high_water_mark)
+        print(f'Read Process date to {cdate}')
+
     payx = { "minStdDateLocal": cdate,"maxStdDateLocal": cdate, "Records": [{ "partitionConsolidateTarget": "True", "tableName": "internal_storage_by_std_date_local"}]}
 
     while(True):
+        cdate = (datetime.strptime(cdate, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
+        # Generate Payload by updating the dict
+        payx['minStdDateLocal'] = cdate
+        payx['maxStdDateLocal'] = cdate
         logging.info(f'Consolidating Partitions for {cdate}')
         logging.info(f'Payload: {payx}')
+        #logging.info(f'Consolidating Partitions for {cdate}')
+        #logging.info(f'Payload: {payx}')
         print(cdate)
         print(json.dumps(payx))
 
@@ -81,14 +97,11 @@ if __name__ == '__main__':
         lambda_resp = invoke_lambdaf(env, farn, payx)
         print(lambda_resp)
         scode =  lambda_resp['StatusCode']
-        print(scode)
-
-        #break
+        #print(scode)
         # Break and dont invoke further if program is running for more than x or 90 minutes.
         curr_dttime = datetime.now()
         print(curr_dttime)
-        print(curr_dttime - st_dttime )
-
+        print(curr_dttime - st_dttime)
         difference = curr_dttime - st_dttime
         seconds_in_day = 24 * 60 * 60
         # timedelta(0, 8, 562000)
@@ -101,20 +114,18 @@ if __name__ == '__main__':
         # 16  26 minutes
         # 50  60 minutes
         # 75  84 minutes
-        if a[0] > 17 :
+        if a[0] > 19 :
             print("Exiting....")
             print(a[0])
             logging.error(f'Exiting.: {a}')
+            with open("/tmp/highwatermark.csv", "w") as f:
+                f.write(cdate)
+                print(f'Updated Process date to {cdate}')
             break
 
-        cdate = (datetime.strptime(cdate, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
-        # Generate Payload by updating the dict
-        payx['minStdDateLocal'] = cdate
-        payx['maxStdDateLocal'] = cdate
-        logging.info(f'Consolidating Partitions for {cdate}')
-        logging.info(f'Payload: {payx}')
-        print("-"*50)
-        # Wait for 5 seconds
-        time.sleep(500)
 
-print(datetime.now())
+        print("-"*50)
+        # Wait for 490 seconds
+        time.sleep(360)
+
+    print(datetime.now())

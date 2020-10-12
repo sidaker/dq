@@ -74,3 +74,6 @@ aws --profile notprod s3 cp ./source/configs/ s3://aws-linux-ops-configs/ --recu
 
 # according to bucket policy SSE AES256 is required
 aws --profile notprod s3 cp ./source/configs/ s3://aws-linux-ops-configs/ --recursive --sse AES256
+
+#when S3 asks “does a key match a prefix”, it’s doing a simple string comparison.
+#If we omit the slash, it will find other objects that we might not be expecting
