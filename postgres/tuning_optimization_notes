@@ -1,0 +1,44 @@
+What is Columnar Storage?
+
+Is row data always stored in continuous blocks?
+
+Execution Plans?
+
+How is a row stored in a database server?
+
+How can you avoid full table scans?
+By indexing columns
+Wisely choosing the index types
+Partitioning the table
+
+Indexes?
+Indexes are ordered
+Faster to search an index for an attribute value.
+Typically contains a pointer to the location of the row(memory address)
+
+Use indexes with partitions.
+Local indexes are used to improve access time to rows in a particular partition.
+We can also have global indexes that can provide faster access to data across all partitions.
+
+Improve Join Performance?
+
+Types of Joins
+
+Nested Loop Joins ->
+    compare all rows in both tables to each other.
+    Loop through one table.
+    for each row, loop through the other table.
+    At each step compare keys.
+    Simple to implement.
+    Not very efficient. Very expensive.
+
+Hash Joins -> Calculate hash value of key and join based on matching hash values.
+    Compute hash values of keys in smaller table.
+    store in hash table. hash value and row attributes.
+    Scan larger table, find rows from smaller hash table.
+    Use for equality comparision.
+
+Sort Merge Joins ->  sort both tables and joins rows taking advantage of order.
+
+When Global indexes come to the rescue?
+if you want to find rows spread across partitions.

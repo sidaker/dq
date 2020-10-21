@@ -24,7 +24,7 @@ if(__name__ == '__main__' ):
     for ct,i in enumerate(fibonacci()):
         print(i)
         #print(ct)
-        if(ct > 5):
+        if(ct > 3):
             break
 
     print("*"*50)

@@ -1,0 +1,39 @@
+learning=# SELECT VERSION();
+                                                   version
+-------------------------------------------------------------------------------------------------------------
+ PostgreSQL 12.4 on x86_64-apple-darwin16.7.0, compiled by Apple LLVM version 8.1.0 (clang-802.0.42), 64-bit
+(1 row)
+
+learning=# SELECT NOW();
+              now
+-------------------------------
+ 2020-10-20 11:32:13.289397+01
+(1 row)
+
+
+CREATE DATABASE favoritecolors;
+
+\l
+-- list all databases
+
+learning=# \l
+                                      List of databases
+      Name      |    Owner    | Encoding |   Collate   |    Ctype    |   Access privileges
+----------------+-------------+----------+-------------+-------------+-----------------------
+ animal_shelter | postgres    | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ learning       | sid         | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ postgres       | postgres    | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ sbommireddy    | sbommireddy | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0      | postgres    | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                |             |          |             |             | postgres=CTc/postgres
+ template1      | postgres    | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                |             |          |             |             | postgres=CTc/postgres
+(6 rows)
+
+learning=#
+
+\c favoritecolors
+
+learning=# \c animal_shelter
+You are now connected to database "animal_shelter" as user "sbommireddy".
+animal_shelter=# 

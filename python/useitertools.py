@@ -25,6 +25,7 @@ def main():
     # unlike cycle and count this is not an infinite iterator
     vals = [10,20,100,90,30,40,50,60]
     accsum =itertools.accumulate(vals)
+    print("-"*50)
     for i in accsum:
         print(i) # you geta cumulative total.
 
@@ -36,13 +37,16 @@ def main():
 
     # Use chain to connect sequences
     x = itertools.chain("ABCD","1234",[1,3,4,5])
+    print("*"*50)
     print(list(x))
+    print(type(list(x)))
+    print(len(list(x)))
 
     # dropwhile and takewhile will return values till a condition is met.
     print(list(itertools.dropwhile(testFunc, vals)))
     # drops values till it first encounters x<40 and then returns everything
     print(list(itertools.takewhile(testFunc, vals)))
-    # returns first few values till it first encounters x<40 
+    # returns first few values till it first encounters x<40
 
 
 if __name__ == '__main__':
