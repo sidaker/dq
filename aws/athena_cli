@@ -1,3 +1,6 @@
+aws s3api put-object --bucket s3-dq-fs-archive-test --key input/2020-10-27-075532/test.csv --body test.csv
+
+
 (base) hodqadms-MacBook-Pro:notprod sbommireddy$ aws athena start-query-execution \
 >             --query-string "DROP TABLE IF EXISTS working_cs_aaigailihipfkpfmahajadglhclchdjn_20200803_203338_711305" \
 >             --work-group "primary" \
