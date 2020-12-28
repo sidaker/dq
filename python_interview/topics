@@ -1,0 +1,29 @@
+1. implement a stack.
+2. implement a queue.
+3. Sorting.
+     - bubble Sort.
+     - selection sort.
+     - insertion sort.
+     - Quick sort.
+     - Merge Sort.
+4. Sequential search and binary search.
+5. Binary tree
+  - 2 trees have same order of traversal
+  - 2 trees are identical.
+  - a binary tree is balanced.
+
+6. Graph algorithms.
+      - BFS.
+      - DFS.
+      - degrees of separation.
+
+7. Recursion and common use cases.
+        - Power.
+        - Factorial.
+        - Merge Sort.
+        - Binary search.
+
+8. Palindrome, Prime, Factorial, Fibinocci, Anagram, min, max.
+9. String reversal.
+10. Towers of Hanoi, Travelling salesman.
+11. Recursive directory listing

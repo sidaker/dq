@@ -1,0 +1,4 @@
+python -m venv <virtual environment name>
+# source activate <virtual environment name>
+source <virtual environment name>/bin/activate
+deactivate
