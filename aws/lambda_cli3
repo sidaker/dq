@@ -1,0 +1,13 @@
+aws lambda get-function --function-name YOUR_FUNCTION_NAME --query 'Code.Location'
+| xargs curl -o YOUR_FUNCTION_NAME.zip
+
+
+aws lambda get-function --function-name arn:aws:lambda:eu-west-2:483846886818:function:mds-extractor-notprod-lambda
+
+aws lambda get-function --function-name arn:aws:lambda:eu-west-2:483846886818:function:mds-extractor-notprod-lambda --profile notprod --region eu-west-2
+
+
+aws lambda get-function --function-name arn:aws:lambda:eu-west-2:483846886818:function:mds-extractor-notprod-lambda \
+--profile notprod --region eu-west-2 \
+--query 'Code.Location' \
+| xargs curl -o mds_extract.zip

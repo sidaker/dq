@@ -1,0 +1,33 @@
+kubectl version –short
+kubectl config view
+kubectl --context=np-kops1-int cluster-info dump
+kubectl get nodes
+kubectl apply -f pod.yml
+kubectl get pods --watch
+kubectl get pods -o wide
+kubectl get deploy
+kubectl delete pod <pod name>
+kubectl delete deployment [name-of-deployment]
+kubectl get pods
+kubectl apply -f deploy.yml
+kubectl run [pod/container-name] --image=[image-name]
+kubectl port-forward [pod] [ports]
+kubectl create [resource]
+kubectl apply [resource]
+
+kubectl version
+kubectl cluster-info
+kubectl get all
+
+kubectl create -f nginix.pod.yml --dry-run --validate=true
+kubectl create -f nginix.pod.yml
+kubectl apply -f nginix.pod.yml
+
+kubectl create -f nginix.pod.yml --save-config
+
+kubectl edit -f nginix.pod.yml
+kubectl patch
+
+kubectl describe [pod name]
+
+kubectl exec my-nginx -it sh

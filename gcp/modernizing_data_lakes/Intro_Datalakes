@@ -1,0 +1,114 @@
+https://github.com/gregsramblings/google-cloud-4-words
+
+Data Sources
+Data Sinks -> Where you data is eventually going to end. Commonly DWH.
+Data Lakes -> DWH
+
+Data Pipelines (Batch and Streaming)
+Data Work Flows
+
+
+Cloud Data Flow
+Cloud composer - apache Air Flow
+Cloud storage
+
+Options for a Data lake on GCP
+1. Cloud storage
+2. Big Query can be an option. But in general it is a DWH.
+
+Storage Options:
+------------------------------
+
+Cloud Storage (S3 like)
+Cloud Spanner (For Relational Data)
+Cloud SQL (For Relational Data)
+Cloud big Table(For No SQL data)
+Cloud firestore(For No SQL data)
+
+EL
+ELT
+ETL
+
+Federated Queries
+
+Cloud Storage -> Object store.
+moderate latency
+High throughput
+
+Storage Classes ->
+standard storage
+regional
+Nearline
+Coldline
+
+Retention policy
+Versioning
+Life cycle management
+------------------
+
+Cloud SQL (RDS)
+Migrate Postgres, MySQL , SQL Server to  Cloud SQL.
+
+30 TB Capacity
+60,000 IOPS
+Optimized for writes (transactions)
+Record based storage.
+
+-------------
+
+Big Query scales to PB
+Optimized for Reads.
+Column based storage.
+
+Stack driver: Used for monitoring.
+
+Cloud Data Catalog:
+
+Data loss prevention (API):
+ML job that scans your data for senstive data.
+
+===============
+
+
+Cloud Composer(managed Apache air Flow):
+Orchestration of data pipelines.
+
+
+=======
+
+Securing access to buckets:
+IAM -> Control Access at bucket level. Project roles, Bucket roles.
+ACL -> Fine grained access at bucket or object level
+
+
+Encryption:
+Google Managed encryption keys. GMEK
+  KEK - Key EK
+  DEK - Data EK
+
+Customer managed EK CMEK.
+
+CSEK - Customer Supplied EK.
+
+Client side encryption
+
+
+=================
+
+with Cloud SQL Google does
+backups
+update minor versions.
+security updates
+
+Cloud SQL's customer data is encrypted when on Google's internal networks, and
+when stored in database tables temporary files in those backups that we
+mentioned earlier. Every Cloud SQL instance includes a network firewall
+allowing you to control network access to your database instance by
+granting or revoking access.
+
+Horizontally, you can quickly scale out read replicas, Google Cloud SQL supports 3 read replica scenarios.
+
+For the special case of failover, Cloud SQL does support this, Cloud SQL instances
+can be configured with a failover replica in a different zone within the same
+ region. Then, Cloud SQL data is replicated across zones within a region for
+ durability.

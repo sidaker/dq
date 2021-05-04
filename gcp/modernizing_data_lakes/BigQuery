@@ -1,0 +1,39 @@
+https://github.com/GoogleCloudPlatform/training-data-analyst
+https://github.com/GoogleCloudPlatform/training-data-analyst/blob/master/courses/data-engineering/demos/bigquery_scale.md
+https://github.com/gregsramblings/google-cloud-4-words
+
+
+Federated Access:
+
+Data lake - > Raw data.
+DWH -  Structured data made efficient for querying.
+
+Big Query - Serverless DWH
+
+Both Big Query and Athena are serverless.
+Athena however is mainly a serverless query service with PResto being the SQL engine.
+Big Query has a storage service as well as a query service.
+Both support federated querying.
+However Big Query is most performant if data is stored with in Big Query Storage
+
+Query limits ?
+Concurrent Queries
+Access Control
+
+Big Query usage by AI/ML pipelines
+
+Big Query scales to PB
+Optimized for Reads.
+Column based storage.
+
+Loading data from Cloud Storage to Big Query may be better in some cases as it
+offers better network and hence throughput.
+
+You can also query data in GCS from Big Query.
+
+if you require really high throughput inserts, like more than a million rows per second or
+ultra low latency on the order of milliseconds, consider Cloud Bigtable.
+
+Cloud Data Proc (Spark jobs)
+Cloud Data Flow (Apache Beam???)
+teo typical services used to load Big Query.

@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+spec:
+  selector:
+  template:
+    spec:
+      containers:
+        - name: my-dep2-nginx
+          image: nginx:alpine

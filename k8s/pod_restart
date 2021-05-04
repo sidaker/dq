@@ -1,0 +1,19 @@
+# you can now do a rolling restart of all pods for a deployment,
+# so that you don’t take the service down.
+
+kubectl -n service rollout restart deployment <name>
+
+
+# check pod health
+kubectl get pods -n service
+
+kubectl describe pod <pod name> -n service
+kubectl describe pod chat -n service
+
+
+kubectl scale deployment chat --replicas=0 -n service
+kubectl get pods -n service
+
+
+kubectl scale deployment chat --replicas=2 -n service
+kubectl get pods -n service

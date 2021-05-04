@@ -77,3 +77,8 @@ aws --profile notprod s3 cp ./source/configs/ s3://aws-linux-ops-configs/ --recu
 
 #when S3 asks “does a key match a prefix”, it’s doing a simple string comparison.
 #If we omit the slash, it will find other objects that we might not be expecting
+
+
+aws s3api put-object --bucket s3-dq-acl-archive-notprod --key 2021-03-19/14:12:03.12345/HOMEOFFICEROLL3_20210319.CSV --body HOMEOFFICEROLL3_20210319.CSV --profile notprod
+
+s3://s3-dq-acl-archive-notprod/2021-03-19/01:02:03.12345/

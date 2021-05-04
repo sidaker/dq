@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-dep2-nginx
+  labels:
+    rel: stable
+    app: nginx
+spec:
+  containers:
+    - name: my-dep2-nginx
+      image: nginx:alpine
+      ports:
+      - containerPort: 80
+      livenessProbe:
+        httpGet:
+          path: /index.html
+          port: 80
+        initialDelaySeconds: 15
+        timeoutSeconds: 2
+        periodSeconds: 5
+        failureThreshold: 1
+
+
+# kubectl create -f nginix.pod3.yml --save-config
+# kubectl create -f nginix.pod3.yml --dry-run --validate=true
+# HTTPGetAction ExecAction TCPSocketAction
