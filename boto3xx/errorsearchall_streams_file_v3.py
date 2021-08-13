@@ -5,6 +5,7 @@ Usage: errorsearchall_streams_file_v2.py <LOG_GROUP_NAME> [--start=<START>] [--e
 
        python errorsearchall_streams_file_v3.py "/aws/lambda/api-record-level-score-test-lambda-athena"
        python errorsearchall_streams_file_v3.py "/aws/lambda/api-record-level-score-notprod-lambda-athena" --stream_prefix="2020/08/03/"
+       python errorsearchall_streams_file_v3.py "/aws/lambda/internal-reporting-prod-rds-lambda" --stream_prefix="2021/06/03/"
        sed -n -e 's/^.*FAILED//p' analyse_fail > analyse_fail4
 
 Known Issue:
@@ -124,10 +125,20 @@ def get_error_log_events(env,log_group,stream_list,limit=50):
     kwargs = {
         'logGroupName': log_group,
         'logStreamNames': stream_list,
+        'filterPattern': "ERROR ? WARNING",
+        'limit': limit,
+                }
+    kwargs['filterPattern'] = "?WARNING ?ERROR"
+
+    '''
+    kwargs = {
+        'logGroupName': log_group,
+        'logStreamNames': stream_list,
         'filterPattern': "WARNING ? ERROR",
         'limit': limit,
                 }
     kwargs['filterPattern'] = "?ERROR ?WARNING"
+    '''
 
     while True:
         # BUG: works only for the first filter pattern.
@@ -217,8 +228,8 @@ def get_events_by_stream(env,log_group,logStreamName,limit=50):
 
 
 if __name__ == '__main__':
-    env='notprod'
-    #env='prod'
+    #env='notprod'
+    env='prod'
     #env='default'
     # export AWS_DEFAULT_REGION=us-west-2
     os.environ["AWS_DEFAULT_REGION"] = "eu-west-2"

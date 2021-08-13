@@ -1,6 +1,7 @@
 SELECT
 date_parse((A.departureDate || A.departureTime),'%Y-%m-%d%H:%i:%s') as departuretimelocal
 
+select date_format(CURRENT_TIMESTAMP - INTERVAL '{days-before}' day, '%Y-%m-%d')
 
 select rank() OVER (PARTITION BY voyageid ORDER BY oag_lastupdated DESC) as rnk , etd, atd, * from "oag_transform_prod"."internal_storage"
  where path_name like '%2020-10-19%'

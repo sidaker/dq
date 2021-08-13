@@ -58,4 +58,4 @@ if __name__ == '__main__':
         print(i)
 
     for key in get_matching_s3_keys('s3-dq-api-archive-test',prefix='parsed/2020-05-15/', suffix='.zip'):
-        print(key)    
+        print(key)

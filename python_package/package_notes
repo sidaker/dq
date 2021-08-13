@@ -1,0 +1,49 @@
+A package is a collection of Python modules. Although the previous code might already seem like it was a Python package because it contained multiple files, a Python package also needs an __init__.py file. In this section, you'll learn how to create this __init__.py file and then pip install the package into your local Python installation.
+
+For this next exercise, you'll use pip to install a Python package from a local folder on your computer.
+
+
+__init__.py
+
+A package always needs an __init__.py even if it is empty.
+
+Code inside it runs when ever you import the package.
+
+setup.py
+
+This file is required for pip install. pip will automaticaly look for this file.
+
+pip install .
+
+import distributions
+
+distributions.__file__
+
+Let's talk about two different Python environment managers: conda and venv.
+You can create virtual environments with either one.
+
+conda create --name environmentname
+source activate environmentname
+conda install numpy
+
+venv is an environment manager that comes preinstalled with Python 3.
+pip is a package manager.
+
+
+pip can only manage Python packages, whereas conda is a language agnostic package manager. In fact, conda was invented because pip could not handle data science packages that depended on libraries outside of Python. If you look at the history of conda, you'll find that the software engineers behind conda needed a way to manage data science packages (such as NumPy and Matplotlib) that relied on libraries outside of Python.
+
+conda manages environments and packages. pip only manages packages.
+
+python3 -m venv environmentname
+source environmentname/bin/activate
+pip install numpy
+
+
+If you create a conda environment, activate the environment, and then pip install the distributions package, you'll find that the system installs your package globally rather than in your local conda environment. However, if you create the conda environment and install pip simultaneously, you'll find that pip behaves as expected when installing packages into your local environment:
+
+https://www.youtube.com/watch?v=f7rzxUiHOJ0
+
+<iframe width="1440" height="900" src="https://www.youtube.com/embed/f7rzxUiHOJ0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+https://youtu.be/xTamXY6Z9Kg
