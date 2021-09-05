@@ -59,8 +59,8 @@ def execute_glue_api(database_name, tb_name, partition_val):
         else:
             print(err)
 
-db_name='oag_transform_prod'
-tb_name='internal_storage_table'
+db_name='api_input_prod'
+tb_name='input_file_api'
 
 
 

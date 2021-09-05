@@ -33,8 +33,8 @@ def get_partitions(database, table):
             break
 
 
-db_name='api_cross_record_scored_prod'
-tb_name='internal_storage_by_std_date_local_recent'
+db_name='api_input_prod'
+tb_name='input_file_api'
 
 '''
     for i in range(0, len(partitions), batch):
@@ -43,8 +43,9 @@ tb_name='internal_storage_by_std_date_local_recent'
         partition_list = part_list
 '''
 i=0
-local_output_dir='/Users/sbommireddy/Downloads/cloudwatchlogs/'
+local_output_dir='/Users/sbommireddy/Downloads/'
 filename = 'partitions_'  + str(datetime.datetime.now()) + '.csv'
+print(filename)
 logfile = os.path.join(local_output_dir, env, filename)
 print(logfile)
 

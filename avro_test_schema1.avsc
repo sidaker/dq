@@ -1,0 +1,21 @@
+{"namespace": "SiddBommireddy",
+ "type": "record",
+ "name": "User",
+ "fields": [
+     {"name":"recordHash","type":"bytes"},
+     {"name":"dataFeedId","type":"long"},
+     {"name":"collectDataFeedTaskId","type":"long"},
+     {"name":"ingestDataFeedTaskId","type":"long"},
+     {"name":"collectionDate","type":"string"},
+     {"name":"ingestDateTime","type":"string"},
+     {"name":"dataFormat","type":"string"},
+     {"name":"sourceFilename","type":["null","string"],"default":null},
+     {"name": "name", "type": "string"},
+     {"name": "age",  "type": ["int", "null"]},
+     {"name": "gender", "type": ["string", "null"]}
+
+
+     
+
+ ]
+}

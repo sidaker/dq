@@ -1,0 +1,50 @@
+the def keyword is responsible for binding a function object, which contains a
+function definition to a function name.
+
+__call__ is invoked on objects when they are called like functions.
+
+CONCEPT 1:
+
+the special __call__ method can be used to define classes, which, when instantiated,
+can be called using regular function call syntax.
+This is useful when we want a function which maintains state between calls
+and optionally needs to support attributes or methods to query and modify that state.
+
+__call__() to make callable instances.
+
+Calling a class creates new instances of the class.
+
+refer : call_class.py
+
+CONCEPT 2:
+just as the def keyword binds a function definition to a named reference,
+so the class keyword binds a class definition to a named reference.
+
+class object is itself callable - exactly what we do whenever we've called a
+constructor to create new instances.
+So we see that in Python, constructor calls are made by calling the class object.
+As we've seen, any arguments passed when the class object is called in this way
+will, in due course, be forwarded to the __init__ method of the class if
+one has been defined.
+In essence, the class object callable is a factory function which, when invoked,
+produces new instances of that class.
+
+CONCEPT 3:
+lambdas allows you to create anonymous callable objects.
+
+CONCEPT 4:
+To determine if an object is callable
+Detecting callable objects
+callable(funname)
+# lambdas, functions, classes, ,methods are all callable.
+
+
+CONCEPT 5:
+arbitrary positional arguments to a callable
+
+CONCEPT 6:
+arbitrary keyword arguments to a callable
+
+CONCEPT 7:
+arbitrary positional and keyword arguments to a callable
+When you need to accept a variable number of arguments with a positive lower bound you should consider this practice of using regular positional arguments for the required parameters and *args to deal with any extra arguments. Note that *args must come after any normal positional arguments and that there can only be one occurrence of *args within the argument list. The *args syntax only collects positional arguments and a complimentary syntax is provided for handling keyword arguments. 
