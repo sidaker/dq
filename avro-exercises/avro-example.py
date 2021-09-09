@@ -17,6 +17,10 @@ schema = {
 
 # Parse the schema so we can use it to write the data
 schema_parsed = avro.schema.parse(json.dumps(schema))
+print(dir(schema_parsed))
+for i in schema_parsed.fields:
+    print(i)
+print("*****")
 
 # Write data to an avro file
 with open('exusers.avro', 'wb') as f:
