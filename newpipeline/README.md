@@ -4,6 +4,10 @@
 - docker-compose exec schema-registry bash
 - kafka-avro-console-consumer --topic normaliser-0.0.1 --bootstrap-server broker:9092  --from-beginning
 
+- $KAFKA_HOME/bin/kafka-console-consumer --topic normaliser-0.0.1 -- bootstrap-server broker:9092 --property print.key=True --from-beginning
+
+- kafka-console-consumer --topic normaliser-0.0.1 -- bootstrap-server broker:9092 --property print.key=True --from-beginning
+
 
 ### ERROR1:
 ERROR Unknown error when running consumer:  (kafka.tools.ConsoleConsumer$)
