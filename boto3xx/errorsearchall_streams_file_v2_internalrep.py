@@ -3,9 +3,17 @@
 Usage: errorsearchall_streams_file_v2.py <LOG_GROUP_NAME> [--start=<START>] [--end=<END>] [--stream_prefix=<STREAM_PREFIX>]
        errorsearchall_streams_file_v2.py -h --help
 
-       python errorsearchall_streams_file_v3.py "/aws/lambda/api-record-level-score-test-lambda-athena"
-       python errorsearchall_streams_file_v3.py "/aws/lambda/api-record-level-score-notprod-lambda-athena" --stream_prefix="2020/08/03/"
-       python errorsearchall_streams_file_v3.py "/aws/lambda/internal-reporting-prod-rds-lambda" --stream_prefix="2021/09/29/"
+python errorsearchall_streams_file_v2_internalrep.py " \
+/aws/lambda/internal-reporting-prod-lambda-athena"
+
+/Users/sbommireddy/Documents/python/assignments/dq/boto3xx/errorsearchall_streams_file_v2_internalrep.py
+
+python errorsearchall_streams_file_v2_internalrep.py \
+"/aws/lambda/internal-reporting-prod-lambda-athena" \
+--start= \
+--end= \
+--stream_prefix="2021/10/02/"
+
        sed -n -e 's/^.*FAILED//p' analyse_fail > analyse_fail4
 
 Known Issue:
@@ -29,6 +37,7 @@ import csv
 import os
 import datetime
 import re
+import ast
 
 # python errorsearch_streams.py "/aws/lambda/api-record-level-score-notprod-lambda-athena"
 # Always keep the doc string to the start of the file (before the import line)
@@ -42,11 +51,7 @@ def list_log_groups(env):
     session = boto3.Session(profile_name=env)
     client = session.client('logs',region_name='eu-west-2')
     limit=50
-    # response = client.describe_log_groups(
-    # logGroupNamePrefix='/aws/lambda/',
-    # limit=10)
-    #
-    # return response['logGroups']
+
     kwargs = {
         'logGroupNamePrefix': log_group,
         'limit': limit,
@@ -70,12 +75,6 @@ def list_log_streams(env,log_group,limit,prefix=None):
     session = boto3.Session(profile_name=env)
     client = session.client('logs',region_name='eu-west-2')
     if(prefix is None):
-        # response = client.describe_log_streams(
-        # logGroupName=log_group,
-        # orderBy='LastEventTime',
-        # descending=True,
-        # limit=limit)
-        # return response['logStreams']
         kwargs = {
             'logGroupName': log_group,
             'limit': limit,
@@ -125,20 +124,9 @@ def get_error_log_events(env,log_group,stream_list,limit=50):
     kwargs = {
         'logGroupName': log_group,
         'logStreamNames': stream_list,
-        'filterPattern': "ERROR ? WARNING",
+        'filterPattern': "already exists",
         'limit': limit,
                 }
-    kwargs['filterPattern'] = "?WARNING ?ERROR"
-
-    '''
-    kwargs = {
-        'logGroupName': log_group,
-        'logStreamNames': stream_list,
-        'filterPattern': "WARNING ? ERROR",
-        'limit': limit,
-                }
-    kwargs['filterPattern'] = "?ERROR ?WARNING"
-    '''
 
     while True:
         # BUG: works only for the first filter pattern.
@@ -260,22 +248,11 @@ if __name__ == '__main__':
 
     client = session.client('logs')
     print("List Recent Log Events")
-    #log_group = '/aws/lambda/api-kafka-input-test-lambda'
-    #log_group = '/aws/lambda/api-record-level-score-test-lambda-athena'
-    #log_group='/aws/lambda/api-accuracy-scoring-test-lambda-athena'
-    #log_group='/aws/lambda/api-record-level-score-test-lambda-athena'
-    #log_group='/aws/lambda/api-record-level-score-test-lambda-athena'
-    #Stream: 2020/07/10/[$LATEST]b264200b1ff54133b60d07c898d67fec
-
-    #log_group='/aws/lambda/api-record-level-score-notprod-lambda-athena'
-    #log_group='/aws/lambda/internal-reporting-prod-rds-lambda'
     limit=50
-    #stream_prefix='2021/09/29'
+
 
     if not os.path.exists(os.path.join(local_output_dir, env)):
         os.makedirs(os.path.join(local_output_dir, env))
-
-
     liststream=[]
 
     if(stream_prefix is None):
@@ -290,28 +267,20 @@ if __name__ == '__main__':
             liststream.append(lstream['logStreamName'])
 
     print("Searching for errors..Listing Log Streams")
-    #print(liststream)
-    #get_error_log_events(env,log_group,liststream,limit)
-    #get_log_events_timerange(env,log_group,limit,start_time,end_time)
 
     with open(logfile, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["LogStreamName", "timestamp","MessageType","Timestamp","Status", "fullmessage"])
+        writer.writerow(["LogStreamName", "timestamp","MessageType","Timestamp","Status", "fullmessage","StatusMessage"])
         # liststream ensure lenth is < 100.
         print(len(liststream))
         chunks = [liststream[x:x+99] for x in range(0, len(liststream), 99)]
         print(len(chunks))
 
         for lstream in chunks:
-            #process each chunk.
             for event in get_error_log_events(env,log_group,lstream,limit):
-                #print(event)
                 print("Stream:",event['logStreamName'])
                 print("UnixTimestamp:",event['timestamp'])
                 print("MessageType:",event['message'].split("	")[0])
-                #print("Timestamp:",event['message'].split("	")[1])
-                #print("Status:",event['message'].split("	")[3])
-                #print("FullMessage:",event['message'])
                 try:
                     tsp = event['message'].split("	")[1]
                 except IndexError:
@@ -322,6 +291,21 @@ if __name__ == '__main__':
                 except IndexError:
                     stats = 'null'
 
+                try:
+                    if stats.startswith('{') :
+                        rstats1 = re.search(r'\b(Status)\b', stats)
+                        index= rstats1.start()
+                        rstats = stats[index:]
+
+                    else:
+                        rstats = ''
+
+
+                except Exception as inst:
+                    #print("Error Parsing")
+                    print(inst)
+                    rstats = 'CP'
+
 
                 print('**************************')
-                writer.writerow([event['logStreamName'], event['timestamp'], event['message'].split("	")[0],tsp, stats, event['message']])
+                writer.writerow([event['logStreamName'], event['timestamp'], event['message'].split("	")[0],tsp, stats, event['message'], rstats])

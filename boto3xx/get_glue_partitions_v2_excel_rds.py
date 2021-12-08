@@ -33,9 +33,8 @@ def get_partitions(database, table):
             break
 
 
-db_name='api_record_level_score_prod'
-#tb_name='internal_storage_by_std_date_local'
-tb_name='internal_storage_table'
+db_name='api_cross_record_scored_prod'
+tb_name='internal_storage_by_std_date_local'
 
 '''
     for i in range(0, len(partitions), batch):
