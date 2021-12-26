@@ -4,7 +4,7 @@ import boto3
 boto3.setup_default_session(profile_name='notprod')
 client = boto3.client('athena', region_name='eu-west-2')
 
-dbname = 'internal_reporting_notprod'
+dbname = 'api_record_level_score_notprod'
 
 filepath = '/Users/sbommireddy/Downloads/int.csv'
 with open(filepath) as fp:
@@ -21,11 +21,11 @@ with open(filepath) as fp:
        print(query1)
        response = client.start_query_execution(QueryString=query1,
                                                QueryExecutionContext={'Database': dbname},
-                                               ResultConfiguration={'OutputLocation': 's3://s3-dq-athena-log-test/working/default-output/'})
+                                               ResultConfiguration={'OutputLocation': 's3://s3-dq-athena-log-notprod/working/default-output/'})
 
 
-response = client.start_query_execution(QueryString=" SHOW TABLES IN internal_reporting_notprod 'working_*' ",
+response = client.start_query_execution(QueryString=" SHOW TABLES IN api_record_level_score_notprod '*working_*' ",
                                         QueryExecutionContext={'Database': dbname},
-                                        ResultConfiguration={'OutputLocation': 's3://s3-dq-athena-log-test/working/default-output/'})
+                                        ResultConfiguration={'OutputLocation': 's3://s3-dq-athena-log-notprod/working/default-output/'})
 query_execution_id = response['QueryExecutionId']
 print (query_execution_id)

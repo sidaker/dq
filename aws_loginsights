@@ -1,0 +1,20 @@
+fields @timestamp, @message
+| filter @message like /ALTER TABLE internal_storage_api/
+| sort @timestamp desc
+| limit 20
+
+
+fields @timestamp, @message
+| fields tomillis(@timestamp) as millis
+| filter millis > 1639386979000
+| filter millis < 1639422979000
+| filter @message like /ALTER TABLE internal_storage_api/
+| sort @timestamp asc
+| limit 20
+
+
+s3://s3-dq-drt-working-prod/tbl_person_event/extract/2021-12-13/11:07:09.286161661/
+s3://s3-dq-drt-working-prod/tbl_person_event/extract/2021-12-13/11:07:44.155378103/
+s3://s3-dq-drt-working-prod/tbl_person_event/extract/2021-12-13/11:09:16.820743322/
+s3://s3-dq-drt-working-prod/tbl_person_event/extract/2021-12-13/11:14:03.121588945/
+s3://s3-dq-drt-working-prod/tbl_person_event/extract/2021-12-13/11:14:38.891691923/

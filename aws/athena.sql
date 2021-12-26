@@ -28,6 +28,17 @@ FROM api_cross_record_scored_prod.internal_storage_by_std_date_local
 where std_date_local = DATE('2020-08-30')
 AND partition_process_timestamp = date_parse('2020-10-01 11:50:50','%Y-%m-%d %H:%i:%s')
 
+
+select distinct flightdetails_departuredatetime,voyage_number
+from internal_storage_api
+where "flightdetails_eventcode" = 'DC'
+and "flightdetails_manifesttype" = 'P'
+--
+and DATE(date_parse(flightdetails_departuredatetime,'%Y-%m-%d %H:%i:%s')) =DATE('2021-12-17')
+-- and DATE(flightdetails_departuredatetime)=DATE('2021-12-13')
+ order by 1,2
+
+
 ===============
 
 ALTER TABLE orders ADD
