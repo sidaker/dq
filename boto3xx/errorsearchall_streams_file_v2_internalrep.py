@@ -12,7 +12,7 @@ python errorsearchall_streams_file_v2_internalrep.py \
 "/aws/lambda/internal-reporting-prod-lambda-athena" \
 --start= \
 --end= \
---stream_prefix="2021/10/02/"
+--stream_prefix="2022/02/01/"
 
        sed -n -e 's/^.*FAILED//p' analyse_fail > analyse_fail4
 

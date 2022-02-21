@@ -4,8 +4,8 @@ Usage: errorsearchall_streams_file_v2.py <LOG_GROUP_NAME> [--start=<START>] [--e
        errorsearchall_streams_file_v2.py -h --help
 
        python errorsearchall_streams_file_v3.py "/aws/lambda/api-record-level-score-test-lambda-athena"
-       python errorsearchall_streams_file_v3.py "/aws/lambda/api-record-level-score-notprod-lambda-athena" --stream_prefix="2020/08/03/"
-       python errorsearchall_streams_file_v3.py "/aws/lambda/internal-reporting-prod-rds-lambda" --stream_prefix="2021/09/29/"
+       python errorsearchall_streams_file_v3.py "/aws/lambda/api-record-level-score-prod-lambda-athena" --stream_prefix="2022/02/01/"
+       python errorsearchall_streams_file_v3.py "/aws/lambda/internal-reporting-prod-rds-lambda" --stream_prefix="2022/02/01/"
        sed -n -e 's/^.*FAILED//p' analyse_fail > analyse_fail4
 
 Known Issue:
@@ -128,7 +128,7 @@ def get_error_log_events(env,log_group,stream_list,limit=50):
         'filterPattern': "ERROR ? WARNING",
         'limit': limit,
                 }
-    kwargs['filterPattern'] = "?WARNING ?ERROR"
+    ##kwargs['filterPattern'] = "?WARNING ?ERROR"
 
     '''
     kwargs = {
