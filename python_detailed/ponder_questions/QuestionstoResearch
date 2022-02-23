@@ -1,0 +1,6 @@
+Why is recursion not python's strong feature? What is the inherent recursion limit in python?
+
+Q - Why from collections import deque is much faster and elegant than doing direct operations such as delete and append and insert on a list?
+A -
+Adding or popping items from either end of a queue has O(1) complexity. 
+This is unlike a list where inserting or removing items from the front of the list is O(N).
