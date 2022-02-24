@@ -2,5 +2,34 @@ Why is recursion not python's strong feature? What is the inherent recursion lim
 
 Q - Why from collections import deque is much faster and elegant than doing direct operations such as delete and append and insert on a list?
 A -
-Adding or popping items from either end of a queue has O(1) complexity. 
+Adding or popping items from either end of a queue has O(1) complexity.
 This is unlike a list where inserting or removing items from the front of the list is O(N).
+
+Q- What is a PGP key? Why do devops engineers request you to provide it?
+Pretty Good Privacy (PGP) is an encryption system used for both sending encrypted emails and encrypting sensitive files.
+
+
+Q -  Lists vs Sets?
+A -
+The choice of whether or not to use lists or sets depends on intended use.
+Use a list if you want to preserve the insertion order of the items.
+Use a set if you want to eliminate duplicates (and don’t care about the order).
+Sets are faster than lists.
+
+Q - Ordere3dDict vs Dicts?
+A -
+Be aware that the size of an OrderedDict is more than twice as large as a normal dictionary due to the
+extra linked list that’s created.
+Thus, if you are going to build a data structure involving a large number of OrderedDict instances
+(e.g., reading 100,000 lines of a CSV file into a list of OrderedDict instances),
+you would need to study the re‐ quirements of your application to determine if the benefits of using an
+OrderedDict outweighed the extra memory overhead.
+
+
+Q-  What is a  doubly linked list?
+A -
+
+Q- Are dictionaries hashable?
+A- No.
+
+Q- 
