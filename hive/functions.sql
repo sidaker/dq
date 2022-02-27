@@ -196,3 +196,121 @@ set hive.input.format=org.apache.hadoop.hive.ql.io.BucketizedHiveInputFormat
 set hive.optimize.bucketmapjoin=true;
 set hive.auto.convert.sortmerge.join=true;
 set hive.optimize.bucketmapjoin.sortedmerge=true;
+
+
+show tables;
+-- partitions at HDFS level and Indexing at Table level.
+
+create index indx1 on table1(col3) as 'COMPACT'
+with deferred rebuild;
+alter index indx1 on table1 rebuild;
+-- index table will be refreshed when you run above
+
+create index indx1 on table1(col3) as 'COMPACT'
+with deferred rebuild stored as rcfile;
+
+create index indx1 on table1(col3) as 'COMPACT'
+with deferred rebuild
+rowformat delimited field
+fields terminated by '\n'
+stored as textfile ;
+
+create index indx2 on table1(col3) as 'BITMAP'
+with deferred rebuild;
+alter index indx2 on table1 rebuild;
+
+show formatted indexes on tbl1;
+
+drop index i1 on tbl1;
+
+-- Compact vs Bitmap indexes.
+
+-- STEPS to Create UDF's
+1. Write a Java Program
+2. Convert into JAR.
+3. Add the JAR file to hive.
+4. Create the function of the JAR file added.
+5. Use the function in Hive Query
+
+Join optimizations
+- By reducing the amount of data held in memory.
+- By Map joins thus eliminating the reduce phase.
+
+One table is held in memory(smaller table for better perf) while the other is read
+record by record from disk.
+
+When Partitioning
+ensure the partition key does not heavily skew the data.
+
+Partition - directory in HDFS
+Bucket - a file in HDFS
+
+Bucketing helps in
+- Joins (Map Joins)
+- Faster joins when two tables are bucketed on same column and have same no of buckets.
+- Sampling (Selecting from specific buckets)
+
+The JAR you need to run a UDF:
+hive-exec-0.14.0.jar
+
+Create a Java Project with all dependencies.
+Create a new Java Package and a Java Class inside it.
+Create a JAR file.
+add jar <>
+-- add jar file to class path
+create temporary function f2 as 'com.hive1.myud2'
+
+import org.apache.hadoop.hive.ql.exec.UDF;
+import org.apache.hadoop.io.Text;
+
+public final class myud2 extends UDF{
+       public Text evaluate(final Text s)
+       {
+       if(s==null)
+       {
+          return null;
+       }
+          return new Text(s.toString().toUpperCase());
+
+       }
+}
+
+
+-- Table Properties
+"skip.header.line.count"="3"
+"skip.footer.line.count"="3"
+"immutable"="true"
+"auto.purge"="true"
+"serialization.null.format=""
+"transactional"="true"
+
+load data localinpath '/xx/xx' into table t2;
+
+-- insert new data into  an existing partition with out overwriting existing data
+-- When the table is mutable this is possible and post insert into table 1 will have additional data from tabl2
+insert into table table1
+select * from table2;
+-- if table 1 is declared as immutable then inserting into a non-empty immutable table is not allowed.
+
+insert overwrite table tbl3
+select * from tbl2;
+-- inserts even if tbl3 is immutable but now it will have contents only from tbl2
+
+-- if you use purge, when dropping an internal table data will not go to Trash but will be permanently deleted.
+
+Is Transaction features still supported only for
+-  ORC.
+- Bucketed tables.
+-  Are Begin, Commit and Rollback features supported?
+- Allowed only with in a session where transactional properties are set.
+
+""
+
+ORC File format properties.
+"orc.compress"="zlib"
+"orc.compress.size"="value"
+"orc.stripe.size"="value"
+"orc.row.index.stride"="value"
+"orc.create.index"="true"
+"orc.bloom.filter.columns"
+"orc.bloom.filter.fpp"
