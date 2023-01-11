@@ -21,7 +21,7 @@ def get_partitions(database, table):
     kwargs = {
         'DatabaseName' : database,
         'TableName' : table,
-        'Expression' : "std_date_local = '2018-05-03' and std_date_local <> '1900-01-01' ",
+        'Expression' : "std_date_local <= '2019-12-31' and std_date_local <> '1900-01-01' ",
         'MaxResults' : 999,
 
     }

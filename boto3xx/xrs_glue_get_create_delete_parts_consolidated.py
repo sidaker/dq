@@ -1,3 +1,4 @@
+
 import os
 import sys
 import time
@@ -14,23 +15,7 @@ from dateutil.relativedelta import relativedelta
 import boto3
 from botocore.config import Config
 from botocore.exceptions import ClientError
-import pandas as pd
 
-
-
-def create_partition(partlist, database_name, table_name):
-    """
-    Function that calls glue's batch create partition API.
-    Pass atleast Values and Location
-    HIVE_METASTORE_ERROR: com.facebook.presto.spi.PrestoException:
-    Required Table Storage Descriptor is not populated.
-    """
-    print("Creating:", partlist)
-    create_partition_response = GLUE.batch_create_partition(
-            DatabaseName=database_name,
-            TableName=table_name,
-            PartitionInputList=partlist
-        )
 
 
 def execute_glue_api_delete(database_name, tb_name, partition_val):
@@ -51,7 +36,7 @@ def execute_glue_api_delete(database_name, tb_name, partition_val):
             LOGGER.error(err)
 
 
-def get_partitions(database, table, retention, arg_std, arg_ppt):
+def get_partitions(database, table, retention):
     """
     Loop until the query is either successful or fails
     Args:
@@ -61,10 +46,8 @@ def get_partitions(database, table, retention, arg_std, arg_ppt):
     """
     # 'Expression' : "path_name < '2020-09-13'",
 
-    # myexp = f"path_name < '{retention}' "
-    # myexp = "std_date_local < '2020-10-31' and std_date_local <> '1900-01-01'"
-    myexp = f"std_date_local =  '{arg_std}' and  partition_process_timestamp = '{arg_ppt}' "
-    #print(myexp)
+    myexp = f"std_date_local < '2021-05-01' "
+    print(myexp)
     try:
         kwargs = {
             'DatabaseName' : database,
@@ -96,45 +79,43 @@ if __name__=='__main__':
     PATTERN = re.compile("20[0-9]{2}-[0-9]{1,2}-[0-9]{1,2}")
     TWOMONTHSPLUSCURRENT = ((datetime.date.today() - relativedelta(months=2)).replace(day=1) - datetime.timedelta(days=1))
     THIRTYDAYS = (datetime.date.today() - datetime.timedelta(days=30))
-    EIGHTYDAYS = (datetime.date.today() - datetime.timedelta(days=150))
-    FOURDAYS = (datetime.date.today() - datetime.timedelta(days=12))
+    EIGHTYDAYS = (datetime.date.today() - datetime.timedelta(days=8))
     TODAY = datetime.date.today()
 
     boto3.setup_default_session(profile_name='prod')
+    # consolidated_schedule_prod.internal_storage_table
     database_name='api_cross_record_scored_prod'
     table_name='internal_storage_by_std_date_local'
     retention = str(EIGHTYDAYS)
 
     CONFIG = Config(
         retries=dict(
-            max_attempts=2
+            max_attempts=10
         )
     )
 
     GLUE = boto3.client('glue', config=CONFIG , region_name='eu-west-2')
 
-    # yields 25 partition at a time
-    mycsvfile = '/Users/sbommireddy/Downloads/cloudwatchlogs/prod/parts_delete.csv'
+    local_output_dir='/Users/sbommireddy/Downloads/cloudwatchlogs/'
+    tsfile = str(datetime.datetime.now().strftime("%Y-%m-%d-%I%H%M%S"))
+    print(tsfile)
+    filename = 'consolidated_partitions_'  + tsfile + '.csv'
+    env='prod'
+    logfile = os.path.join(local_output_dir, env, filename)
+    print(logfile)
 
-    # Create a dataframe from csv
-    df = pd.read_csv(mycsvfile, delimiter=',')
-    # User list comprehension to create a list of lists from Dataframe rows
-    list_of_rows = [list(row) for row in df.values]
-    # Print list of lists i.e. rows
-    print(list_of_rows)
-
-    for eachlist in list_of_rows:
-        arg_std = eachlist[0]
-        arg_ppt = eachlist[1]
-        #print("-----")
-        #print(type(arg_std), type(arg_ppt))
-        print(arg_std,arg_ppt)
-
-        #exit()
-        for parts in get_partitions(database_name, table_name, retention, arg_std, arg_ppt):
+    with open(logfile, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["PartitionName", "DB_Name","Table_name"])
+        # yields 25 partition at a time
+        for parts in get_partitions(database_name, table_name, retention):
+            #print(parts)
+            print(len(parts)) # max 25
             for d in parts:
                 del d['StorageDescriptor']
+                #print(parts)
+                writer.writerow([d["Values"], database_name, table_name ])
 
-            if(len(parts)>0):
-                print(parts)
-                execute_glue_api_delete(database_name, table_name, parts)
+                #exit()
+
+            #execute_glue_api_delete(database_name, table_name, parts)

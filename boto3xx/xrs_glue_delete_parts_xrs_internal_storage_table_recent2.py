@@ -15,22 +15,9 @@ import boto3
 from botocore.config import Config
 from botocore.exceptions import ClientError
 import pandas as pd
+import ast
 
 
-
-def create_partition(partlist, database_name, table_name):
-    """
-    Function that calls glue's batch create partition API.
-    Pass atleast Values and Location
-    HIVE_METASTORE_ERROR: com.facebook.presto.spi.PrestoException:
-    Required Table Storage Descriptor is not populated.
-    """
-    print("Creating:", partlist)
-    create_partition_response = GLUE.batch_create_partition(
-            DatabaseName=database_name,
-            TableName=table_name,
-            PartitionInputList=partlist
-        )
 
 
 def execute_glue_api_delete(database_name, tb_name, partition_val):
@@ -40,7 +27,9 @@ def execute_glue_api_delete(database_name, tb_name, partition_val):
     """
     try:
 
-        GLUE.batch_delete_partition(DatabaseName=database_name, TableName=tb_name, PartitionsToDelete=partition_val)
+        GLUE.batch_delete_partition(DatabaseName=database_name, TableName=tb_name,
+        PartitionsToDelete=[{'Values': partition_val}]
+        )
         print("Dropped:", partition_val)
     except ClientError as err:
         if err.response['Error']['Code'] in 'EntityNotFoundException':
@@ -114,7 +103,7 @@ if __name__=='__main__':
     GLUE = boto3.client('glue', config=CONFIG , region_name='eu-west-2')
 
     # yields 25 partition at a time
-    mycsvfile = '/Users/sbommireddy/Downloads/cloudwatchlogs/prod/parts_delete.csv'
+    mycsvfile = '/Users/sbommireddy/Downloads/cloudwatchlogs/prod/consolidated_partitions_2022-04-04-12124339.csv'
 
     # Create a dataframe from csv
     df = pd.read_csv(mycsvfile, delimiter=',')
@@ -126,15 +115,7 @@ if __name__=='__main__':
     for eachlist in list_of_rows:
         arg_std = eachlist[0]
         arg_ppt = eachlist[1]
-        #print("-----")
-        #print(type(arg_std), type(arg_ppt))
-        print(arg_std,arg_ppt)
+        std_date = arg_std[2:12]
+        arg_std = ast.literal_eval(arg_std)
 
-        #exit()
-        for parts in get_partitions(database_name, table_name, retention, arg_std, arg_ppt):
-            for d in parts:
-                del d['StorageDescriptor']
-
-            if(len(parts)>0):
-                print(parts)
-                execute_glue_api_delete(database_name, table_name, parts)
+        execute_glue_api_delete(database_name, table_name, arg_std )

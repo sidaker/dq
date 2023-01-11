@@ -1,0 +1,8 @@
+embedded mode - single hive session
+local mode - metastore service and metastore db are on separate JVM's.
+remote mode - Production environments.
+
+
+set mapred.job.tracker=localhost:9001
+
+set hive.execution.engine =  tez;

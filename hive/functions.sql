@@ -1,3 +1,13 @@
+-- execute from bash shell
+hive -e 'select * from emp;'
+hive -e 'select * from emp;select * from dept;'
+
+source /dev/sb/test1.hql
+hive -f /dev/sb/test1.hql
+
+> hive  !pwd
+> hive  !ls
+
 select unix_timestamp('2017-04-26 00:00:00');
 select YEAR('2017-04-26 00:00:00');
 select Month('2017-04-26 00:00:00'); -- 4
@@ -19,6 +29,10 @@ select round(10.5);
 select rand();
 
 
+describe extended <tbl>;
+describe formatted <tbl>;
+
+-- maximum size of string data type supported by Hive? 2GB
 ---------
 select concat(col1,':',col3) from tbl;
 select length(col3) from tbl;
@@ -123,6 +137,16 @@ rowformat delimited
 fields terminated by ','
 lines terminated by '\n';
 
+
+
+-- One way to control the size of files when inserting into a table using Hive, is to set the below parameters:
+
+set hive.merge.tezfiles=true;
+set hive.merge.mapfiles=true;
+set hive.merge.mapredfiles=true;
+set hive.merge.size.per.task=128000000;
+set hive.merge.smallfiles.avgsize=128000000;
+-- This will work for both M/R and Tez engine and will ensure that all files created are at or below 128 MB in size
 -- Map Joins are faster on two bucketed tables.
 -- Bucketed map joins are fast
 -- Both tables should be bucketed on same column and have same number of buckets.
@@ -170,6 +194,14 @@ join dept_table on
 JOIN third_table ON (third_table.eid=emp_table.eid)
 
 -- what is offline table?
+
+-- ORDER BY uses single reducer.So not very efficient.
+-- In strict mode, ORDER BY need to be followed by limit clause.
+-- SORT BY does sorting with in reducers.
+-- Distribute BY ensures same keys goes to the same reducers.
+-- Use Distribute BY and SORT BY for better performance.
+-- CLUSTER BY = Distribute BY + SORT BY
+
 
 -- Map Joins are faster?
 -- In any M/R job, reduce step is the slowest usually as it involves shuffling of data
@@ -223,7 +255,13 @@ show formatted indexes on tbl1;
 
 drop index i1 on tbl1;
 
+set hive.exec.parallel = true
+
+
 -- Compact vs Bitmap indexes.
+
+-- Multi insert.Load into multiple tables from one table.
+
 
 -- STEPS to Create UDF's
 1. Write a Java Program
@@ -314,3 +352,25 @@ ORC File format properties.
 "orc.create.index"="true"
 "orc.bloom.filter.columns"
 "orc.bloom.filter.fpp"
+
+show tblproperties tbl1;
+desc formatted tbl1;
+
+-- Hive Properties
+set dfs.block.size;
+set parquet.block.size;
+set hive.default.fileformat=TextFile
+set hive.default.fileformat=orc
+set hive.mapred.mode=nonstrict
+set hive.groupby.orderby.position.alias=true;
+
+set mapred.reduce.tasks=5
+set hive.exec.reducera.bytes.per.reducer=5120000
+set hive.exec.reducera.max=1009
+
+
+Speculative execution?
+set mapred.map.tasks.speculative.execution=true
+set mapred.reduce.tasks.speculative.execution=true
+set hive.enforce.bucketing=true
+set hive.auto.convert/join=true

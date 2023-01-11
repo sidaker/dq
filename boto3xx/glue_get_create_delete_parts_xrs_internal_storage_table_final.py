@@ -124,17 +124,19 @@ if __name__=='__main__':
     print(list_of_rows)
 
     for eachlist in list_of_rows:
+        #print("each date")
         arg_std = eachlist[0]
         arg_ppt = eachlist[1]
         #print("-----")
         #print(type(arg_std), type(arg_ppt))
-        print(arg_std,arg_ppt)
+        print(arg_std)
+        print(arg_ppt)
 
-        #exit()
+
         for parts in get_partitions(database_name, table_name, retention, arg_std, arg_ppt):
             for d in parts:
                 del d['StorageDescriptor']
 
             if(len(parts)>0):
                 print(parts)
-                execute_glue_api_delete(database_name, table_name, parts)
+                #execute_glue_api_delete(database_name, table_name, parts)

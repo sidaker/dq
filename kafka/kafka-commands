@@ -45,3 +45,23 @@ kafka-console-producer --broker-list 127.0.0.1:9092 \
 --property key.separator=,
 > key,value
 > another key,another value
+
+zadd Customer 0 "{\"customerName\":\"Zam Test\",\"email\":\"zam.test@test.com\",\"phone\":\"5015551212\",\"birthDay\":\"2001-01-01\"}"
+
+zadd Customer 0 "{\"customerName\":\"hello rock\",\"email\":\"chris.test@test.com\",\"phone\":\"2222551912\",\"birthDay\":\"1941-11-03\"}"
+
+
+
+
+/home/workspace/stedi-application/start.sh
+/home/workspace/stedi-application/stop.sh
+
+/data/redis/redis-stable/src/redis-cli -a notreally
+
+/home/workspace# ./submit-event-kafkastreaming.sh
+/home/workspace# /home/workspace/submit-redis-kafka-streaming.sh
+/home/workspace# /home/workspace/submit-event-kafkajoin.sh
+
+
+tail /home/workspace/spark/logs/redisstream.log
+tail /home/workspace/spark/logs/eventstream.log
