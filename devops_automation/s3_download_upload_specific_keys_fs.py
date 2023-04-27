@@ -10,7 +10,7 @@ import os
 import threading
 import sys
 
-BASE_PATH = '/Users/sbommireddy/Downloads/acl/data/'
+BASE_PATH = '/Users/sbommireddy/Downloads/acl/fsdata/'
 
 class ProgressPercentage(object):
     def __init__(self, filename):
@@ -121,8 +121,10 @@ def multipart_upload_boto3(s3_resource, file_path, key, bucket_name, config):
     return resp
 
 if __name__ == '__main__':
-    bucket_name = 's3-dq-acl-archive-prod'
-    tgt_bucket_name = 's3-dq-acl-archive-notprod'
+    bucket_name = 's3-dq-fs-archive-prod'
+    tgt_bucket_name = 's3-dq-fs-archive-notprod'
+    ## s3://s3-dq-fs-archive-prod/input/
+    ## s3://s3-dq-fs-archive-prod/input/20220201010811011544/FLIGHTSTATS_20220131.csv
 
     numdays = 10
     base = datetime.datetime.today()
@@ -131,8 +133,8 @@ if __name__ == '__main__':
     #li1 = pd.date_range(start="2021-09-02",end="2021-09-14")
     li1 = pd.date_range(start="2023-01-31",end="2023-02-28").to_pydatetime().tolist()
     for dt in li1:
-        dt1 =  dt.date().strftime("%Y-%m-%d")
-        for key in get_matching_s3_keys(bucket_name,prefix=dt1, suffix='.CSV',env1='prod'):
+        dt1 =  dt.date().strftime("%Y%m%d")
+        for key in get_matching_s3_keys(bucket_name,prefix='input/' + dt1, suffix='.csv',env1='prod'):
             #print(key)
             fullpath='s3://'+bucket_name+'/' + key
             print(fullpath)
