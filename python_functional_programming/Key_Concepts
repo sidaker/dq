@@ -1,0 +1,70 @@
+First Class functions
+
+Functions are treated as objects and functions can take other functions as arguments
+Functions can be returned by functions.
+
+What are closures?
+
+ in simple terms: A closure is an inner function that remembers and has access to variables in the
+ local scope in which it was created even after the outer function has finished executing.
+
+ Why use closures at all?
+
+ What are decorators?
+
+ What are generators?
+
+Currying in FP?
+
+Decorators vs Closures?
+Iterators vs Generators?
+Where you use Closures against decorators and vice-versa.
+
+Iteration vs recursion
+Performance of recursion over iteration.
+
+Idempotent:
+# typical idempotent methods - http methods - GET, PUT, DELETE
+## POST is not an idempotent method.
+
+Mutability. How do you enforce mutability in python?
+String are immutable.
+Lists are mutable objects.
+Keep in mind that operations like concatenating a string in a loop can create a lot of objects in memory.
+
+Learning goals:
+
+Lambdas
+List, Set, Dictionary comprehension.
+Python concepts, iterators, iter, decorators, FP, closures
+Modules: Logging, itertools
+pure functions
+First class functions
+functions with side effects
+immutable variables
+Packaging:
+Unit tests with pytest.
+Set up a CI/CD pipeline with unit tests and deploy an application.
+Schedule an Airflow DAG.
+Object Oriented Python.
+Variable scope in Python
+Flask Basics
+Big O
+Mutable vs Immutable
+Memoization
+String interpolation
+Data Structures with Python.
+Idempotence
+Pattern matching
+How is GC implemented in python?
+string vs bytes
+
+Write a program to create a database driver to load into a DB.
+
+
+
+Implementing a Data lake on AWS.
+Kafka Implementation and concepts.
+
+
+
