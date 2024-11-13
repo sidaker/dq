@@ -1,0 +1,2 @@
+CIRCUIT_BREAKER_PARAMETER_NAME=/airports-input_lambda_trigger_enabled
+STATE_MACHINE_NAME=airports-input-state-machine
