@@ -1,0 +1,141 @@
+{
+  "Comment": "Conform - DFNMNL - Billing Corrections",
+  "StartAt": "Try",
+  "States": {
+    "Try": {
+      "Type": "Parallel",
+      "Branches": [
+        {
+          "StartAt": "Conform - DFNMNL - Billing Corrections",
+          "States": {
+            "Conform - DFNMNL - Billing Corrections": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::glue:startJobRun.sync",
+              "Parameters": {
+                "JobName": "${DFNManualGlue}"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "States.TaskFailed"
+                  ],
+                  "IntervalSeconds": 30,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                }
+              ],
+              "Comment": "conform - JDEKER - local - condition",
+              "ResultPath": "$.body.job",
+              "Next": "Run Glue Crawler"
+            },
+            "Run Glue Crawler": {
+              "Type": "Task",
+              "Resource": "${LambdaRunGlueCrawler}",
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.TooManyRequestsException",
+                    "Lambda.ServiceException",
+                    "Lambda.AWSLambdaException",
+                    "Lambda.SdkClientException"
+                ],
+                  "IntervalSeconds": 10,
+                  "MaxAttempts": 10,
+                  "BackoffRate": 2
+                }
+              ],
+              "Comment": "Run Glue Crawler",
+              "ResultPath": "$.statusCode",
+              "Next": "WaitCrawler"
+            },
+            "WaitCrawler": {
+              "Type": "Wait",
+              "Seconds": 30,
+              "Next": "Get GlueCrawlerState"
+            },
+            "Get GlueCrawlerState": {
+              "Type": "Task",
+              "Resource": "${LambdaGetGlueCrawlerState}",
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.TooManyRequestsException",
+                    "Lambda.ServiceException",
+                    "Lambda.AWSLambdaException",
+                    "Lambda.SdkClientException"
+                ],
+                  "IntervalSeconds": 10,
+                  "MaxAttempts": 10,
+                  "BackoffRate": 2
+                }
+              ],
+              "Comment": "Get Glue Crawler State",
+              "ResultPath": "$.statusCode",
+              "Next": "CheckCrawlerState"
+            },
+            "CheckCrawlerState": {
+              "Type": "Choice",
+              "Default": "WaitCrawler",
+              "Choices": [
+                {
+                  "And": [
+                    {
+                      "Variable": "$.statusCode.CrawlerState",
+                      "StringEquals": "READY"
+                    },
+                    {
+                      "Variable": "$.statusCode.CrawlerStatus",
+                      "StringEquals": "SUCCEEDED"
+                    }
+                  ],
+                  "Next": "CrawlerSuccess"
+                },
+                {
+                  "And": [
+                    {
+                      "Variable": "$.statusCode.CrawlerState",
+                      "StringEquals": "READY"
+                    },
+                    {
+                      "Variable": "$.statusCode.CrawlerStatus",
+                      "StringEquals": "FAILED"
+                    }
+                  ],
+                  "Next": "CrawlerFailed"
+                }
+              ]
+            },
+            "CrawlerFailed": {
+              "Type": "Fail",
+              "Cause": "Crawler run has failed",
+              "Error": "Crawler run has failed"
+            },
+            "CrawlerSuccess" : {
+              "Type": "Succeed"
+            }
+          }
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "SendFailureMessage"
+        }
+      ],
+      "Next": "SuccessEndState"
+    },
+    "SuccessEndState": {
+      "Type": "Succeed"
+    },
+    "SendFailureMessage": {
+      "Type": "Pass",
+      "Next": "FailWorkflow"
+    },
+    "FailWorkflow": {
+      "Type": "Fail"
+    }
+  }
+}

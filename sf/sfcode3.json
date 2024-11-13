@@ -1,0 +1,59 @@
+{
+	"Comment": "SFSM Flow",
+	"StartAt": "Try",
+	"States": {
+		"Try": {
+			"Type": "Parallel",
+			"Branches": [
+				{
+					"StartAt": "Glue Jobs Stats",
+					"States": {
+						"Glue Jobs Stats": {
+							"Type": "Task",
+							"Resource": "arn:aws:states:::glue:startJobRun.sync",
+							"Parameters": {
+								"JobName": "${GlueJobsStats}"
+							},
+							"Comment": "Glue Jobs Stats",
+							"ResultPath": "$.body.job",
+							"End": true
+						}
+					}
+				}
+			],
+			"Catch": [
+				{
+					"ErrorEquals": [
+						"States.ALL"
+					],
+					"ResultPath": "$.error",
+					"Next": "SendFailureMessage"
+				}
+			],
+			"Next": "SuccessEndState"
+		},
+		"SuccessEndState": {
+			"Type": "Succeed"
+		},
+		"SendFailureMessage": {
+			"Type": "Task",
+			"Resource": "arn:aws:states:::lambda:invoke",
+			"InputPath": "$.error",
+			"Parameters": {
+				"FunctionName": "${NotificationLambda}",
+				"Payload": {
+					"MESSAGE": "${PipelineName} failed",
+					"SUBTENANT_ID": "${SubtenantId}",
+					"PEH_ID.$": "$$.Execution.Id",
+					"ADDITIONAL_INFO.$": "$"
+				}
+			},
+			"Comment": "Check SFn Pipeline Execution Status",
+			"ResultPath": "$.statusCode",
+			"Next": "FailWorkflow"
+		},
+		"FailWorkflow": {
+			"Type": "Fail"
+		}
+	}
+}

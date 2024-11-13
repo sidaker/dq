@@ -1,0 +1,76 @@
+{
+  "Comment": "conform - ispgme- billing",
+  "StartAt": "Try",
+  "States": {
+    "Try": {
+      "Type": "Parallel",
+      "Branches": [
+        {
+          "StartAt": "conform - ispgme - billing",
+          "States": {
+            "conform - ispgme - billing": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::glue:startJobRun.sync",
+              "Parameters": {
+                "JobName": "${lubesBigsispgmebilling}"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "States.TaskFailed"
+                  ],
+                  "IntervalSeconds": 3,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                }
+              ],
+              "Comment": "conform - ispgme - billing",
+              "ResultPath": "$.body.job",
+              "Next": "conform - ispgme - billing - item"
+            },
+            "conform - ispgme - billing - item": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::glue:startJobRun.sync",
+              "Parameters": {
+                "JobName": "${lubesBigsispgmebillingitem}"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "States.TaskFailed"
+                  ],
+                  "IntervalSeconds": 3,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                }
+              ],
+              "Comment": "conform - ispgme - billing - item",
+              "ResultPath": "$.body.job",
+              "End": true
+            }
+          }
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "SendFailureMessage"
+        }
+      ],
+      "Next": "SuccessEndState"
+    },
+    "SuccessEndState": {
+      "Type": "Succeed"
+    },
+    "SendFailureMessage": {
+      "Type": "Pass",
+      "Next": "FailWorkflow"
+    },
+    "FailWorkflow": {
+      "Type": "Fail"
+    }
+  }
+}
