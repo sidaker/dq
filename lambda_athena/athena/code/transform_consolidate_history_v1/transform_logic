@@ -1,0 +1,12 @@
+create_stage_1_view.sql
+create_partition.sql
+create_stage_2_view.sql
+add_partition.sql
+create_standard_view.sql
+drop_partition_table.sql
+create_document_details_stage_1_view.sql
+create_document_details_partition.sql
+create_document_details_stage_2_view.sql
+add_document_details_partition.sql
+create_document_details_standard_view.sql
+drop_document_details_partition_table.sql
